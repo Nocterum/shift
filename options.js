@@ -1,0 +1,227 @@
+module.exports = {
+
+    mainMenuOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'Отправить', callback_data: '/send' } ],
+                [ { text: 'Получить', callback_data: '/whereGet' } ],
+                [ { text: 'Я водитель', callback_data: '/iamDriver' } ],
+            ]
+        })
+    },
+
+    toMainMenuOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'В главное меню', callback_data: '/mainMenu' } ],
+            ]
+        })
+    },
+
+    settingsOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'Изменить имя', callback_data: '/editName' } ],
+            ]
+        })
+    },
+
+    chooseCityOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'Москва', callback_data: 'chooseCity=MSK' } ],
+                [ { text: 'Санкт-Петербург', callback_data: 'chooseCity=SPB' } ],
+            ]
+        })
+    },
+
+    sendOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'Откуда', callback_data: '/fromToSend' }, { text: 'Куда', callback_data: '/whereToSend' } ],
+                [ { text: 'Кому', callback_data: '/toWhomToSend' }, { text: 'Что', callback_data: '/whatToSend' } ],
+                [ { text: 'Хочу добавить фото', callback_data: '/addPhoto' } ],
+                [ { text: 'Создать перемещение', callback_data: '/createMovement' } ],
+            ]
+        })
+    },
+
+    SPB_fromToSendOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'Ланской', callback_data: 'fromToSend=Ланской' } ],
+                [ { text: 'Большой', callback_data: 'fromToSend=Большой' } ],
+                [ { text: 'Гороховая', callback_data: 'fromToSend=Гороховая' } ],
+                [ { text: 'Склад', callback_data: 'fromToSend=Склад' } ],
+            ]
+        })
+    },
+
+    MSK_fromToSendOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'Глаголева', callback_data: 'fromToSend=Глаголева' } ],
+                [ { text: 'Патрики', callback_data: 'fromToSend=Патрики' } ],
+                [ { text: 'Арт-плей', callback_data: 'fromToSend=Арт-плей' } ],
+                [ { text: 'Офис', callback_data: 'fromToSend=Офис' } ],
+                [ { text: 'Склад', callback_data: 'fromToSend=Склад' } ],
+            ]
+        })
+    },
+
+    SPB_whereToSendOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'Ланской', callback_data: 'whereToSend=Ланской' } ],
+                [ { text: 'Большой', callback_data: 'whereToSend=Большой' } ],
+                [ { text: 'Гороховая', callback_data: 'whereToSend=Гороховая' } ],
+                [ { text: 'Склад', callback_data: 'whereToSend=Склад' } ],
+            ]
+        })
+    },
+
+    MSK_whereToSendOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'Глаголева', callback_data: 'whereToSend=Глаголева' } ],
+                [ { text: 'Патрики', callback_data: 'whereToSend=Патрики' } ],
+                [ { text: 'Арт-плей', callback_data: 'whereToSend=Арт-плей' } ],
+                [ { text: 'Офис', callback_data: 'whereToSend=Офис' } ],
+                [ { text: 'Склад', callback_data: 'whereToSend=Склад' } ],
+            ]
+        })
+    },
+
+    SPB_whereGetOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'Ланской', callback_data: 'whereGet=Ланской' } ],
+                [ { text: 'Большой', callback_data: 'whereGet=Большой' } ],
+                [ { text: 'Гороховая', callback_data: 'whereGet=Гороховая' } ],
+                [ { text: 'Склад', callback_data: 'whereGet=Склад' } ],
+            ]
+        })
+    },
+
+    MSK_whereGetOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'Глаголева', callback_data: 'whereGet=Глаголева' } ],
+                [ { text: 'Патрики', callback_data: 'whereGet=Патрики' } ],
+                [ { text: 'Арт-плей', callback_data: 'whereGet=Арт-плей' } ],
+                [ { text: 'Офис', callback_data: 'whereGet=Офис' } ],
+                [ { text: 'Склад', callback_data: 'whereGet=Склад' } ],
+            ]
+        })
+    },
+
+    commentOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'Есть замечания к перемещению?', callback_data: '/commentMovement' } ],
+            ]
+        })
+    },
+    
+    iAmDriverOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'Задания на перемещения', callback_data: '/movementList' } ],
+                [ { text: 'Написать сообщение', callback_data: '/sendMessage' } ],
+                [ { text: 'Забираю (откуда)', callback_data: '/takeMovement' } ],
+            ]
+        })
+    },
+
+    MSK_subDivisionOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'Глаголева', callback_data: 'subDivision=Глаголева' } ],
+                [ { text: 'Патрики', callback_data: 'subDivision=Патрики' } ],
+                [ { text: 'Арт-плей', callback_data: 'subDivision=Арт-плей' } ],
+                [ { text: 'Офис', callback_data: 'subDivision=Офис' } ],
+                [ { text: 'Склад', callback_data: 'subDivision=Склад' } ],
+                [ { text: 'Я водитель', callback_data: 'subDivision=Водитель' } ],
+            ]
+        })
+    },
+
+    SPB_subDivisionOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'Ланской', callback_data: 'subDivision=Ланской' } ],
+                [ { text: 'Большой', callback_data: 'subDivision=Большой' } ],
+                [ { text: 'Горох', callback_data: 'subDivision=Горох' } ],
+                [ { text: 'Склад', callback_data: 'subDivision=Склад' } ],
+                [ { text: 'Я водитель', callback_data: 'subDivision=Водитель' } ],
+            ]
+        })
+    },
+
+    MSK_sendMessageOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'Глаголева', callback_data: 'sendMessage=Глаголева' } ],
+                [ { text: 'Патрики', callback_data: 'sendMessage=Патрики' } ],
+                [ { text: 'Арт-плей', callback_data: 'sendMessage=Арт-плей' } ],
+                [ { text: 'Офис', callback_data: 'sendMessage=Офис' } ],
+                [ { text: 'Склад', callback_data: 'sendMessage=Склад' } ],
+                [ { text: 'Водителям', callback_data: 'sendMessage=Водитель' } ],
+            ]
+        })
+    },
+
+    SPB_sendMessageOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'Ланской', callback_data: 'sendMessage=Ланской' } ],
+                [ { text: 'Большой', callback_data: 'sendMessage=Большой' } ],
+                [ { text: 'Горох', callback_data: 'sendMessage=Горох' } ],
+                [ { text: 'Склад', callback_data: 'sendMessage=Склад' } ],
+                [ { text: 'Водителям', callback_data: 'sendMessage=Водитель' } ],
+            ]
+        })
+    },
+
+    SPB_takeOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'Ланской', callback_data: 'takeMovement=Ланской' } ],
+                [ { text: 'Большой', callback_data: 'takeMovement=Большой' } ],
+                [ { text: 'Гороховая', callback_data: 'takeMovement=Гороховая' } ],
+                [ { text: 'Склад', callback_data: 'takeMovement=Склад' } ],
+            ]
+        })
+    },
+
+    MSK_takeOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'Глаголева', callback_data: 'takeMovement=Глаголева' } ],
+                [ { text: 'Патрики', callback_data: 'takeMovement=Патрики' } ],
+                [ { text: 'Арт-плей', callback_data: 'takeMovement=Арт-плей' } ],
+                [ { text: 'Офис', callback_data: 'takeMovement=Офис' } ],
+                [ { text: 'Склад', callback_data: 'takeMovement=Склад' } ],
+            ]
+        })
+    },
+}

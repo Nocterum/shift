@@ -1019,8 +1019,8 @@ async function start() {
 // ======================================================================================================================================
 
 function readConfigSync() {
-    // const data = fs.readFileSync('/root/zak/config.cfg', 'utf-8'); // для рабочей версии
-    const data = fs.readFileSync('C:\\node.js\\shift\\config.cfg', 'utf-8'); // для тестовой версии
+    const data = fs.readFileSync('/root/zak/config.cfg', 'utf-8'); // для рабочей версии
+    // const data = fs.readFileSync('C:\\node.js\\shift\\config.cfg', 'utf-8'); // для тестовой версии
     const lines = data.split('\n');
     const config = {};
   

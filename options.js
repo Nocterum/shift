@@ -7,6 +7,8 @@ module.exports = {
                 [ { text: 'Отправить', callback_data: '/send' } ],
                 [ { text: 'Получить', callback_data: '/whereGet' } ],
                 [ { text: 'Я водитель', callback_data: '/iamDriver' } ],
+                [ { text: 'Написать сообщение', callback_data: '/sendMessage' } ],
+
             ]
         })
     },
@@ -25,6 +27,7 @@ module.exports = {
         reply_markup: JSON.stringify( {
             inline_keyboard: [
                 [ { text: 'Изменить имя', callback_data: '/editName' } ],
+                [ { text: 'Изменить город и подразделение', callback_data: '/editCity' } ],
             ]
         })
     },
@@ -45,7 +48,6 @@ module.exports = {
             inline_keyboard: [
                 [ { text: 'Откуда', callback_data: '/fromToSend' }, { text: 'Куда', callback_data: '/whereToSend' } ],
                 [ { text: 'Кому', callback_data: '/toWhomToSend' }, { text: 'Что', callback_data: '/whatToSend' } ],
-                [ { text: 'Хочу добавить фото', callback_data: '/addPhoto' } ],
                 [ { text: 'Создать перемещение', callback_data: '/createMovement' } ],
             ]
         })
@@ -58,7 +60,7 @@ module.exports = {
                 [ { text: 'Ланской', callback_data: 'fromToSend=Ланской' } ],
                 [ { text: 'Большой', callback_data: 'fromToSend=Большой' } ],
                 [ { text: 'Гороховая', callback_data: 'fromToSend=Гороховая' } ],
-                [ { text: 'Склад', callback_data: 'fromToSend=Склад' } ],
+                [ { text: 'Склад Предпортовая', callback_data: 'fromToSend=Склад Предпортовая' } ],
             ]
         })
     },
@@ -71,7 +73,7 @@ module.exports = {
                 [ { text: 'Патрики', callback_data: 'fromToSend=Патрики' } ],
                 [ { text: 'Арт-плей', callback_data: 'fromToSend=Арт-плей' } ],
                 [ { text: 'Офис', callback_data: 'fromToSend=Офис' } ],
-                [ { text: 'Склад', callback_data: 'fromToSend=Склад' } ],
+                [ { text: 'Центральный склад', callback_data: 'fromToSend=Центральный склад' } ],
             ]
         })
     },
@@ -83,7 +85,7 @@ module.exports = {
                 [ { text: 'Ланской', callback_data: 'whereToSend=Ланской' } ],
                 [ { text: 'Большой', callback_data: 'whereToSend=Большой' } ],
                 [ { text: 'Гороховая', callback_data: 'whereToSend=Гороховая' } ],
-                [ { text: 'Склад', callback_data: 'whereToSend=Склад' } ],
+                [ { text: 'Склад Предпортовая', callback_data: 'whereToSend=Склад Предпортовая' } ],
             ]
         })
     },
@@ -96,7 +98,7 @@ module.exports = {
                 [ { text: 'Патрики', callback_data: 'whereToSend=Патрики' } ],
                 [ { text: 'Арт-плей', callback_data: 'whereToSend=Арт-плей' } ],
                 [ { text: 'Офис', callback_data: 'whereToSend=Офис' } ],
-                [ { text: 'Склад', callback_data: 'whereToSend=Склад' } ],
+                [ { text: 'Центральный склад', callback_data: 'whereToSend=Центральный склад' } ],
             ]
         })
     },
@@ -108,7 +110,7 @@ module.exports = {
                 [ { text: 'Ланской', callback_data: 'whereGet=Ланской' } ],
                 [ { text: 'Большой', callback_data: 'whereGet=Большой' } ],
                 [ { text: 'Гороховая', callback_data: 'whereGet=Гороховая' } ],
-                [ { text: 'Склад', callback_data: 'whereGet=Склад' } ],
+                [ { text: 'Склад Предпортовая', callback_data: 'whereGet=Склад Предпортовая' } ],
             ]
         })
     },
@@ -121,7 +123,7 @@ module.exports = {
                 [ { text: 'Патрики', callback_data: 'whereGet=Патрики' } ],
                 [ { text: 'Арт-плей', callback_data: 'whereGet=Арт-плей' } ],
                 [ { text: 'Офис', callback_data: 'whereGet=Офис' } ],
-                [ { text: 'Склад', callback_data: 'whereGet=Склад' } ],
+                [ { text: 'Центральный склад', callback_data: 'whereGet=Центральный склад' } ],
             ]
         })
     },
@@ -140,8 +142,8 @@ module.exports = {
         reply_markup: JSON.stringify( {
             inline_keyboard: [
                 [ { text: 'Задания на перемещения', callback_data: '/movementList' } ],
-                [ { text: 'Написать сообщение', callback_data: '/sendMessage' } ],
-                [ { text: 'Забираю (откуда)', callback_data: '/takeMovement' } ],
+                [ { text: 'Перемещения которые я забрал', callback_data: '/takenMovement' } ],
+                [ { text: 'Забираю сейчас (откуда)', callback_data: '/takeMovement' } ],
             ]
         })
     },
@@ -154,7 +156,7 @@ module.exports = {
                 [ { text: 'Патрики', callback_data: 'subDivision=Патрики' } ],
                 [ { text: 'Арт-плей', callback_data: 'subDivision=Арт-плей' } ],
                 [ { text: 'Офис', callback_data: 'subDivision=Офис' } ],
-                [ { text: 'Склад', callback_data: 'subDivision=Склад' } ],
+                [ { text: 'Центральный склад', callback_data: 'subDivision=Центральный склад' } ],
                 [ { text: 'Я водитель', callback_data: 'subDivision=Водитель' } ],
             ]
         })
@@ -167,7 +169,7 @@ module.exports = {
                 [ { text: 'Ланской', callback_data: 'subDivision=Ланской' } ],
                 [ { text: 'Большой', callback_data: 'subDivision=Большой' } ],
                 [ { text: 'Горох', callback_data: 'subDivision=Горох' } ],
-                [ { text: 'Склад', callback_data: 'subDivision=Склад' } ],
+                [ { text: 'Склад Предпортовая', callback_data: 'subDivision=Склад Предпортовая' } ],
                 [ { text: 'Я водитель', callback_data: 'subDivision=Водитель' } ],
             ]
         })
@@ -181,8 +183,8 @@ module.exports = {
                 [ { text: 'Патрики', callback_data: 'sendMessage=Патрики' } ],
                 [ { text: 'Арт-плей', callback_data: 'sendMessage=Арт-плей' } ],
                 [ { text: 'Офис', callback_data: 'sendMessage=Офис' } ],
-                [ { text: 'Склад', callback_data: 'sendMessage=Склад' } ],
-                [ { text: 'Водителям', callback_data: 'sendMessage=Водитель' } ],
+                [ { text: 'Центральный склад', callback_data: 'sendMessage=Центральный склад' } ],
+                [ { text: 'Водители', callback_data: 'sendMessage=Водитель' } ],
             ]
         })
     },
@@ -194,7 +196,25 @@ module.exports = {
                 [ { text: 'Ланской', callback_data: 'sendMessage=Ланской' } ],
                 [ { text: 'Большой', callback_data: 'sendMessage=Большой' } ],
                 [ { text: 'Горох', callback_data: 'sendMessage=Горох' } ],
-                [ { text: 'Склад', callback_data: 'sendMessage=Склад' } ],
+                [ { text: 'Склад Предпортовая', callback_data: 'sendMessage=Склад Предпортовая' } ],
+                [ { text: 'Водители', callback_data: 'sendMessage=Водитель' } ],
+            ]
+        })
+    },
+
+    sendMessageOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'Глаголева', callback_data: 'sendMessage=Глаголева' } ],
+                [ { text: 'Патрики', callback_data: 'sendMessage=Патрики' } ],
+                [ { text: 'Арт-плей', callback_data: 'sendMessage=Арт-плей' } ],
+                [ { text: 'Офис', callback_data: 'sendMessage=Офис' } ],
+                [ { text: 'Центральный склад', callback_data: 'sendMessage=Центральный склад' } ],
+                [ { text: 'Ланской', callback_data: 'sendMessage=Ланской' } ],
+                [ { text: 'Большой', callback_data: 'sendMessage=Большой' } ],
+                [ { text: 'Горох', callback_data: 'sendMessage=Горох' } ],
+                [ { text: 'Склад Предпортовая', callback_data: 'sendMessage=Склад Предпортовая' } ],
                 [ { text: 'Водителям', callback_data: 'sendMessage=Водитель' } ],
             ]
         })
@@ -207,7 +227,7 @@ module.exports = {
                 [ { text: 'Ланской', callback_data: 'takeMovement=Ланской' } ],
                 [ { text: 'Большой', callback_data: 'takeMovement=Большой' } ],
                 [ { text: 'Гороховая', callback_data: 'takeMovement=Гороховая' } ],
-                [ { text: 'Склад', callback_data: 'takeMovement=Склад' } ],
+                [ { text: 'Склад Предпортовая', callback_data: 'takeMovement=Склад Предпортовая' } ],
             ]
         })
     },
@@ -220,7 +240,7 @@ module.exports = {
                 [ { text: 'Патрики', callback_data: 'takeMovement=Патрики' } ],
                 [ { text: 'Арт-плей', callback_data: 'takeMovement=Арт-плей' } ],
                 [ { text: 'Офис', callback_data: 'takeMovement=Офис' } ],
-                [ { text: 'Склад', callback_data: 'takeMovement=Склад' } ],
+                [ { text: 'Центральный склад', callback_data: 'takeMovement=Центральный склад' } ],
             ]
         })
     },

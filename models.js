@@ -7,7 +7,7 @@ const UserModel = sequelize.define( 'driver', {
     city: {type: DataTypes.TEXT('tiny')},
     subdivision: {type: DataTypes.TEXT('tiny')},
     userName: {type: DataTypes.TEXT('tiny')},
-    lastCommand: {type: DataTypes.TEXT('tiny')},
+    lastCommand: {type: DataTypes.TEXT('medium')},
     fromToSend: {type: DataTypes.TEXT('tiny')},
     whereToSend: {type: DataTypes.TEXT('tiny')},
     toWhomToSend: {type: DataTypes.TEXT('tiny')},

@@ -344,8 +344,8 @@ async function start() {
 
                         return bot.getFile(msg.document.file_id).then((file) => {
                             const fileStream = bot.getFileStream(file.file_id);
-                            // fileStream.pipe(fs.createWriteStream(`/root/shift/${fileName}`));   // Сохраняем файл Linux
-                            fileStream.pipe(fs.createWriteStream(`C:\\node.js\\shift\\photo\\${fileName}`));   // Сохраняем файл Linux
+                            fileStream.pipe(fs.createWriteStream(`/root/shift/${fileName}`));   // Сохраняем файл Linux
+                            // fileStream.pipe(fs.createWriteStream(`C:\\node.js\\shift\\photo\\${fileName}`));   // Сохраняем файл Win
                             fileStream.on('end', () => {
                                 bot.sendMessage(
                                     chatId, 
@@ -544,7 +544,7 @@ async function start() {
 
                     await bot.sendMessage(
                         senderID,
-                        `Пользователь <b>${user.userName}</b> оставил замечание по перемещению ${user.moveId}:\n<pre>${text}</pre>`,
+                        `Пользователь <b>${user.userName}</b> оставил замечание по перемещению ${user.moveId}:\n\n<pre>${text}</pre>`,
                         { parse_mode: 'HTML' }
                     );
 
@@ -575,7 +575,7 @@ async function start() {
     
                             await bot.sendMessage(
                                 user.chatId,
-                                `Пользователь <b>${sender}</b> попросил меня отправить вам следующее сообщение:\n<pre>${text}</pre>`,
+                                `Пользователь <b>${sender}</b> попросил меня отправить вам следующее сообщение:\n\n<pre>${text}</pre>`,
                                 { parse_mode: 'HTML',
                                 reply_markup: JSON.stringify( {
                                     inline_keyboard: [
@@ -590,7 +590,7 @@ async function start() {
 
                         await bot.sendMessage(
                             idRecipient,
-                            `Пользователь <b>${sender}</b> попросил меня отправить вам следующее сообщение:\n<pre>${text}</pre>`,
+                            `Пользователь <b>${sender}</b> попросил меня отправить вам следующее сообщение:\n\n<pre>${text}</pre>`,
                             { parse_mode: 'HTML',
                             reply_markup: JSON.stringify( {
                                 inline_keyboard: [
@@ -1408,8 +1408,8 @@ async function start() {
 // ======================================================================================================================================
 
 function readConfigSync() {
-    // const data = fs.readFileSync('/root/zak/config.cfg', 'utf-8'); // для рабочей версии
-    const data = fs.readFileSync('C:\\node.js\\shift\\config.cfg', 'utf-8'); // для тестовой версии
+    const data = fs.readFileSync('/root/zak/config.cfg', 'utf-8'); // для рабочей версии
+    // const data = fs.readFileSync('C:\\node.js\\shift\\config.cfg', 'utf-8'); // для тестовой версии
     const lines = data.split('\n');
     const config = {};
   

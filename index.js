@@ -375,8 +375,8 @@ async function start() {
                             
                             return bot.getFile(msg.photo[msg.photo.length - 1].file_id).then((file) => {
                                 const fileStream = bot.getFileStream(file.file_id);
-                                // fileStream.pipe(fs.createWriteStream(`/root/shift/photo/${fileName}`)); // Сохраняем файл в папку photo Linux
-                                fileStream.pipe(fs.createWriteStream(`C:\\node.js\\shift\\photo\\${fileName}`)); // Сохраняем файл в папку photo Win
+                                fileStream.pipe(fs.createWriteStream(`/root/shift/photo/${fileName}`)); // Сохраняем файл в папку photo Linux
+                                // fileStream.pipe(fs.createWriteStream(`C:\\node.js\\shift\\photo\\${fileName}`)); // Сохраняем файл в папку photo Win
                                 fileStream.on('end', () => {
                                     bot.sendMessage(
                                         chatId, 
@@ -1269,7 +1269,7 @@ async function start() {
 
                 const moveId = data.split("=")[1];
 
-                fs.readdir(`C:\\node.js\\shift\\photo\\`, (err, files) => {
+                fs.readdir(`/root/shift/photo/`, (err, files) => {
 
                     if (err) {
                       console.error('Error reading directory:', err);
@@ -1284,7 +1284,7 @@ async function start() {
 
                             bot.sendPhoto(
                                 chatId, 
-                                `C:\\node.js\\shift\\photo\\${photo}`, { caption: `Фото по перемещению: ${moveId}` }
+                                `/root/shift/photo/${photo}`, { caption: `Фото по перемещению: ${moveId}` }
                             );
 
                         });
@@ -1408,7 +1408,7 @@ async function start() {
 // ======================================================================================================================================
 
 function readConfigSync() {
-    const data = fs.readFileSync('/root/zak/config.cfg', 'utf-8'); // для рабочей версии
+    const data = fs.readFileSync('/root/shift/config.cfg', 'utf-8'); // для рабочей версии
     // const data = fs.readFileSync('C:\\node.js\\shift\\config.cfg', 'utf-8'); // для тестовой версии
     const lines = data.split('\n');
     const config = {};

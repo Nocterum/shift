@@ -707,9 +707,9 @@ async function start() {
 
                             message += `<code>${movement.moveId}</code> ${movement.fromToSend} <b>=></b> ${movement.whereToSend}\n`
                             
-                            if ( delivered === 'В пути' ) {
+                            if ( movement.delivered === 'В пути' ) {
 
-                                message += `<i>забрал водитель ${whoDriver}</i>`
+                                message += `<i>забрал водитель ${movement.whoDriver}</i>`
                             }
                         }
 

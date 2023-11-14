@@ -710,8 +710,8 @@ async function start() {
                             if ( movement.delivered === 'В пути' ) {
 
                                 const nameDriver = movement.whoDriver.split("=")[0];
-
-                                message += `<q>забрал водитель ${nameDriver}</q>\n`
+                                message += `<i>забрал водитель ${nameDriver}</i>\n\n`
+                                
                             }
                         }
 

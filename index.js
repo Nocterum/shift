@@ -691,7 +691,9 @@ async function start() {
                     
                 const movements = await MoveModel.findAll({
                     where: {
-                        delivered: 'Нет'
+                        delivered: {
+                            [Op.or]: ['Нет', 'В пути']
+                        }
                     }
                 });
                 
@@ -705,11 +707,15 @@ async function start() {
 
                             message += `<code>${movement.moveId}</code> ${movement.fromToSend} <b>=></b> ${movement.whereToSend}\n`
                             
+                            if ( delivered === 'В пути' ) {
+
+                                message += `<i>забрал водитель ${whoDriver}</i>`
+                            }
                         }
 
                     });
 
-                    if (message) {
+                    if ( message ) {
 
                         return bot.sendMessage(
                             chatId,
@@ -726,6 +732,24 @@ async function start() {
                         );
 
                     }
+
+                } else {
+
+                    if ( user.city === 'MSK' ) {
+
+                        return bot.sendMessage(
+                            chatId,
+                            `Актуальных задач на перемещение в Москве нет.`
+                        );
+
+                    } else {
+
+                        return bot.sendMessage(
+                            chatId,
+                            `Актуальных задач на перемещение в Санкт-Петербурге нет`
+                        );
+                    }
+
                 }
 
             } else if (data === '/takenMovement') {

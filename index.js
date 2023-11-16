@@ -242,7 +242,7 @@ async function start() {
 
                 } else {
 
-                    message += `\n${movement.delivered}`
+                    message += `\nСтатус: Забрал водитель ${movement.whoDriver.split("=")[0]}`
 
                 }
 
@@ -339,6 +339,9 @@ async function start() {
     
         Устранена проблема дублирования сообщений от бота
         (увеличено время ожидания ботом отклика от телеграма)
+
+        Добавлен статус перемещения при просмотре через:
+        /mymovements "Ваши актуальные перемещения"
         `,
                 { parse_mode: 'HTML' }
             );

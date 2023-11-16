@@ -1187,32 +1187,48 @@ async function start() {
 
             } else if ( data === '/createMovement' ) {
 
-                const maxId = await MoveModel.max('id');
-                const newMoveId = `${user.city}${maxId + 1}`;
+                if (
+                    user.fromToSend !== null &&
+                    user.whereToSend &&
+                    user.toWhomToSend &&
+                    user.whatToSend
+                ) {
 
-                await MoveModel.create({
-                    moveId: `${newMoveId}`,
-                    fromToSend: user.fromToSend,
-                    whereToSend: user.whereToSend,
-                    toWhomToSend: user.toWhomToSend,
-                    whatToSend: user.whatToSend,
-                    whoSend: `${user.userName}=${user.chatId}`,
-                    delivered: 'Нет'
-                })
-               
-                await user.update({
-                    moveId:  `${newMoveId}`
-                }, {
-                    where: {
-                        chatId: chatId
-                    }
-                })
+                    const maxId = await MoveModel.max('id');
+                    const newMoveId = `${user.city}${maxId + 1}`;
+    
+                    await MoveModel.create({
+                        moveId: `${newMoveId}`,
+                        fromToSend: user.fromToSend,
+                        whereToSend: user.whereToSend,
+                        toWhomToSend: user.toWhomToSend,
+                        whatToSend: user.whatToSend,
+                        whoSend: `${user.userName}=${user.chatId}`,
+                        delivered: 'Нет'
+                    })
+                   
+                    await user.update({
+                        moveId:  `${newMoveId}`
+                    }, {
+                        where: {
+                            chatId: chatId
+                        }
+                    })
+    
+                    return bot.sendMessage(
+                        chatId,
+                        `Перемещение ${newMoveId} создано!\nЕсли хотите прикрепить фото к перемещению ${newMoveId}, просто отправьте мне их сейчас.`,
+                        { parse_mode: 'HTML' }
+                    );
 
-                return bot.sendMessage(
-                    chatId,
-                    `Перемещение ${newMoveId} создано!\nЕсли хотите прикрепить фото к перемещению ${newMoveId}, просто отправьте мне их сейчас.`,
-                    { parse_mode: 'HTML' }
-                );
+                } else {
+
+                    return bot.sendMessage(
+                        chatId,
+                        `Перемещение с пустыми полями создать невозможно.\nПожалуйста заполните все поля для создания перемещения.`
+                    );
+                    
+                }
 
             } else if ( data.includes('whereGet') ) {
 

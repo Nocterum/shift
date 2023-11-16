@@ -233,10 +233,22 @@ async function start() {
         if ( movements.length > 0 ) {
 
             movements.forEach( async (movement) => {
-                        
+                
+                let message = `<pre>${movement.moveId}</pre>\nОткуда: ${movement.fromToSend}\nКуда: ${movement.whereToSend}\nКому: ${movement.toWhomToSend}\nЧто: ${movement.whatToSend}\n`;
+
+                if ( movement.delivered === 'Нет' ) {
+
+                    message += `\nСтатус: Ожидает водителя в точке отправления`
+
+                } else {
+
+                    message += `\n${movement.delivered}`
+
+                }
+
                 await bot.sendMessage(
                     chatId,
-                    `<pre>${movement.moveId}</pre>\nОткуда: ${movement.fromToSend}\nКуда: ${movement.whereToSend}\nКому: ${movement.toWhomToSend}\nЧто: ${movement.whatToSend}`,
+                    message,
                     {
                         parse_mode: 'HTML',
                         reply_markup: JSON.stringify( {
@@ -316,6 +328,21 @@ async function start() {
         })
 
     });
+
+        // обновления
+        bot.onText(/\/updatelist/, (msg) => {
+            const chatId = msg.chat.id;
+    
+        bot.sendMessage(chatId,
+        `   <b>Версия 1.1
+        Что нового:</b>
+    
+        Устранена проблема дублирования сообщений от бота
+        (увеличено время ожидания ботом отклика от телеграма)
+        `,
+                { parse_mode: 'HTML' }
+            );
+        });
 
     // слушатель сообщений ==========================================================================
 
@@ -683,7 +710,7 @@ async function start() {
                 
                 return bot.sendMessage(
                     chatId, 
-                    `Вы в главном меню, <b>${user.userName}</b>\nВаш персональный id: <code>${chatId}</code>`,
+                    `Вы в главном меню, ${user.userName}\nВаш персональный id: <code>${chatId}</code>\nВаше подразделение: ${user.subdivision}`,
                     mainMenuOptions
                 ); 
                     

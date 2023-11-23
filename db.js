@@ -2,8 +2,8 @@ const { Sequelize } = require('sequelize');
 const fs  = require('fs');
 
 function readConfigSync() {
-    const data = fs.readFileSync('/root/shift/config.cfg', 'utf-8');
-    // const data = fs.readFileSync('C:\\node.js\\shift\\config.cfg', 'utf-8');
+    // const data = fs.readFileSync('/root/shift/config.cfg', 'utf-8');
+    const data = fs.readFileSync('C:\\node.js\\shift\\config.cfg', 'utf-8');
     const lines = data.split('\n');
     const config = {};
   

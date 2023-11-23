@@ -1,4 +1,6 @@
 const TelegramApi = require('node-telegram-bot-api');
+const axios = require('axios');
+const cheerio = require('cheerio');
 const path = require('path');
 const xlsx = require('xlsx');
 const fs = require('fs');
@@ -319,13 +321,39 @@ async function start() {
                 'chatId', 
                 'lastCommand'
             ]
+
         });
 
-        await user.update({lastCommand: null}, {
+        await user.update({lastCommand: '/x'}, {
             where: {
                 chatId: chatId
             }
         })
+
+        try {
+
+            const vendorCode = 'base 0020'
+            const responseProduct = await axios.get(`https://ultrawood.ru/bitrix/components/dresscode/search.line/templates/version2/ajax.php?IBLOCK_ID=15ELEMENT_SORT_ORDER=asc&SEARCH_QUERY=${vendorCode}`);
+            
+            const $ = cheerio.load(responseProduct.data);
+
+            const productLink = $('.name').attr('href');
+
+            const responseProductFull = await axios.get(`https://ultrawood.ru${productLink}`);
+
+            const $$ = cheerio.load(responseProductFull.data);
+
+            const dataMaxQuantity = $$('.qtyBlock .qty').attr('data-max-quantity');
+            console.log(dataMaxQuantity);
+
+        } catch (e) {
+            
+            console.log(e);
+            return bot.sendMessage(
+                chatId,
+                `Возникла ошибка в исполнении кода поиска Ultrawood:\n${e}`
+            )
+        }
 
     });
 
@@ -374,8 +402,8 @@ async function start() {
 
                         return bot.getFile(msg.document.file_id).then((file) => {
                             const fileStream = bot.getFileStream(file.file_id);
-                            fileStream.pipe(fs.createWriteStream(`/root/shift/${fileName}`));   // Сохраняем файл Linux
-                            // fileStream.pipe(fs.createWriteStream(`C:\\node.js\\shift\\photo\\${fileName}`));   // Сохраняем файл Win
+                            // fileStream.pipe(fs.createWriteStream(`/root/shift/${fileName}`));   // Сохраняем файл Linux
+                            fileStream.pipe(fs.createWriteStream(`C:\\node.js\\shift\\photo\\${fileName}`));   // Сохраняем файл Win
                             fileStream.on('end', () => {
                                 bot.sendMessage(
                                     chatId, 
@@ -405,8 +433,8 @@ async function start() {
                             
                             return bot.getFile(msg.photo[msg.photo.length - 1].file_id).then((file) => {
                                 const fileStream = bot.getFileStream(file.file_id);
-                                fileStream.pipe(fs.createWriteStream(`/root/shift/photo/${fileName}`)); // Сохраняем файл в папку photo Linux
-                                // fileStream.pipe(fs.createWriteStream(`C:\\node.js\\shift\\photo\\${fileName}`)); // Сохраняем файл в папку photo Win
+                                // fileStream.pipe(fs.createWriteStream(`/root/shift/photo/${fileName}`)); // Сохраняем файл в папку photo Linux
+                                fileStream.pipe(fs.createWriteStream(`C:\\node.js\\shift\\photo\\${fileName}`)); // Сохраняем файл в папку photo Win
                                 fileStream.on('end', () => {
                                     bot.sendMessage(
                                         chatId, 
@@ -1480,8 +1508,8 @@ async function start() {
 // ======================================================================================================================================
 
 function readConfigSync() {
-    const data = fs.readFileSync('/root/shift/config.cfg', 'utf-8'); // для рабочей версии
-    // const data = fs.readFileSync('C:\\node.js\\shift\\config.cfg', 'utf-8'); // для тестовой версии
+    // const data = fs.readFileSync('/root/shift/config.cfg', 'utf-8'); // для рабочей версии
+    const data = fs.readFileSync('C:\\node.js\\shift\\config.cfg', 'utf-8'); // для тестовой версии
     const lines = data.split('\n');
     const config = {};
   
@@ -1495,7 +1523,7 @@ function readConfigSync() {
 const config = readConfigSync();
 
 const bot_token = config.bot_token; // присвоение глобальной константе значения токена
-const bot_password = config.bot_password // присвоение глобальной константе значения пароля
+const bot_password = config.bot_password; // присвоение глобальной константе значения пароля
 
 const bot = new TelegramApi(bot_token, {
     polling: {

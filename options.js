@@ -48,7 +48,7 @@ module.exports = {
             inline_keyboard: [
                 [ { text: 'Откуда', callback_data: '/fromToSend' }, { text: 'Куда', callback_data: '/whereToSend' } ],
                 [ { text: 'Кому', callback_data: '/toWhomToSend' }, { text: 'Что', callback_data: '/whatToSend' } ],
-                [ { text: 'Создать перемещение', callback_data: '/createMovement' } ],
+                [ { text: `Создать перемещение\n+добавить фото`, callback_data: '/createMovement' } ],
             ]
         })
     },

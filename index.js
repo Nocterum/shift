@@ -408,37 +408,20 @@ async function start() {
                         user.moveId.toLowerCase().includes(`spb`)
                     ) {
                         
-                        // const movements = await MoveModel.findAll({
-                        //     where: {
-                        //         delivered: 'Нет'
-                        //     }
-                        // });
-
-                        // if ( movements.includes(user.moveId) ) {
-
-                            let fileName = `${user.moveId}.${Date.now()}.jpg`; // Генерируем уникальное имя файла
-                            
-                            return bot.getFile(msg.photo[msg.photo.length - 1].file_id).then((file) => {
-                                const fileStream = bot.getFileStream(file.file_id);
-                                fileStream.pipe(fs.createWriteStream(`/root/shift/photo/${fileName}`)); // Сохраняем файл в папку photo Linux
-                                // fileStream.pipe(fs.createWriteStream(`C:\\node.js\\shift\\photo\\${fileName}`)); // Сохраняем файл в папку photo Win
-                                fileStream.on('end', () => {
-                                    bot.sendMessage(
-                                        chatId, 
-                                        `Фото <b>${fileName}</b>\nуспешно сохранено.`, 
-                                        toMainMenuOptions
-                                    );
-                                });
+                        let fileName = `${user.moveId}.${Date.now()}.jpg`; // Генерируем уникальное имя файла
+                        
+                        return bot.getFile(msg.photo[msg.photo.length - 1].file_id).then((file) => {
+                            const fileStream = bot.getFileStream(file.file_id);
+                            fileStream.pipe(fs.createWriteStream(`/root/shift/photo/${fileName}`)); // Сохраняем файл в папку photo Linux
+                            // fileStream.pipe(fs.createWriteStream(`C:\\node.js\\shift\\photo\\${fileName}`)); // Сохраняем файл в папку photo Win
+                            fileStream.on('end', () => {
+                                bot.sendMessage(
+                                    chatId, 
+                                    `Фото <b>${fileName}</b>\nуспешно сохранено.`, 
+                                    toMainMenuOptions
+                                );
                             });
-
-                        // } else {
-
-                        //     return bot.sendMessage(
-                        //         chatId,
-                        //         `Перемещение ${user.moveId} уже доставлено.\nВыберите другое перемещение.`
-                        //     );
-
-                        // }
+                        });
 
                     } else {
 
@@ -1253,7 +1236,11 @@ async function start() {
                     })
                    
                     await user.update({
-                        moveId:  `${newMoveId}`
+                        moveId:  `${newMoveId}`,
+                        fromToSend: '',
+                        whereToSen: '',
+                        toWhomToSend: '',
+                        whatToSend: ''
                     }, {
                         where: {
                             chatId: chatId

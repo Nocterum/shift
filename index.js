@@ -33,7 +33,9 @@ const {
 const sequelize = require('./db');
 const { UserModel, MoveModel } = require('./models');
 
-const ignoreCommands =  '/mainmenu/mymovements/abilitys/updatelist/settings';
+const ignoreCommands =  '/mainmenu/mymovements/abilitys/updatelist/settings'; // Команды которые надо игнорировать
+botMsgIdx = {};    //айди последнего сообщения от бота
+
 
 // ======================================================================================================================================
 // функция создания нового пользователя =================================================================================================
@@ -340,7 +342,7 @@ async function start() {
             return bot.sendMessage(
                 chatId,
                 `Возникла ошибка в исполнении кода поиска Ultrawood:\n${e}`
-            )
+            );
         }
 
     });
@@ -787,11 +789,23 @@ async function start() {
 
                     if ( message ) {
 
-                        return bot.sendMessage(
-                            chatId,
-                            message,
-                            mainMenuDriversOptions
-                        );
+                        if (user.subDivision === 'Водитель') {
+
+                            return bot.sendMessage(
+                                chatId,
+                                message,
+                                mainMenuDriversOptions
+                            );
+
+                        } else {
+
+                            return bot.sendMessage(
+                                chatId,
+                                message,
+                                mainMenuUsersOptions
+                            );
+                            
+                        }
 
                     } else {
 

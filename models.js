@@ -5,7 +5,7 @@ const UserModel = sequelize.define( 'driver', {
     id: {type: DataTypes.SMALLINT, primaryKey: true, unique: true, autoIncrement: true},
     chatId: {type: DataTypes.BIGINT, unique:true},
     city: {type: DataTypes.TEXT('tiny')},
-    subdivision: {type: DataTypes.TEXT('tiny')},
+    subDivision: {type: DataTypes.TEXT('tiny')},
     userName: {type: DataTypes.TEXT('tiny')},
     lastCommand: {type: DataTypes.TEXT('medium')},
     fromToSend: {type: DataTypes.TEXT('tiny')},

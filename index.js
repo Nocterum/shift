@@ -8,7 +8,8 @@ const { Op } = require('sequelize');
 
 // импорты
 const {
-    mainMenuOptions,
+    mainMenuUsersOptions,
+    mainMenuDriversOptions,
     toMainMenuOptions,
     toMainMenu1Options,
     settingsOptions,
@@ -21,7 +22,6 @@ const {
     SPB_whereGetOptions, 
     MSK_whereGetOptions,
     commentOptions,
-    iAmDriverOptions,
     MSK_subDivisionOptions,
     SPB_subDivisionOptions,
     MSK_sendMessageOptions,
@@ -355,6 +355,9 @@ async function start() {
 
         Исправлен баг из-за которого не самоочищалось поле "Куда";
         Тепреь создать перемещение с пустыми полями не получится;
+        Теперь меню "Водителя" доступно только водителям,
+        Для остальных пользователей кнопка "Я водитель" заменилась
+        на "Задания на перемещения";
         -----------------------------------------------------
         <b>Версия 1.2
         Что нового:</b>
@@ -483,12 +486,23 @@ async function start() {
                             chatId: chatId
                         }
                     });
+                    if ( user.subdivision === 'Водитель' ) {
 
-                    return bot.sendMessage(
-                        chatId, 
-                        `Вы в главном меню, ${user.userName}\nВаш персональный id: <code>${chatId}</code>\nВаше подразделение: ${user.subdivision}`,
-                        mainMenuOptions
-                    ); 
+                        return bot.sendMessage(
+                            chatId, 
+                            `Вы в главном меню, ${user.userName}\nВаш персональный id: <code>${chatId}</code>\nВаше подразделение: ${user.subdivision}`,
+                            mainMenuDriversOptions
+                        );
+
+                    } else {
+
+                        return bot.sendMessage(
+                            chatId, 
+                            `Вы в главном меню, ${user.userName}\nВаш персональный id: <code>${chatId}</code>\nВаше подразделение: ${user.subdivision}`,
+                            mainMenuUsersOptions
+                        );
+
+                    }
 
                 } else if (
                     user.lastCommand === '/toWhomToSend' &&
@@ -722,11 +736,23 @@ async function start() {
                     }
                 });
                 
-                return bot.sendMessage(
-                    chatId, 
-                    `Вы в главном меню, ${user.userName}\nВаш персональный id: <code>${chatId}</code>\nВаше подразделение: ${user.subdivision}`,
-                    mainMenuOptions
-                ); 
+                if ( user.subdivision === 'Водитель' ) {
+
+                    return bot.sendMessage(
+                        chatId, 
+                        `Вы в главном меню, ${user.userName}\nВаш персональный id: <code>${chatId}</code>\nВаше подразделение: ${user.subdivision}`,
+                        mainMenuDriversOptions
+                    );
+
+                } else {
+
+                    return bot.sendMessage(
+                        chatId, 
+                        `Вы в главном меню, ${user.userName}\nВаш персональный id: <code>${chatId}</code>\nВаше подразделение: ${user.subdivision}`,
+                        mainMenuUsersOptions
+                    );
+
+                }
                     
             } else if ( data === '/movementList' ) {
                     
@@ -763,7 +789,7 @@ async function start() {
                         return bot.sendMessage(
                             chatId,
                             message,
-                            iAmDriverOptions
+                            mainMenuDriversOptions
                         );
 
                     } else {
@@ -771,7 +797,7 @@ async function start() {
                         return bot.sendMessage(
                             chatId,
                             `На данный момент перемещений нет.`,
-                            iAmDriverOptions
+                            mainMenuDriversOptions
                         );
 
                     }
@@ -825,7 +851,7 @@ async function start() {
                         return bot.sendMessage(
                             chatId,
                             message,
-                            iAmDriverOptions
+                            mainMenuDriversOptions
                         );
 
                     } else {
@@ -833,7 +859,7 @@ async function start() {
                         return bot.sendMessage(
                             chatId,
                             `На данный момент перемещений нет.`,
-                            iAmDriverOptions
+                            mainMenuDriversOptions
                         );
 
                     }
@@ -1399,7 +1425,7 @@ async function start() {
                 return bot.sendMessage(
                     chatId,
                     `Меню водителя:`,
-                    iAmDriverOptions
+                    mainMenuDriversOptions
                 );
 
             } else if ( data === '/commentMovement' ) {

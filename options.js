@@ -1,12 +1,25 @@
 module.exports = {
 
-    mainMenuOptions: {
+    mainMenuUsersOptions: {
         parse_mode: 'HTML',
         reply_markup: JSON.stringify( {
             inline_keyboard: [
                 [ { text: 'Отправить', callback_data: '/send' } ],
                 [ { text: 'Получить', callback_data: '/whereGet' } ],
-                [ { text: 'Я водитель', callback_data: '/iamDriver' } ],
+                [ { text: 'Задания на перемещения', callback_data: '/movementList' } ],
+                [ { text: 'Написать сообщение', callback_data: '/sendMessage' } ],
+
+            ]
+        })
+    },
+
+    mainMenuDriversOptions: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'Задания на перемещения', callback_data: '/movementList' } ],
+                [ { text: 'Перемещения которые я забрал', callback_data: '/takenMovement' } ],
+                [ { text: 'Забираю сейчас (откуда)', callback_data: '/takeMovement' } ],
                 [ { text: 'Написать сообщение', callback_data: '/sendMessage' } ],
 
             ]
@@ -147,17 +160,6 @@ module.exports = {
         })
     },
     
-    iAmDriverOptions: {
-        parse_mode: 'HTML',
-        reply_markup: JSON.stringify( {
-            inline_keyboard: [
-                [ { text: 'Задания на перемещения', callback_data: '/movementList' } ],
-                [ { text: 'Перемещения которые я забрал', callback_data: '/takenMovement' } ],
-                [ { text: 'Забираю сейчас (откуда)', callback_data: '/takeMovement' } ],
-            ]
-        })
-    },
-
     MSK_subDivisionOptions: {
         parse_mode: 'HTML',
         reply_markup: JSON.stringify( {

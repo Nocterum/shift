@@ -10,6 +10,7 @@ const { Op } = require('sequelize');
 const {
     mainMenuOptions,
     toMainMenuOptions,
+    toMainMenu1Options,
     settingsOptions,
     chooseCityOptions,
     sendOptions,
@@ -349,7 +350,13 @@ async function start() {
             const chatId = msg.chat.id;
     
         bot.sendMessage(chatId,
-        `<b>Версия 1.2
+        `<b>Версия 1.2.4
+        Что нового:</b>
+
+        Исправлен баг из-за которого не самоочищалось поле "Куда";
+        Тепреь создать перемещение с пустыми полями не получится;
+        -----------------------------------------------------
+        <b>Версия 1.2
         Что нового:</b>
 
         Теперь форма для создания перемещения самоочищается
@@ -424,7 +431,7 @@ async function start() {
                                 bot.sendMessage(
                                     chatId, 
                                     `Фото <b>${fileName}</b>\nуспешно сохранено.`, 
-                                    toMainMenuOptions
+                                    toMainMenu1Options
                                 );
                             });
                         });
@@ -1222,10 +1229,10 @@ async function start() {
             } else if ( data === '/createMovement' ) {
 
                 if (
-                    user.fromToSend !== null &&
-                    user.whereToSend &&
-                    user.toWhomToSend &&
-                    user.whatToSend
+                    user.fromToSend.length > 0 &&
+                    user.whereToSend.length > 0 &&
+                    user.toWhomToSend.length > 0 &&
+                    user.whatToSend.length > 0
                 ) {
 
                     const maxId = await MoveModel.max('id');
@@ -1244,7 +1251,7 @@ async function start() {
                     await user.update({
                         moveId:  `${newMoveId}`,
                         fromToSend: '',
-                        whereToSen: '',
+                        whereToSend: '',
                         toWhomToSend: '',
                         whatToSend: ''
                     }, {
@@ -1256,7 +1263,7 @@ async function start() {
                     return bot.sendMessage(
                         chatId,
                         `Перемещение ${newMoveId} создано!\nЕсли хотите прикрепить фото к перемещению ${newMoveId}, просто отправьте мне их сейчас.`,
-                        { parse_mode: 'HTML' }
+                        toMainMenu1Options
                     );
 
                 } else {

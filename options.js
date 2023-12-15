@@ -22,6 +22,16 @@ module.exports = {
         })
     },
 
+    toMainMenu1Options: {
+        parse_mode: 'HTML',
+        reply_markup: JSON.stringify( {
+            inline_keyboard: [
+                [ { text: 'В главное меню', callback_data: '/mainMenu' } ],
+                [ { text: 'Создать ещё одно', callback_data: '/send' } ],
+            ]
+        })
+    },
+
     settingsOptions: {
         parse_mode: 'HTML',
         reply_markup: JSON.stringify( {

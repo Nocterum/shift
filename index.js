@@ -1229,10 +1229,10 @@ async function start() {
             } else if ( data === '/createMovement' ) {
 
                 if (
-                    user.fromToSend.length > 0 &&
-                    user.whereToSend.length > 0 &&
-                    user.toWhomToSend.length > 0 &&
-                    user.whatToSend.length > 0
+                    user.fromToSend.length > 1 &&
+                    user.whereToSend.length > 1 &&
+                    user.toWhomToSend.length > 1 &&
+                    user.whatToSend.length > 1
                 ) {
 
                     const maxId = await MoveModel.max('id');

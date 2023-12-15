@@ -232,7 +232,8 @@ async function start() {
                 delivered: {
                     [Op.or]: [`Нет`, `В пути`]
                 }
-            }
+            },
+            order: [['id', 'DESC']]
         })
 
         if ( movements.length > 0 ) {
@@ -764,7 +765,8 @@ async function start() {
                         delivered: {
                             [Op.or]: ['Нет', 'В пути']
                         }
-                    }
+                    },
+                    order: [['id', 'DESC']]
                 });
                 
                 if ( movements.length > 0 ) {
@@ -844,7 +846,8 @@ async function start() {
                         whoDriver: {
                             [Op.like]: `%${chatId}%`
                         }
-                    }
+                    },
+                    order: [['id', 'DESC']]
                 });
 
                 if ( movements.length > 0 ) {
@@ -1081,7 +1084,8 @@ async function start() {
                             fromToSend: dataWhereTake,
                             delivered: 'Нет',
                             whoDriver: null
-                        }
+                        },
+                        order: [['id', 'DESC']]
                     }); 
 
                     if ( movements.length > 0 ) {
@@ -1346,7 +1350,8 @@ async function start() {
                         where: {
                             whereToSend: dataWhereGet,
                             delivered: 'В пути'
-                        }
+                        },
+                        order: [['id', 'DESC']]
                     });
 
                     if ( movements.length > 0 ) {

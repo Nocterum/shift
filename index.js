@@ -350,7 +350,7 @@ async function start() {
             const chatId = msg.chat.id;
     
         bot.sendMessage(chatId,
-        `<b>Версия 1.2.4
+        `<b>Версия 1.5
         Что нового:</b>
 
         Исправлен баг из-за которого не самоочищалось поле "Куда";
@@ -358,6 +358,7 @@ async function start() {
         Теперь меню "Водителя" доступно только водителям,
         Для остальных пользователей кнопка "Я водитель" заменилась
         на "Задания на перемещения";
+        Изменена логика поиска и выгрузки фото;
         -----------------------------------------------------
         <b>Версия 1.2
         Что нового:</b>
@@ -1288,7 +1289,7 @@ async function start() {
     
                     return bot.sendMessage(
                         chatId,
-                        `Перемещение ${newMoveId} создано!\nЕсли хотите прикрепить фото к перемещению ${newMoveId}, просто отправьте мне их сейчас.`,
+                        `Перемещение ${newMoveId} создано!\nЕсли хотите <b>прикрепить фото</b> к перемещению ${newMoveId}, просто отправьте мне их сейчас.`,
                         toMainMenu1Options
                     );
 
@@ -1389,7 +1390,7 @@ async function start() {
                       return;
                     }
 
-                    const photosToSend = files.filter(file => file.includes(`${moveId}`));
+                    const photosToSend = files.filter(file => file.split(".")[0] === moveId);
 
                     if (photosToSend.length > 0) {
 

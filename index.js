@@ -489,11 +489,11 @@ async function start() {
                             chatId: chatId
                         }
                     });
-                    if ( user.subdivision === 'Водитель' ) {
+                    if ( user.subDivision === 'Водитель' ) {
 
                         return bot.sendMessage(
                             chatId, 
-                            `Вы в главном меню, ${user.userName}\nВаш персональный id: <code>${chatId}</code>\nВаше подразделение: ${user.subdivision}`,
+                            `Вы в главном меню, ${user.userName}\nВаш персональный id: <code>${chatId}</code>\nВаше подразделение: ${user.subDivision}`,
                             mainMenuDriversOptions
                         );
 
@@ -501,7 +501,7 @@ async function start() {
 
                         return bot.sendMessage(
                             chatId, 
-                            `Вы в главном меню, ${user.userName}\nВаш персональный id: <code>${chatId}</code>\nВаше подразделение: ${user.subdivision}`,
+                            `Вы в главном меню, ${user.userName}\nВаш персональный id: <code>${chatId}</code>\nВаше подразделение: ${user.subDivision}`,
                             mainMenuUsersOptions
                         );
 
@@ -624,7 +624,7 @@ async function start() {
 
                         const users = await UserModel.findAll({
                             where: {
-                                subdivision: subDivision
+                                subDivision: subDivision
                             }
                         });
 
@@ -739,11 +739,11 @@ async function start() {
                     }
                 });
                 
-                if ( user.subdivision === 'Водитель' ) {
+                if ( user.subDivision === 'Водитель' ) {
 
                     return bot.sendMessage(
                         chatId, 
-                        `Вы в главном меню, ${user.userName}\nВаш персональный id: <code>${chatId}</code>\nВаше подразделение: ${user.subdivision}`,
+                        `Вы в главном меню, ${user.userName}\nВаш персональный id: <code>${chatId}</code>\nВаше подразделение: ${user.subDivision}`,
                         mainMenuDriversOptions
                     );
 
@@ -751,7 +751,7 @@ async function start() {
 
                     return bot.sendMessage(
                         chatId, 
-                        `Вы в главном меню, ${user.userName}\nВаш персональный id: <code>${chatId}</code>\nВаше подразделение: ${user.subdivision}`,
+                        `Вы в главном меню, ${user.userName}\nВаш персональный id: <code>${chatId}</code>\nВаше подразделение: ${user.subDivision}`,
                         mainMenuUsersOptions
                     );
 
@@ -933,7 +933,7 @@ async function start() {
 
                     const users = await UserModel.findAll({
                         where: {
-                            subdivision: subDivision
+                            subDivision: subDivision
                         }
                     });
 
@@ -953,7 +953,7 @@ async function start() {
 
                         return bot.sendMessage(
                             chatId,
-                            `Написать личное сообщение для:\n<b>${user.userName}</b>\nПодразделение <b>${user.subdivision}</b>`,
+                            `Написать личное сообщение для:\n<b>${user.userName}</b>\nПодразделение <b>${user.subDivision}</b>`,
                             { parse_mode: 'HTML',
                             reply_markup: JSON.stringify( {
                                 inline_keyboard: [
@@ -1010,7 +1010,7 @@ async function start() {
                 
                 await bot.sendMessage(
                     senderID,
-                    `Пользователь <b>${user.userName}</b> принял ваше перемещение <b>${deliveredMoveId}</b> на "<b>${user.subdivision}</b>"`,
+                    `Пользователь <b>${user.userName}</b> принял ваше перемещение <b>${deliveredMoveId}</b> на "<b>${user.subDivision}</b>"`,
                     { parse_mode: 'HTML' }
                 );
 
@@ -1499,7 +1499,7 @@ async function start() {
                 const subDivision = data.split('=')[1];
 
                 await user.update({
-                    subdivision: subDivision
+                    subDivision: subDivision
                 });
 
                 return bot.sendMessage(

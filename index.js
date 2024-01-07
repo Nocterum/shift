@@ -240,16 +240,11 @@ async function start() {
         if ( movements.length > 0 ) {
 
             movements.forEach( async (movement) => {
-                const createdAt = new Date(movement.createdAt);
-                const updatedAt = new Date(movement.updatedAt);
-    
-                const createdDate = `${createdAt.getDate()}.${createdAt.getMonth()+1}.${createdAt.getFullYear()}`;
-                const createdTime = `${createdAt.getHours()}:${createdAt.getMinutes().toString().padStart(2, '0')}`;
-    
-                const updatedDate = `${updatedAt.getDate()}.${updatedAt.getMonth()+1}.${updatedAt.getFullYear()}`;
-                const updatedTime = `${updatedAt.getHours()}:${updatedAt.getMinutes().toString().padStart(2, '0')}`;
 
-                let message = `<code>${movement.moveId}</code> от ${createdDate} ${createdTime}\nОткуда: ${movement.fromToSend}\nКуда: ${movement.whereToSend}\nКому: ${movement.toWhomToSend}\nЧто: ${movement.whatToSend}\n`;
+                const createdDateTime = moment.utc(createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
+                const updatedDateTime = moment.utc(updatedAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
+
+                let message = `<code>${movement.moveId}</code> от ${createdDateTime}\nОткуда: ${movement.fromToSend}\nКуда: ${movement.whereToSend}\nКому: ${movement.toWhomToSend}\nЧто: ${movement.whatToSend}\n`;
 
                 if ( movement.delivered === 'Нет' ) {
 
@@ -257,7 +252,7 @@ async function start() {
 
                 } else if ( movement.delivered === 'В пути' ) {
 
-                    message += `\nСтатус:\nЗабрал водитель ${movement.whoDriver.split("=")[0]} ${updatedDate} в ${updatedTime}`
+                    message += `\nСтатус:\nЗабрал водитель ${movement.whoDriver.split("=")[0]} ${updatedDateTime}`
 
                 }
 
@@ -785,20 +780,15 @@ async function start() {
                     movements.forEach( async (movement) => {
                         
                         if ( movement.moveId.includes(user.city) ) {
-                            const createdAt = new Date(movement.createdAt);
-                            const updatedAt = new Date(movement.updatedAt);
-                
-                            const createdDate = `${createdAt.getDate()}.${createdAt.getMonth()+1}.${createdAt.getFullYear()}`;
-                            const createdTime = `${createdAt.getHours()}:${createdAt.getMinutes().toString().padStart(2, '0')}`;
-                
-                            const updatedDate = `${updatedAt.getDate()}.${updatedAt.getMonth()+1}.${updatedAt.getFullYear()}`;
-                            const updatedTime = `${updatedAt.getHours()}:${updatedAt.getMinutes().toString().padStart(2, '0')}`;
+
+                            const createdDateTime = moment.utc(createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
+                            const updatedDateTime = moment.utc(updatedAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
 
                             if ( movement.delivered === 'В пути' ) {
                                 const nameDriver = movement.whoDriver.split("=")[0];
-                                messages.push(`<code>${movement.moveId}</code> от ${createdDate} ${createdTime}\n<b>${movement.fromToSend} => ${movement.whereToSend}</b>\n--<i>забрал водитель ${nameDriver}\n${updatedDate} в ${updatedTime}</i>`);
+                                messages.push(`<code>${movement.moveId}</code> от ${createdDateTime}\n<b>${movement.fromToSend} => ${movement.whereToSend}</b>\n--<i>забрал водитель ${nameDriver}\n${updatedDateTime}</i>`);
                             } else {
-                                messages.push(`<code>${movement.moveId}</code> от ${createdDate} ${createdTime}\n<b>${movement.fromToSend} => ${movement.whereToSend}</b>`);
+                                messages.push(`<code>${movement.moveId}</code> от ${createdDateTime}\n<b>${movement.fromToSend} => ${movement.whereToSend}</b>`);
                             }
                         }
 
@@ -883,15 +873,11 @@ async function start() {
                     movements.forEach( async (movement) => {
                         let message = '';
 
-                        const createdAt = new Date(movement.createdAt);
-                        const updatedAt = new Date(movement.updatedAt);
-            
-                        const createdDate = `${createdAt.getDate()}.${createdAt.getMonth()+1}.${createdAt.getFullYear()}`;
-                        const createdTime = `${createdAt.getHours()}:${createdAt.getMinutes().toString().padStart(2, '0')}`;
+                        const createdDateTime = moment.utc(createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
 
                         if ( movement.moveId.includes(user.city) ) {
 
-                            message +=`<code>${movement.moveId}</code> от ${createdDate} ${createdTime}\n<b>${movement.fromToSend} => ${movement.whereToSend}</b>\n`;
+                            message +=`<code>${movement.moveId}</code> от ${createdDateTime} ${createdTime}\n<b>${movement.fromToSend} => ${movement.whereToSend}</b>\n`;
                             
                         }
 
@@ -1073,10 +1059,11 @@ async function start() {
                         moveId: takedMoveId
                     }
                 });
-                const createdTime = moment.utc(movement.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
+
+                const currentDateTime = moment().format('DD.MM.YY HH:mm');
 
                 await movement.update({
-                    comment: `${movement.comment}${createdTime} Забрал ${user.userName}; `,
+                    comment: `${movement.comment}${currentDateTime} Забрал ${user.userName}; `,
                     whoDriver: `${user.userName}=${user.chatId}`,
                     delivered: `В пути`
                 });
@@ -1171,8 +1158,10 @@ async function start() {
                     }
                 });
 
+                const currentDateTime = moment().format('DD.MM.YY HH:mm');
+
                 await movement.update({
-                    comment: `${movement.comment.replace(/(null)/g, '')}Сдал на склад ${user.userName}; `,
+                    comment: `${movement.comment}${currentDateTime}Сдал на склад ${user.userName}; `,
                     delivered: 'Нет',
                     fromToSend: 'Центральный склад',
                     whoDriver: null

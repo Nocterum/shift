@@ -225,7 +225,7 @@ async function start() {
     bot.onText(/\/mymovements/, async msg => {
         const chatId = msg.chat.id;
 
-        const movements = await MoveModel.findAll.split({
+        const movements = await MoveModel.findAll({
             where: {
                 whoSend: {
                     [Op.like]: `%${chatId}%`
@@ -781,8 +781,8 @@ async function start() {
                         
                         if ( movement.moveId.includes(user.city) ) {
 
-                            const createdDateTime = moment.utc(user.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
-                            const updatedDateTime = moment.utc(user.updatedAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
+                            const createdDateTime = moment.utc(movement.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
+                            const updatedDateTime = moment.utc(movement.updatedAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
 
                             if ( movement.delivered === 'В пути' ) {
                                 const nameDriver = movement.whoDriver.split("=")[0];
@@ -873,7 +873,7 @@ async function start() {
                     movements.forEach( async (movement) => {
                         let message = '';
 
-                        const createdDateTime = moment.utc(user.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
+                        const createdDateTime = moment.utc(movement.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
 
                         if ( movement.moveId.includes(user.city) ) {
 

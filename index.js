@@ -241,8 +241,8 @@ async function start() {
 
             movements.forEach( async (movement) => {
 
-                const createdDateTime = moment.utc(user.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
-                const updatedDateTime = moment.utc(user.updatedAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
+                const createdDateTime = moment.utc(movement.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
+                const updatedDateTime = moment.utc(movement.updatedAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
 
                 let message = `<code>${movement.moveId}</code> от ${createdDateTime}\nОткуда: ${movement.fromToSend}\nКуда: ${movement.whereToSend}\nКому: ${movement.toWhomToSend}\nЧто: ${movement.whatToSend}\n`;
 
@@ -877,7 +877,7 @@ async function start() {
 
                         if ( movement.moveId.includes(user.city) ) {
 
-                            message +=`<code>${movement.moveId}</code> от ${createdDateTime} ${createdDateTime}\n<b>${movement.fromToSend} => ${movement.whereToSend}</b>\n`;
+                            message +=`<code>${movement.moveId}</code> от ${createdDateTime}\n<b>${movement.fromToSend} => ${movement.whereToSend}</b>\n`;
                             
                         }
 
@@ -1161,7 +1161,7 @@ async function start() {
                 const currentDateTime = moment().format('DD.MM.YY HH:mm');
 
                 await movement.update({
-                    comment: `${movement.comment}${currentDateTime}Сдал на склад ${user.userName}; `,
+                    comment: `${movement.comment}${currentDateTime} Сдал на склад ${user.userName}; `,
                     delivered: 'Нет',
                     fromToSend: 'Центральный склад',
                     whoDriver: null

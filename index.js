@@ -772,7 +772,7 @@ async function start() {
                 if ( movements.length > 0 ) {
 
                     let message = '';
-
+                    const messages = []; 
                     movements.forEach( async (movement) => {
                         
                         if ( movement.moveId.includes(user.city) ) {
@@ -783,7 +783,8 @@ async function start() {
                             const hh = time.split(":")[0];
                             const mm = time.split(":")[1];
 
-                            message += `<code>${movement.moveId}</code> от ${DD}.${MM}\n${movement.fromToSend} <b>=></b> ${movement.whereToSend}\n`
+                            messages.push(`<code>${movement.moveId}</code> от ${DD}.${MM}\n${movement.fromToSend} <b>=></b> ${movement.whereToSend}\n`);
+                            // message += `<code>${movement.moveId}</code> от ${DD}.${MM}\n${movement.fromToSend} <b>=></b> ${movement.whereToSend}\n`;
                             
                             if ( movement.delivered === 'В пути' ) {
                                 const date = movement.updatedAt.split(" ")[0];
@@ -793,11 +794,13 @@ async function start() {
                                 const hh = time.split(":")[0];
                                 const mm = time.split(":")[1];
                                 const nameDriver = movement.whoDriver.split("=")[0];
-                                message += `<i>забрал водитель ${nameDriver}\n${DD}${MM} в ${hh}${mm}</i>\n\n`
+                                messages.push(`<i>забрал водитель ${nameDriver}\n${DD}${MM} в ${hh}${mm}</i>\n\n`);
+                                // message += `<i>забрал водитель ${nameDriver}\n${DD}${MM} в ${hh}${mm}</i>\n\n`;
                             }
                         }
 
                     });
+                    message = messages.join(`\n`);
 
                     if ( message ) {
 

@@ -225,7 +225,7 @@ async function start() {
     bot.onText(/\/mymovements/, async msg => {
         const chatId = msg.chat.id;
 
-        const movements = await MoveModel.findAll({
+        const movements = await MoveModel.findAll.split({
             where: {
                 whoSend: {
                     [Op.like]: `%${chatId}%`

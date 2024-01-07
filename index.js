@@ -1171,7 +1171,7 @@ async function start() {
                         comment: `${movement.comment}${currentDateTime} Сдал на склад ${user.userName};\n`,
                         delivered: 'Нет',
                         fromToSend: 'Центральный склад',
-                        whoDriver: user.userName
+                        whoDriver: null
                     });
     
                     await bot.sendMessage(
@@ -1202,7 +1202,7 @@ async function start() {
     
                     await movement.update({
                         comment: `${movement.comment}${currentDateTime} Доставил ${user.userName};\n`,
-                        whoDriver: null
+                        whoDriver: user.userName
                     });
     
                     await bot.sendMessage(

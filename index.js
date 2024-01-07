@@ -821,11 +821,23 @@ async function start() {
 
                     } else {
 
-                        return bot.sendMessage(
-                            chatId,
-                            `На данный момент перемещений нет.`,
-                            mainMenuDriversOptions
-                        );
+                        if (user.subDivision === 'Водитель') {
+
+                            return bot.sendMessage(
+                                chatId,
+                                `На данный момент перемещений нет.`,
+                                mainMenuDriversOptions
+                            );
+
+                        } else {
+
+                            return bot.sendMessage(
+                                chatId,
+                                `На данный момент перемещений нет.`,
+                                mainMenuUsersOptions
+                            );
+
+                        }
 
                     }
 

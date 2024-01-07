@@ -785,14 +785,9 @@ async function start() {
                             const updatedDateTime = moment.utc(movement.updatedAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
 
                             if ( movement.delivered === 'В пути' ) {
-                                // const nameDriver = movement.whoDriver.split("=")[0];
-                                // messages.push(`<code>${movement.moveId}</code> от ${createdDateTime}\n<b>${movement.fromToSend} => ${movement.whereToSend}</b>\n--<i>забрал водитель ${nameDriver}\n${updatedDateTime}</i>`);
-                                if (movement.comment) {
-                                    const parts = movement.comment.split(";");
-                                    const lastStatus = parts[parts.length - 1];
-                                    
-                                    messages.push(`<code>${movement.moveId}</code> от ${createdDateTime}\n<b>${movement.fromToSend} => ${movement.whereToSend}</b>\n--<i>${lastStatus}</i>`);
-                                }
+
+                                const nameDriver = movement.whoDriver.split("=")[0];
+                                messages.push(`<code>${movement.moveId}</code> от ${createdDateTime}\n<b>${movement.fromToSend} => ${movement.whereToSend}</b>\n--<i>забрал водитель ${nameDriver}\n${updatedDateTime}</i>`);
 
                             } else {
                                 messages.push(`<code>${movement.moveId}</code> от ${createdDateTime}\n<b>${movement.fromToSend} => ${movement.whereToSend}</b>`);
@@ -1176,7 +1171,7 @@ async function start() {
                         comment: `${movement.comment}${currentDateTime} Сдал на склад ${user.userName};\n`,
                         delivered: 'Нет',
                         fromToSend: 'Центральный склад',
-                        whoDriver: null
+                        whoDriver: user.userName
                     });
     
                     await bot.sendMessage(

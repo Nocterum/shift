@@ -776,14 +776,24 @@ async function start() {
                     movements.forEach( async (movement) => {
                         
                         if ( movement.moveId.includes(user.city) ) {
+                            const date = movement.createdAt.split(" ")[0];
+                            const DD = date.split("-")[2];
+                            const MM = date.split("-")[1];
+                            const time = movement.createdAt.split(" ")[1];
+                            const hh = time.split(":")[0];
+                            const mm = time.split(":")[1];
 
-                            message += `<code>${movement.moveId}</code> ${movement.fromToSend} <b>=></b> ${movement.whereToSend}\n`
+                            message += `<code>${movement.moveId}</code> от ${DD}.${MM}\n${movement.fromToSend} <b>=></b> ${movement.whereToSend}\n`
                             
                             if ( movement.delivered === 'В пути' ) {
-
+                                const date = movement.updatedAt.split(" ")[0];
+                                const DD = date.split("-")[2];
+                                const MM = date.split("-")[1];
+                                const time = movement.updatedAt.split(" ")[1];
+                                const hh = time.split(":")[0];
+                                const mm = time.split(":")[1];
                                 const nameDriver = movement.whoDriver.split("=")[0];
-                                message += `<i>забрал водитель ${nameDriver}</i>\n\n`
-                                
+                                message += `<i>забрал водитель ${nameDriver}\n${DD}${MM} в ${hh}${mm}</i>\n\n`
                             }
                         }
 

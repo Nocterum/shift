@@ -602,7 +602,7 @@ async function start() {
                     });
                     
                     await movement.update({
-                        comment: text
+                        comment: `${user.comment}//Комментарий:${text}`
                     });
 
                     const sender = movement.whoSend;
@@ -903,7 +903,7 @@ async function start() {
                                     parse_mode: 'HTML',
                                     reply_markup: JSON.stringify( {
                                         inline_keyboard: [
-                                            [ { text: 'Сдал на складе', callback_data: `warehouse=${movement.moveId}` } ],
+                                            [ { text: 'Сдал на складе', callback_data: `dropToStorage=${movement.moveId}` } ],
                                         ]
                                     })
                                 }
@@ -1074,6 +1074,7 @@ async function start() {
                 });
                 
                 await movement.update({
+                    comment: `${movement.comment}забрал ${user.userName}; `,
                     whoDriver: `${user.userName}=${user.chatId}`,
                     delivered: `В пути`
                 });
@@ -1091,7 +1092,6 @@ async function start() {
                     `Водитель <b>${user.userName}</b> забрал ваше перемещение <b>${takedMoveId}</b> из подразделения "<b>${movement.fromToSend}</b>".`,
                     { parse_mode: 'HTML' }
                 );
-
 
             } else if ( data.includes('takeMovement') ) {
 
@@ -1158,6 +1158,36 @@ async function start() {
                     }
                 
                 }
+
+            } else if ( data.includes('dropToStorage') ) {
+                
+                const dropedToStorageMoveId = data.split("=")[1];
+
+                const movement = await MoveModel.findOne({
+                    where: {
+                        moveId: dropedToStorageMoveId
+                    }
+                });
+
+                await movement.update({
+                    comment: `${movement.comment}сдал на склад ${user.userName}; `,
+                    delivered: 'Нет',
+                    fromToSend: 'Центральный склад'
+                });
+
+                await bot.sendMessage(
+                    chatId,
+                    `Вы подтвердли, что сдали на склад перемещение <code>${dropedToStorageMoveId}</code>.`,
+                    { parse_mode: 'HTML' }
+                );
+                    
+                const senderChatId = movement.whoSend.split('=')[1];
+                
+                return bot.sendMessage(
+                    senderChatId,
+                    `Водитель <b>${user.userName}</b> сдал на склад перемещение <b>${dropedToStorageMoveId}</b>.`,
+                    { parse_mode: 'HTML' }
+                );
 
             } else if ( data === '/send' ) {
                 

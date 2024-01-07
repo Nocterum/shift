@@ -598,7 +598,7 @@ async function start() {
                     });
                     
                     await movement.update({
-                        comment: `${user.comment}//Комментарий:${text}`
+                        comment: `${movement.comment}//Комментарий: ${text}`
                     });
 
                     const sender = movement.whoSend;
@@ -1024,8 +1024,11 @@ async function start() {
                     }
                 });
 
+                const currentDateTime = moment().format('DD.MM.YY HH:mm');
+
                 await movement.update({
                     delivered: 'Да',
+                    comment: `${movement.comment}${currentDateTime} Получил ${user.userName}; `
                 });
 
                 await user.update({

@@ -790,11 +790,13 @@ async function start() {
                             if ( movement.delivered === 'В пути' ) {
                                 const nameDriver = movement.whoDriver.split("=")[0];
                                 messages.push(`<i>забрал водитель ${nameDriver}\n${updatedDate} в ${updatedTime}</i>`);
+                            } else {
+                                messages.join('\n');
                             }
                         }
 
                     });
-                    message = messages.join(`\n\n`);
+                    message = messages.join(`\n`);
 
                     if ( message ) {
 

@@ -241,8 +241,8 @@ async function start() {
 
             movements.forEach( async (movement) => {
 
-                const createdDateTime = moment.utc(createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
-                const updatedDateTime = moment.utc(updatedAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
+                const createdDateTime = moment.utc(user.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
+                const updatedDateTime = moment.utc(user.updatedAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
 
                 let message = `<code>${movement.moveId}</code> от ${createdDateTime}\nОткуда: ${movement.fromToSend}\nКуда: ${movement.whereToSend}\nКому: ${movement.toWhomToSend}\nЧто: ${movement.whatToSend}\n`;
 
@@ -781,8 +781,8 @@ async function start() {
                         
                         if ( movement.moveId.includes(user.city) ) {
 
-                            const createdDateTime = moment.utc(createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
-                            const updatedDateTime = moment.utc(updatedAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
+                            const createdDateTime = moment.utc(user.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
+                            const updatedDateTime = moment.utc(user.updatedAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
 
                             if ( movement.delivered === 'В пути' ) {
                                 const nameDriver = movement.whoDriver.split("=")[0];
@@ -873,7 +873,7 @@ async function start() {
                     movements.forEach( async (movement) => {
                         let message = '';
 
-                        const createdDateTime = moment.utc(createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
+                        const createdDateTime = moment.utc(user.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
 
                         if ( movement.moveId.includes(user.city) ) {
 

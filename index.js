@@ -239,16 +239,24 @@ async function start() {
         if ( movements.length > 0 ) {
 
             movements.forEach( async (movement) => {
-                
-                let message = `<pre>${movement.moveId}</pre>\nОткуда: ${movement.fromToSend}\nКуда: ${movement.whereToSend}\nКому: ${movement.toWhomToSend}\nЧто: ${movement.whatToSend}\n`;
+                const createdAt = new Date(movement.createdAt);
+                const updatedAt = new Date(movement.updatedAt);
+    
+                const createdDate = `${createdAt.getDate()}.${createdAt.getMonth()+1}.${createdAt.getFullYear()}`;
+                const createdTime = `${createdAt.getHours()}:${createdAt.getMinutes().toString().padStart(2, '0')}`;
+    
+                const updatedDate = `${updatedAt.getDate()}.${updatedAt.getMonth()+1}.${updatedAt.getFullYear()}`;
+                const updatedTime = `${updatedAt.getHours()}:${updatedAt.getMinutes().toString().padStart(2, '0')}`;
+
+                let message = `<code>${movement.moveId}</code> от ${createdDate} ${createdTime}\nОткуда: ${movement.fromToSend}\nКуда: ${movement.whereToSend}\nКому: ${movement.toWhomToSend}\nЧто: ${movement.whatToSend}\n`;
 
                 if ( movement.delivered === 'Нет' ) {
 
                     message += `\nСтатус: Ожидает водителя в точке отправления`
 
-                } else {
+                } else if ( movement.delivered === 'В пути' ) {
 
-                    message += `\nСтатус: Забрал водитель ${movement.whoDriver.split("=")[0]}`
+                    message += `\nСтатус:\nЗабрал водитель ${movement.whoDriver.split("=")[0]} ${updatedDate} в ${updatedTime}`
 
                 }
 
@@ -871,40 +879,53 @@ async function start() {
 
                 if ( movements.length > 0 ) {
 
-                    let message = '';
-
                     movements.forEach( async (movement) => {
-                        
+                        let message = '';
+
+                        const createdAt = new Date(movement.createdAt);
+                        const updatedAt = new Date(movement.updatedAt);
+            
+                        const createdDate = `${createdAt.getDate()}.${createdAt.getMonth()+1}.${createdAt.getFullYear()}`;
+                        const createdTime = `${createdAt.getHours()}:${createdAt.getMinutes().toString().padStart(2, '0')}`;
+
                         if ( movement.moveId.includes(user.city) ) {
 
-                            message += `<code>${movement.moveId}</code> ${movement.fromToSend} <b>=></b> ${movement.whereToSend}\n`
+                            message +=`<code>${movement.moveId}</code> от ${createdDate} ${createdTime}\n<b>${movement.fromToSend} => ${movement.whereToSend}</b>\n`;
                             
                         }
 
+                        if (message) {
+                            
+                            return bot.sendMessage(
+                                chatId,
+                                message,
+                                {
+                                    parse_mode: 'HTML',
+                                    reply_markup: JSON.stringify( {
+                                        inline_keyboard: [
+                                            [ { text: 'Сдал на складе', callback_data: `warehouse=${movement.moveId}` } ],
+                                        ]
+                                    })
+                                }
+                            );
+                                
+                        } else {
+                                
+                            return bot.sendMessage(
+                                chatId,
+                                `У вас на руках пока нет ни одного актуального перемещения.`,
+                                mainMenuDriversOptions
+                            );
+                                    
+                        }
                     });
 
-                    if (message) {
-
-                        return bot.sendMessage(
-                            chatId,
-                            message,
-                            mainMenuDriversOptions
-                        );
-
-                    } else {
-
-                        return bot.sendMessage(
-                            chatId,
-                            `На данный момент перемещений нет.`,
-                            mainMenuDriversOptions
-                        );
-
-                    }
                 } else {
 
                     return bot.sendMessage(
                         chatId,
-                        `У вас на руках пока нет ни одного актуального перемещения.`
+                        `У вас на руках пока нет ни одного актуального перемещения.`,
+                        mainMenuDriversOptions
                     );
 
                 }

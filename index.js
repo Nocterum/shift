@@ -785,7 +785,7 @@ async function start() {
                             const updatedDateTime = moment.utc(movement.updatedAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
 
                             if ( movement.delivered === 'В пути' ) {
-                                const nameDriver = movement.whoDriver.split("=")[0];
+                                // const nameDriver = movement.whoDriver.split("=")[0];
                                 // messages.push(`<code>${movement.moveId}</code> от ${createdDateTime}\n<b>${movement.fromToSend} => ${movement.whereToSend}</b>\n--<i>забрал водитель ${nameDriver}\n${updatedDateTime}</i>`);
                                 if (movement.comment) {
                                     const parts = movement.comment.split(";");

@@ -252,7 +252,7 @@ async function start() {
 
                 } else if ( movement.delivered === 'В пути' ) {
 
-                    message += `\nСтатус:\nЗабрал водитель ${movement.whoDriver.split("=")[0]} ${updatedDateTime}`
+                    message += `\nИстория:\n${movement.comment}`
 
                 }
 

@@ -903,7 +903,7 @@ async function start() {
                                     parse_mode: 'HTML',
                                     reply_markup: JSON.stringify( {
                                         inline_keyboard: [
-                                            [ { text: 'Сдал на складе', callback_data: `dropToStorage=${movement.moveId}` } ],
+                                            [ { text: 'Сдал на склад', callback_data: `dropToStorage=${movement.moveId}` } ],
                                         ]
                                     })
                                 }
@@ -1074,7 +1074,7 @@ async function start() {
                 });
                 
                 await movement.update({
-                    comment: `${movement.comment}забрал ${user.userName}; `,
+                    comment: `${movement.comment.replace(/(null)/g, '')}Забрал ${user.userName}; `,
                     whoDriver: `${user.userName}=${user.chatId}`,
                     delivered: `В пути`
                 });
@@ -1170,7 +1170,7 @@ async function start() {
                 });
 
                 await movement.update({
-                    comment: `${movement.comment}сдал на склад ${user.userName}; `,
+                    comment: `${movement.comment.replace(/(null)/g, '')}Сдал на склад ${user.userName}; `,
                     delivered: 'Нет',
                     fromToSend: 'Центральный склад',
                     whoDriver: null

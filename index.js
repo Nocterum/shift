@@ -1172,7 +1172,8 @@ async function start() {
                 await movement.update({
                     comment: `${movement.comment}сдал на склад ${user.userName}; `,
                     delivered: 'Нет',
-                    fromToSend: 'Центральный склад'
+                    fromToSend: 'Центральный склад',
+                    whoDriver: null
                 });
 
                 await bot.sendMessage(

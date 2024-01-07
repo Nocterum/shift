@@ -788,9 +788,10 @@ async function start() {
                             messages.push(`<code>${movement.moveId}</code> от ${createdDate} ${createdTime}\n<b>${movement.fromToSend} => ${movement.whereToSend}</b>`);
                             
                             if ( movement.delivered === 'В пути' ) {
- 
                                 const nameDriver = movement.whoDriver.split("=")[0];
-                                messages.push(`<i>забрал водитель ${nameDriver}\n${updatedDate} в ${updatedTime}</i>\n`);
+                                messages.push(`<i>забрал водитель ${nameDriver}\n${updatedDate} в ${updatedTime}</i>\n\n`);
+                            } else {
+                                message.push(`\n`);
                             }
                         }
 

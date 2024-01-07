@@ -1076,7 +1076,7 @@ async function start() {
                 const createdTime = moment.utc(movement.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
 
                 await movement.update({
-                    comment: `${movement.comment.replace(/(null)/g, '')}${createdTime} Забрал ${user.userName}; `,
+                    comment: `${movement.comment}${createdTime} Забрал ${user.userName}; `,
                     whoDriver: `${user.userName}=${user.chatId}`,
                     delivered: `В пути`
                 });
@@ -1357,6 +1357,7 @@ async function start() {
                     const newMoveId = `${user.city}${maxId + 1}`;
     
                     await MoveModel.create({
+                        comment: '',
                         moveId: `${newMoveId}`,
                         fromToSend: user.fromToSend,
                         whereToSend: user.whereToSend,

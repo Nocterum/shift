@@ -785,18 +785,17 @@ async function start() {
                             const updatedDate = `${updatedAt.getDate()}.${updatedAt.getMonth()+1}.${updatedAt.getFullYear()}`;
                             const updatedTime = `${updatedAt.getHours()}:${updatedAt.getMinutes().toString().padStart(2, '0')}`;
 
-                            messages.push(`<code>${movement.moveId}</code> от ${createdDate} ${createdTime}\n<b>${movement.fromToSend} => ${movement.whereToSend}</b>`);
-                            
                             if ( movement.delivered === 'В пути' ) {
                                 const nameDriver = movement.whoDriver.split("=")[0];
-                                messages.push(`<i>забрал водитель ${nameDriver}\n${updatedDate} в ${updatedTime}</i>`);
+                                messages.push(`<code>${movement.moveId}</code> от ${createdDate} ${createdTime}\n<b>${movement.fromToSend} => ${movement.whereToSend}</b>
+                                <i>забрал водитель ${nameDriver}\n${updatedDate} в ${updatedTime}</i>`);
                             } else {
-                                messages.join('\n');
+                                messages.push(`<code>${movement.moveId}</code> от ${createdDate} ${createdTime}\n<b>${movement.fromToSend} => ${movement.whereToSend}</b>`);
                             }
                         }
 
                     });
-                    message = messages.join(`\n`);
+                    message = messages.join(`\n\n`);
 
                     if ( message ) {
 

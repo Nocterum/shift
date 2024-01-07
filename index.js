@@ -598,7 +598,7 @@ async function start() {
                     });
                     
                     await movement.update({
-                        comment: `${movement.comment}//Комментарий: ${text}`
+                        comment: `${movement.comment}\n//Комментарий: ${text}`
                     });
 
                     const sender = movement.whoSend;
@@ -890,7 +890,7 @@ async function start() {
                                     parse_mode: 'HTML',
                                     reply_markup: JSON.stringify( {
                                         inline_keyboard: [
-                                            [ { text: 'Сдал на склад', callback_data: `dropToStorage=${movement.moveId}` } ],
+                                            [ { text: 'Сдал на склад', callback_data: `dropToStorage=${movement.moveId}` }, { text: 'Доставил', callback_data: `drop=${movement.moveId}` } ],
                                         ]
                                     })
                                 }
@@ -1028,7 +1028,7 @@ async function start() {
 
                 await movement.update({
                     delivered: 'Да',
-                    comment: `${movement.comment}${currentDateTime} Получил ${user.userName}; `
+                    comment: `${movement.comment}${currentDateTime} Получил ${user.userName};\n`
                 });
 
                 await user.update({
@@ -1066,7 +1066,7 @@ async function start() {
                 const currentDateTime = moment().format('DD.MM.YY HH:mm');
 
                 await movement.update({
-                    comment: `${movement.comment}${currentDateTime} Забрал ${user.userName}; `,
+                    comment: `${movement.comment}${currentDateTime} Забрал ${user.userName};\n`,
                     whoDriver: `${user.userName}=${user.chatId}`,
                     delivered: `В пути`
                 });
@@ -1151,39 +1151,74 @@ async function start() {
                 
                 }
 
-            } else if ( data.includes('dropToStorage') ) {
-                
-                const dropedToStorageMoveId = data.split("=")[1];
+            } else if ( data.includes('drop') ) {
 
-                const movement = await MoveModel.findOne({
-                    where: {
-                        moveId: dropedToStorageMoveId
-                    }
-                });
+                if ( data.includes('dropToStorage') ) {
 
-                const currentDateTime = moment().format('DD.MM.YY HH:mm');
+                    const dropedToStorageMoveId = data.split("=")[1];
 
-                await movement.update({
-                    comment: `${movement.comment}${currentDateTime} Сдал на склад ${user.userName}; `,
-                    delivered: 'Нет',
-                    fromToSend: 'Центральный склад',
-                    whoDriver: null
-                });
-
-                await bot.sendMessage(
-                    chatId,
-                    `Вы подтвердли, что сдали на склад перемещение <code>${dropedToStorageMoveId}</code>.`,
-                    { parse_mode: 'HTML' }
-                );
+                    const movement = await MoveModel.findOne({
+                        where: {
+                            moveId: dropedToStorageMoveId
+                        }
+                    });
+    
+                    const currentDateTime = moment().format('DD.MM.YY HH:mm');
+    
+                    await movement.update({
+                        comment: `${movement.comment}${currentDateTime} Сдал на склад ${user.userName};\n`,
+                        delivered: 'Нет',
+                        fromToSend: 'Центральный склад',
+                        whoDriver: null
+                    });
+    
+                    await bot.sendMessage(
+                        chatId,
+                        `Вы подтвердли, что сдали на склад перемещение <code>${dropedToStorageMoveId}</code>.`,
+                        { parse_mode: 'HTML' }
+                    );
+                        
+                    const senderChatId = movement.whoSend.split('=')[1];
                     
-                const senderChatId = movement.whoSend.split('=')[1];
-                
-                return bot.sendMessage(
-                    senderChatId,
-                    `Водитель <b>${user.userName}</b> сдал на склад перемещение <b>${dropedToStorageMoveId}</b>.`,
-                    { parse_mode: 'HTML' }
-                );
+                    return bot.sendMessage(
+                        senderChatId,
+                        `Водитель <b>${user.userName}</b> сдал на склад перемещение <b>${dropedToStorageMoveId}</b>.`,
+                        { parse_mode: 'HTML' }
+                    );
+    
+                } else {
 
+                    const dropedMoveId = data.split("=")[1];
+
+                    const movement = await MoveModel.findOne({
+                        where: {
+                            moveId: dropedMoveId
+                        }
+                    });
+    
+                    const currentDateTime = moment().format('DD.MM.YY HH:mm');
+    
+                    await movement.update({
+                        comment: `${movement.comment}${currentDateTime} Доставил ${user.userName};\n`,
+                        whoDriver: null
+                    });
+    
+                    await bot.sendMessage(
+                        chatId,
+                        `Вы подтвердли, что доставили перемещение <code>${dropedMoveId}</code>, но чтобы закрыть перемещение его должны принять.`,
+                        { parse_mode: 'HTML' }
+                    );
+                        
+                    const senderChatId = movement.whoSend.split('=')[1];
+                    
+                    return bot.sendMessage(
+                        senderChatId,
+                        `Водитель <b>${user.userName}</b> доставил перемещение <b>${dropedMoveId}</b>.`,
+                        { parse_mode: 'HTML' }
+                    );
+
+                }
+                
             } else if ( data === '/send' ) {
                 
                 return bot.sendMessage(

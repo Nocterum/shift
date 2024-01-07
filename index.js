@@ -1,4 +1,5 @@
 const TelegramApi = require('node-telegram-bot-api');
+const moment = require('moment');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const path = require('path');
@@ -1072,9 +1073,10 @@ async function start() {
                         moveId: takedMoveId
                     }
                 });
-                
+                const createdTime = moment.utc(movement.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
+
                 await movement.update({
-                    comment: `${movement.comment.replace(/(null)/g, '')}Забрал ${user.userName}; `,
+                    comment: `${movement.comment.replace(/(null)/g, '')}${createdTime} Забрал ${user.userName}; `,
                     whoDriver: `${user.userName}=${user.chatId}`,
                     delivered: `В пути`
                 });

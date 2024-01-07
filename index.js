@@ -877,7 +877,7 @@ async function start() {
 
                         if ( movement.moveId.includes(user.city) ) {
 
-                            message +=`<code>${movement.moveId}</code> от ${createdDateTime} ${createdTime}\n<b>${movement.fromToSend} => ${movement.whereToSend}</b>\n`;
+                            message +=`<code>${movement.moveId}</code> от ${createdDateTime} ${createdDateTime}\n<b>${movement.fromToSend} => ${movement.whereToSend}</b>\n`;
                             
                         }
 

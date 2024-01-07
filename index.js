@@ -776,26 +776,21 @@ async function start() {
                     movements.forEach( async (movement) => {
                         
                         if ( movement.moveId.includes(user.city) ) {
-                            const date = movement.createdAt.toString().split(" ")[0];
-                            const DD = date.split("-")[2];
-                            const MM = date.split("-")[1];
-                            const time = movement.createdAt.toString().split(" ")[1];
-                            const hh = time.split(":")[0];
-                            const mm = time.split(":")[1];
+                            const createdAt = new Date(user.createdAt);
+                            const updatedAt = new Date(user.updatedAt);
+                
+                            const createdDate = `${createdAt.getDate()}.${createdAt.getMonth()+1}.${createdAt.getFullYear()}`;
+                            const createdTime = `${createdAt.getHours()}:${createdAt.getMinutes().toString().padStart(2, '0')}`;
+                
+                            const updatedDate = `${updatedAt.getDate()}.${updatedAt.getMonth()+1}.${updatedAt.getFullYear()}`;
+                            const updatedTime = `${updatedAt.getHours()}:${updatedAt.getMinutes().toString().padStart(2, '0')}`;
 
-                            messages.push(`<code>${movement.moveId}</code> от ${DD}.${MM}\n${movement.fromToSend} <b>=></b> ${movement.whereToSend}\n`);
-                            // message += `<code>${movement.moveId}</code> от ${DD}.${MM}\n${movement.fromToSend} <b>=></b> ${movement.whereToSend}\n`;
+                            messages.push(`<code>${movement.moveId}</code> от ${createdDate}\n${movement.fromToSend} <b>=></b> ${movement.whereToSend}\n`);
                             
                             if ( movement.delivered === 'В пути' ) {
-                                const date = movement.updatedAt.toString().split(" ")[0];
-                                const DD = date.split("-")[2];
-                                const MM = date.split("-")[1];
-                                const time = movement.updatedAt.toString().split(" ")[1];
-                                const hh = time.split(":")[0];
-                                const mm = time.split(":")[1];
+ 
                                 const nameDriver = movement.whoDriver.split("=")[0];
-                                messages.push(`<i>забрал водитель ${nameDriver}\n${DD}${MM} в ${hh}${mm}</i>\n\n`);
-                                // message += `<i>забрал водитель ${nameDriver}\n${DD}${MM} в ${hh}${mm}</i>\n\n`;
+                                messages.push(`<i>забрал водитель ${nameDriver}\n${updatedDate} в ${updatedTime}</i>\n\n`);
                             }
                         }
 

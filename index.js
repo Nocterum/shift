@@ -1026,7 +1026,7 @@ async function start() {
                     }
                 });
 
-                const currentDateTime = moment().format('DD.MM.YY HH:mm');
+                const currentDateTime = moment().utcOffset('+03:00').format('DD.MM.YY HH:mm');
 
                 await movement.update({
                     delivered: 'Да',
@@ -1065,7 +1065,7 @@ async function start() {
                     }
                 });
 
-                const currentDateTime = moment().format('DD.MM.YY HH:mm');
+                const currentDateTime = moment().utcOffset('+03:00').format('DD.MM.YY HH:mm');
 
                 await movement.update({
                     comment: `${movement.comment}${currentDateTime} Забрал ${user.userName};\n`,
@@ -1165,7 +1165,7 @@ async function start() {
                         }
                     });
     
-                    const currentDateTime = moment().format('DD.MM.YY HH:mm');
+                    const currentDateTime = moment().utcOffset('+03:00').format('DD.MM.YY HH:mm');
     
                     await movement.update({
                         comment: `${movement.comment}${currentDateTime} Сдал на склад ${user.userName};\n`,
@@ -1198,7 +1198,7 @@ async function start() {
                         }
                     });
     
-                    const currentDateTime = moment().format('DD.MM.YY HH:mm');
+                    const currentDateTime = moment().utcOffset('+03:00').format('DD.MM.YY HH:mm');
     
                     await movement.update({
                         comment: `${movement.comment}${currentDateTime} Доставил ${user.userName};\n`,

@@ -239,7 +239,7 @@ async function start() {
 
         if ( movements.length > 0 ) {
 
-            movements.forEach( async (movement) => {
+            for (const movement of movements) {
 
                 const createdDateTime = moment.utc(movement.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
                 const updatedDateTime = moment.utc(movement.updatedAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
@@ -256,7 +256,7 @@ async function start() {
 
                 }
 
-                await bot.sendMessage(
+                bot.sendMessage(
                     chatId,
                     message,
                     {
@@ -270,7 +270,7 @@ async function start() {
                     }
                 );
     
-            });
+            };
 
         } else { 
 
@@ -777,7 +777,7 @@ async function start() {
 
                     let message = '';
                     const messages = []; 
-                    movements.forEach( async (movement) => {
+                    for (const movement of movements) {
                         
                         if ( movement.moveId.includes(user.city) ) {
 
@@ -794,7 +794,7 @@ async function start() {
                             }
                         }
 
-                    });
+                    };
                     message = messages.join(`\n\n`);
 
                     if ( message ) {
@@ -872,7 +872,7 @@ async function start() {
 
                 if ( movements.length > 0 ) {
 
-                    movements.forEach( async (movement) => {
+                    for (const movement of movements) {
                         let message = '';
 
                         const createdDateTime = moment.utc(movement.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
@@ -907,7 +907,7 @@ async function start() {
                             );
                                     
                         }
-                    });
+                    };
 
                 } else {
 
@@ -1124,7 +1124,7 @@ async function start() {
 
                     if ( movements.length > 0 ) {
 
-                        movements.forEach( async (movement) => {
+                        for (const movement of movements) {
 
                             await bot.sendMessage(
                                 chatId,
@@ -1140,7 +1140,7 @@ async function start() {
                                 }
                             );
 
-                        });
+                        };
 
                     } else {
 
@@ -1459,7 +1459,7 @@ async function start() {
 
                     if ( movements.length > 0 ) {
 
-                        movements.forEach( async (movement) => {
+                        for (const movement of movements) {
 
                             await bot.sendMessage(
                                 chatId,
@@ -1475,7 +1475,7 @@ async function start() {
                                 }
                             )
 
-                        });
+                        };
 
                     } else {
 

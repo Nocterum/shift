@@ -885,7 +885,7 @@ async function start() {
 
                         if (message) {
                             
-                            return bot.sendMessage(
+                            await  bot.sendMessage(
                                 chatId,
                                 message,
                                 {
@@ -1166,14 +1166,24 @@ async function start() {
                     });
     
                     const currentDateTime = moment().utcOffset('+03:00').format('DD.MM.YY HH:mm');
-    
-                    await movement.update({
-                        comment: `${movement.comment}${currentDateTime} Сдал на склад ${user.userName};\n`,
-                        delivered: 'Нет',
-                        fromToSend: 'Центральный склад',
-                        whoDriver: null
-                    });
-    
+                    
+                    if ( user.whereToSend === 'Центральный склад' ) {
+
+                        await movement.update({
+                            comment: `${movement.comment}${currentDateTime} Доставил на склад ${user.userName};\n`,
+                            delivered: 'Да',
+                        });
+
+                    } else {
+
+                        await movement.update({
+                            comment: `${movement.comment}${currentDateTime} Сдал на склад ${user.userName};\n`,
+                            delivered: 'Нет',
+                            fromToSend: `${user.fromToSend} => ЦС `,
+                        });
+
+                    }
+                    
                     await bot.sendMessage(
                         chatId,
                         `Вы подтвердли, что сдали на склад перемещение <code>${dropedToStorageMoveId}</code>.`,

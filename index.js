@@ -1179,7 +1179,7 @@ async function start() {
                         await movement.update({
                             comment: `${movement.comment}${currentDateTime} Сдал на склад ${user.userName};\n`,
                             delivered: 'Нет',
-                            fromToSend: `${user.fromToSend} => ЦС `,
+                            fromToSend: `${movement.fromToSend} => ЦС `,
                         });
 
                     }

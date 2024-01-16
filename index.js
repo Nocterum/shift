@@ -1167,7 +1167,7 @@ async function start() {
     
                     const currentDateTime = moment().utcOffset('+03:00').format('DD.MM.YY HH:mm');
                     
-                    if ( user.whereToSend === 'Центральный склад' ) {
+                    if ( movement.whereToSend === 'Центральный склад' ) {
 
                         await movement.update({
                             comment: `${movement.comment}${currentDateTime} Доставил на склад ${user.userName};\n`,

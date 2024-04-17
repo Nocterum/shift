@@ -494,6 +494,7 @@ async function start() {
                             chatId: chatId
                         }
                     });
+
                     if ( user.subDivision === 'Водитель' ) {
 
                         return bot.sendMessage(
@@ -1130,7 +1131,7 @@ async function start() {
 
                             await bot.sendMessage(
                                 chatId,
-                                `<code>${movement.moveId} от ${createdDateTime}</code>\nОткуда: ${movement.fromToSend}\nКуда: ${movement.whereToSend}\nКому: ${movement.toWhomToSend}\nЧто: ${movement.whatToSend}`,
+                                `<strong>${movement.moveId}</strong> от ${createdDateTime}\nОткуда: ${movement.fromToSend}\nКуда: ${movement.whereToSend}\nКому: ${movement.toWhomToSend}\nЧто: ${movement.whatToSend}`,
                                 {
                                     parse_mode: 'HTML',
                                     reply_markup: JSON.stringify( {
@@ -1143,7 +1144,8 @@ async function start() {
                             );
 
                         };
-
+                        return;
+                        
                     } else {
 
                         return bot.sendMessage(

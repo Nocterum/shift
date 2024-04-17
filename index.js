@@ -1125,10 +1125,12 @@ async function start() {
                     if ( movements.length > 0 ) {
 
                         for (const movement of movements) {
+                            
+                            const createdDateTime = moment.utc(movement.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
 
                             await bot.sendMessage(
                                 chatId,
-                                `<pre>${movement.moveId}</pre>\nОткуда: ${movement.fromToSend}\nКуда: ${movement.whereToSend}\nКому: ${movement.toWhomToSend}\nЧто: ${movement.whatToSend}`,
+                                `<code>${movement.moveId} от ${createdDateTime}</code>\nОткуда: ${movement.fromToSend}\nКуда: ${movement.whereToSend}\nКому: ${movement.toWhomToSend}\nЧто: ${movement.whatToSend}`,
                                 {
                                     parse_mode: 'HTML',
                                     reply_markup: JSON.stringify( {

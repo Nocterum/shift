@@ -12,7 +12,8 @@ const UserModel = sequelize.define( 'driver', {
     whereToSend: {type: DataTypes.TEXT('tiny')},
     toWhomToSend: {type: DataTypes.TEXT('tiny')},
     whatToSend: {type: DataTypes.TEXT('medium')},
-    moveId: {type: DataTypes.TEXT('tiny')}
+    moveId: {type: DataTypes.TEXT('tiny')},
+    messageId: {type: DataTypes.TEXT},
 })
 
 const MoveModel = sequelize.define( 'movement', {

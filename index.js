@@ -1255,9 +1255,6 @@ async function start() {
     
                 if (data === '/fromToSend') {
 
-                    
-                    bot.editMessageText(chatId, driver.messageId);
-                    
                     if (user.city === 'MSK') {
                         
                         if (user.messageId !== null) { 

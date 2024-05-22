@@ -569,7 +569,10 @@ async function start() {
                         ]
                     });
                                                                 
-                    if (user.messageId !== null) { 
+                    if (user.messageId !== null) {
+                        const userMessageId = user.messageId += 1;
+                        await bot.deleteMessage(chatId, userMessageId);
+                        
                         //Редактировать сообщение при наличии id сообщения
                         return bot.editMessageText(
                             `<b>Вы желаете отправить:</b>\nОткуда: ${user.fromToSend}\nКуда: ${user.whereToSend}\nКому: ${user.toWhomToSend}\nЧто: ${user.whatToSend}`, 
@@ -628,6 +631,9 @@ async function start() {
                     });
                                             
                     if (user.messageId !== null) { 
+                        const userMessageId = user.messageId += 1;
+                        await bot.deleteMessage(chatId, userMessageId);
+                        
                         //Редактировать сообщение при наличии id сообщения
                         return bot.editMessageText(
                             `<b>Вы желаете отправить:</b>\nОткуда: ${user.fromToSend}\nКуда: ${user.whereToSend}\nКому: ${user.toWhomToSend}\nЧто: ${user.whatToSend}`, 

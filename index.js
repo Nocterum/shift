@@ -1237,34 +1237,59 @@ async function start() {
                 
             } else if ( data === '/send' ) {
                 
+                await user.update({
+                    messageId: msg.message.message_id += 1
+                }, {
+                    where: {
+                        chatId: chatId
+                    }
+                });
+
                 return bot.sendMessage(
                     chatId,
                     `<b>Вы желаете отправить:</b>\nОткуда: ${user.fromToSend}\nКуда: ${user.whereToSend}\nКому: ${user.toWhomToSend}\nЧто: ${user.whatToSend}`,
                     sendOptions
-                )
+                );
     
             } else if ( data.includes('fromToSend') ) {
     
                 if (data === '/fromToSend') {
-    
+
+                    
+                    bot.editMessageText(chatId, driver.messageId);
+                    
                     if (user.city === 'MSK') {
-        
-                        return bot.sendMessage(
-                            chatId,
-                            `Выберите место <b>ОТКУДА</b> хотите отправить груз:`,
-                            MSK_fromToSendOptions
-                        )
-        
-                    } else {
-        
-                        return bot.sendMessage(
-                            chatId,
-                            `Выберите место <b>ОТКУДА</b> хотите отправить груз:`,
-                            SPB_fromToSendOptions
-                        )
-        
-                    } 
-    
+                        
+                        if (user.messageId !== null) { 
+                            //Редактировать сообщение при наличии id сообщения
+                            return bot.editMessageText(
+                                `Выберите место <b>ОТКУДА</b> хотите отправить груз:`,
+                                {
+                                    chat_id: chatId,
+                                    message_id: user.messageId,
+                                    inline_message_id: MSK_fromToSendOptions
+                                }
+                            );
+
+                        } else {
+
+                            return bot.sendMessage(
+                                chatId,
+                                `Выберите место <b>ОТКУДА</b> хотите отправить груз:`,
+                                MSK_fromToSendOptions
+                            )
+                        }
+                            
+                        } else {
+                            
+                            return bot.sendMessage(
+                                chatId,
+                                `Выберите место <b>ОТКУДА</b> хотите отправить груз:`,
+                                SPB_fromToSendOptions
+                            )
+                            
+                        } 
+                        
                 } else {
     
                     const dataFromToSend = data.split('=')[1];

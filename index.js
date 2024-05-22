@@ -1267,7 +1267,7 @@ async function start() {
                                     chat_id: chatId,
                                     message_id: user.messageId,
                                     parse_mode: 'HTML',
-                                    reply_markup: MSK_fromToSendOptionsReply_markup
+                                    reply_markup: MSK_fromToSendOptionsReply_markup,
                                 }
                             );
 

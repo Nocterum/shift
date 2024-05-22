@@ -10,6 +10,14 @@ const MSK_fromToSendOptionsReply_markup = JSON.stringify( {
     ]
 });
 
+const sendReply_markup = JSON.stringify( {
+    inline_keyboard: [
+        [ { text: 'Откуда', callback_data: '/fromToSend' }, { text: 'Куда', callback_data: '/whereToSend' } ],
+        [ { text: 'Кому', callback_data: '/toWhomToSend' }, { text: 'Что', callback_data: '/whatToSend' } ],
+        [ { text: `Создать перемещение+`, callback_data: '/createMovement' } ],
+    ]
+});
+
 module.exports = {
 
     mainMenuUsersOptions: {
@@ -77,15 +85,10 @@ module.exports = {
         })
     },
 
+    sendReply_markup,
     sendOptions: {
         parse_mode: 'HTML',
-        reply_markup: JSON.stringify( {
-            inline_keyboard: [
-                [ { text: 'Откуда', callback_data: '/fromToSend' }, { text: 'Куда', callback_data: '/whereToSend' } ],
-                [ { text: 'Кому', callback_data: '/toWhomToSend' }, { text: 'Что', callback_data: '/whatToSend' } ],
-                [ { text: `Создать перемещение+`, callback_data: '/createMovement' } ],
-            ]
-        })
+        reply_markup: sendReply_markup,
     },
 
     SPB_fromToSendOptions: {

@@ -16,6 +16,7 @@ const {
     settingsOptions,
     chooseCityOptions,
     sendOptions,
+    sendReply_markup,
     SPB_fromToSendOptions,
     MSK_fromToSendOptions,
     MSK_fromToSendOptionsReply_markup,
@@ -490,7 +491,10 @@ async function start() {
 
                 } else if ( text === '/mainmenu' ) {
 
-                    await user.update({lastCommand: text}, {
+                    await user.update({
+                        lastCommand: text,
+                        messageId: msg.message.message_id += 1,
+                    }, {
                         where: {
                             chatId: chatId
                         }
@@ -1238,19 +1242,27 @@ async function start() {
                 
             } else if ( data === '/send' ) {
                 
-                await user.update({
-                    messageId: msg.message.message_id += 1
-                }, {
-                    where: {
-                        chatId: chatId
-                    }
-                });
+                if (user.messageId !== null) {
 
-                return bot.sendMessage(
-                    chatId,
-                    `<b>Вы желаете отправить:</b>\nОткуда: ${user.fromToSend}\nКуда: ${user.whereToSend}\nКому: ${user.toWhomToSend}\nЧто: ${user.whatToSend}`,
-                    sendOptions
-                );
+                    //Редактировать сообщение при наличии id сообщения
+                    return bot.editMessageText(
+                        `<b>Вы желаете отправить:</b>\nОткуда: ${user.fromToSend}\nКуда: ${user.whereToSend}\nКому: ${user.toWhomToSend}\nЧто: ${user.whatToSend}`, 
+                        {
+                            chat_id: chatId,
+                            message_id: user.messageId,
+                            parse_mode: 'HTML',
+                            reply_markup: sendReply_markup,
+                        }
+                    );
+
+                } else {
+
+                    return bot.sendMessage(
+                        chatId,
+                        `<b>Вы желаете отправить:</b>\nОткуда: ${user.fromToSend}\nКуда: ${user.whereToSend}\nКому: ${user.toWhomToSend}\nЧто: ${user.whatToSend}`,
+                        sendOptions
+                    );
+                }
     
             } else if ( data.includes('fromToSend') ) {
     

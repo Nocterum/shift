@@ -1264,7 +1264,7 @@ async function start() {
                                 {
                                     chat_id: chatId,
                                     message_id: user.messageId,
-                                    inline_message_id: MSK_fromToSendOptions
+                                    MSK_fromToSendOptions
                                 }
                             );
 

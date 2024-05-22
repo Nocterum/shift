@@ -99,7 +99,8 @@ module.exports = {
             ]
         })
     },
-
+    
+    MSK_fromToSendOptionsReply_markup,
     MSK_fromToSendOptions: {
         parse_mode: 'HTML',
         reply_markup: MSK_fromToSendOptionsReply_markup

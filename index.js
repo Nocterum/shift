@@ -1279,6 +1279,15 @@ async function start() {
                     );
 
                 } else {
+                    //Запись ID следующего сообщения                      
+                    await user.update({
+                        messageId: msg.message.message_id += 1
+                    }, {
+                        where: {
+                                chatId: chatId
+                            }
+                        }
+                    );
 
                     return bot.sendMessage(
                         chatId,
@@ -1306,6 +1315,15 @@ async function start() {
                             );
 
                         } else {
+                            //Запись ID следующего сообщения 
+                            await user.update({
+                                messageId: msg.message.message_id += 1
+                            }, {
+                                where: {
+                                        chatId: chatId
+                                    }
+                                }
+                            );
 
                             return bot.sendMessage(
                                 chatId,
@@ -1317,18 +1335,28 @@ async function start() {
                     } else {
 
                         if (user.messageId !== null) { 
-                            //Редактировать сообщение при наличии id сообщения
+                            //Редактировать сообщение при наличии ID сообщения
                             return bot.editMessageText(
                                 `Выберите место <b>ОТКУДА</b> хотите отправить груз:`, 
                                 {
                                     chat_id: chatId,
                                     message_id: user.messageId,
                                     parse_mode: 'HTML',
-                                    reply_markup: SPB_fromToSendOptions,
+                                    reply_markup: SPB_fromToSendReply_markup,
                                 }
                             );
 
                         } else {
+                            //Запись ID следующего сообщения 
+                            await user.update({
+                                messageId: msg.message.message_id += 1
+                            }, {
+                                where: {
+                                        chatId: chatId
+                                    }
+                                }
+                            );
+
                             return bot.sendMessage(
                                 chatId,
                                 `Выберите место <b>ОТКУДА</b> хотите отправить груз:`,
@@ -1345,9 +1373,10 @@ async function start() {
                         fromToSend: dataFromToSend
                     }, {
                         where: {
-                            chatId: chatId
+                                chatId: chatId
+                            }
                         }
-                    })
+                    );
     
                     user = await UserModel.findOne({
                         where: {
@@ -1377,6 +1406,15 @@ async function start() {
                         );
 
                     } else {
+                        //Запись ID следующего сообщения    
+                        await user.update({
+                            messageId: msg.message.message_id += 1
+                        }, {
+                            where: {
+                                    chatId: chatId
+                                }
+                            }
+                        );
 
                         return bot.sendMessage(
                             chatId,
@@ -1391,34 +1429,81 @@ async function start() {
                 if ( data === '/whereToSend' ) {
     
                     if ( user.city === 'MSK' ) {
-    
-                        return bot.sendMessage(
-                            chatId,
-                            `Выберите место <b>КУДА</b> хотите отправить груз:`,
-                            MSK_whereToSendOptions
-                        )
+                            
+                        if (user.messageId !== null) { 
+                            //Редактировать сообщение при наличии id сообщения
+                            return bot.editMessageText(
+                                `Выберите место <b>КУДА</b> хотите отправить груз:`, 
+                                {
+                                    chat_id: chatId,
+                                    message_id: user.messageId,
+                                    parse_mode: 'HTML',
+                                    reply_markup: MSK_whereToSendReply_markup,
+                                }
+                            );
+
+                        } else {
+                            //Запись ID следующего сообщения 
+                            await user.update({
+                                messageId: msg.message.message_id += 1
+                            }, {
+                                where: {
+                                        chatId: chatId
+                                    }
+                                }
+                            );
+
+                            return bot.sendMessage(
+                                chatId,
+                                `Выберите место <b>КУДА</b> хотите отправить груз:`,
+                                MSK_whereToSendOptions
+                            );
+                        }
                         
                     } else {
-    
-                        return bot.sendMessage(
-                            chatId,
-                            `Выберите место <b>КУДА</b> хотите отправить груз:`,
-                            SPB_whereToSendOptions
-                        )
-    
+                        if (user.messageId !== null) {
+                            //Редактировать сообщение при наличии ID сообщения
+                            return bot.editMessageText(
+                                `Выберите место <b>ОТКУДА</b> хотите отправить груз:`, 
+                                {
+                                    chat_id: chatId,
+                                    message_id: user.messageId,
+                                    parse_mode: 'HTML',
+                                    reply_markup: SPB_whereToSendReply_markup,
+                                }
+                            );
+
+                        } else {
+                            //Запись ID следующего сообщения 
+                            await user.update({
+                                messageId: msg.message.message_id += 1
+                            }, {
+                                where: {
+                                        chatId: chatId
+                                    }
+                                }
+                            );
+
+                            return bot.sendMessage(
+                                chatId,
+                                `Выберите место <b>КУДА</b> хотите отправить груз:`,
+                                SPB_whereToSendOptions
+                            );
+                        }
                     } 
     
                 } else {
     
                     const dataWhereToSend = data.split('=')[1];
-    
+
                     await user.update({
                         whereToSend: dataWhereToSend
                     }, {
                         where: {
-                            chatId: chatId
+                                chatId: chatId
+                            }
                         }
-                    })
+                    );
     
                     user = await UserModel.findOne({
                         where: {
@@ -1431,15 +1516,39 @@ async function start() {
                             'whereToSend',
                             'toWhomToSend',
                             'whatToSend',
+                            'messageId'
                         ]
                     });
                     
-                    return bot.sendMessage(
-                        chatId,
-                        `<b>Вы желаете отправить:</b>\nОткуда: ${user.fromToSend}\nКуда: ${user.whereToSend}\nКому: ${user.toWhomToSend}\nЧто: ${user.whatToSend}`,
-                        sendOptions
-                    )
-    
+                    if (user.messageId !== null) { 
+                        //Редактировать сообщение при наличии id сообщения
+                        return bot.editMessageText(
+                            `<b>Вы желаете отправить:</b>\nОткуда: ${user.fromToSend}\nКуда: ${user.whereToSend}\nКому: ${user.toWhomToSend}\nЧто: ${user.whatToSend}`, 
+                            {
+                                chat_id: chatId,
+                                message_id: user.messageId,
+                                parse_mode: 'HTML',
+                                reply_markup: sendReply_markup,
+                            }
+                        );
+
+                    } else {
+                        //Запись ID следующего сообщения    
+                        await user.update({
+                            messageId: msg.message.message_id += 1
+                        }, {
+                            where: {
+                                    chatId: chatId
+                                }
+                            }
+                        );
+
+                        return bot.sendMessage(
+                            chatId,
+                            `<b>Вы желаете отправить:</b>\nОткуда: ${user.fromToSend}\nКуда: ${user.whereToSend}\nКому: ${user.toWhomToSend}\nЧто: ${user.whatToSend}`,
+                            sendOptions
+                        );
+                    }
                 }
     
             } else if ( data === '/toWhomToSend' ) {
@@ -1452,11 +1561,34 @@ async function start() {
                     }
                 })
 
-                return bot.sendMessage(
-                    chatId,
-                    `Напишите <b>КОМУ</b> вы хотите отправить:`,
-                    { parse_mode: 'HTML' }
-                )
+                if (user.messageId !== null) { 
+                    //Редактировать сообщение при наличии id сообщения
+                    return bot.editMessageText(
+                        `Напишите <b>КОМУ</b> вы хотите отправить:`, 
+                        {
+                            chat_id: chatId,
+                            message_id: user.messageId,
+                            parse_mode: 'HTML',
+                        }
+                    );
+
+                } else {
+                    //Запись ID следующего сообщения 
+                    await user.update({
+                        messageId: msg.message.message_id += 1
+                    }, {
+                        where: {
+                                chatId: chatId
+                            }
+                        }
+                    );
+
+                    return bot.sendMessage(
+                        chatId,
+                        `Напишите <b>КОМУ</b> вы хотите отправить:`,
+                        { parse_mode: 'HTML' }
+                    )
+                }
 
             } else if ( data === '/whatToSend' ) {
 
@@ -1468,11 +1600,34 @@ async function start() {
                     }
                 })
 
-                return bot.sendMessage(
-                    chatId,
-                    `Опишите <b>ЧТО</b> вы хотите отправить:`,
-                    { parse_mode: 'HTML' }
-                )
+                if (user.messageId !== null) { 
+                    //Редактировать сообщение при наличии id сообщения
+                    return bot.editMessageText(
+                        `Опишите <b>ЧТО</b> вы хотите отправить:`, 
+                        {
+                            chat_id: chatId,
+                            message_id: user.messageId,
+                            parse_mode: 'HTML',
+                        }
+                    );
+
+                } else {
+                    //Запись ID следующего сообщения 
+                    await user.update({
+                        messageId: msg.message.message_id += 1
+                    }, {
+                        where: {
+                                chatId: chatId
+                            }
+                        }
+                    );
+
+                    return bot.sendMessage(
+                        chatId,
+                        `Опишите <b>ЧТО</b> вы хотите отправить:`,
+                        { parse_mode: 'HTML' }
+                    );
+                }
 
             } else if ( data === '/createMovement' ) {
 
@@ -1495,7 +1650,7 @@ async function start() {
                         whatToSend: user.whatToSend,
                         whoSend: `${user.userName}=${user.chatId}`,
                         delivered: 'Нет'
-                    })
+                    });
                    
                     await user.update({
                         moveId:  `${newMoveId}`,
@@ -1507,21 +1662,69 @@ async function start() {
                         where: {
                             chatId: chatId
                         }
-                    })
-    
-                    return bot.sendMessage(
-                        chatId,
-                        `Перемещение ${newMoveId} создано!\nЕсли хотите <b>прикрепить фото</b> к перемещению ${newMoveId}, просто отправьте мне их сейчас.`,
-                        toMainMenu1Options
-                    );
+                    });
+                    
+                    if (user.messageId !== null) { 
+                        //Редактировать сообщение при наличии id сообщения
+                        return bot.editMessageText(
+                            `Перемещение ${newMoveId} создано!\nЕсли хотите <b>прикрепить фото</b> к перемещению ${newMoveId}, просто отправьте мне их сейчас.`, 
+                            {
+                                chat_id: chatId,
+                                message_id: user.messageId,
+                                parse_mode: 'HTML',
+                                reply_markup: toMainMenu1Reply_markup,
+                            }
+                        );
+
+                    } else {
+                        //Запись ID следующего сообщения 
+                        await user.update({
+                            messageId: msg.message.message_id += 1
+                        }, {
+                            where: {
+                                    chatId: chatId
+                                }
+                            }
+                        );
+
+                        return bot.sendMessage(
+                            chatId,
+                            `Перемещение ${newMoveId} создано!\nЕсли хотите <b>прикрепить фото</b> к перемещению ${newMoveId}, просто отправьте мне их сейчас.`,
+                            toMainMenu1Options
+                        );
+                    }
 
                 } else {
 
-                    return bot.sendMessage(
-                        chatId,
-                        `Перемещение с пустыми полями создать невозможно.\nПожалуйста заполните все поля для создания перемещения.`
-                    );
-                    
+                                        
+                    if (user.messageId !== null) { 
+                        //Редактировать сообщение при наличии id сообщения
+                        return bot.editMessageText(
+                            `Перемещение ${newMoveId} создано!\nЕсли хотите <b>прикрепить фото</b> к перемещению ${newMoveId}, просто отправьте мне их сейчас.`, 
+                            {
+                                chat_id: chatId,
+                                message_id: user.messageId,
+                                parse_mode: 'HTML',
+                                reply_markup: toMainMenu1Reply_markup,
+                            }
+                        );
+
+                    } else {
+                        //Запись ID следующего сообщения 
+                        await user.update({
+                            messageId: msg.message.message_id += 1
+                        }, {
+                            where: {
+                                    chatId: chatId
+                                }
+                            }
+                        );
+
+                        return bot.sendMessage(
+                            chatId,
+                            `Перемещение с пустыми полями создать невозможно.\nПожалуйста заполните все поля для создания перемещения.`
+                        );
+                    }
                 }
 
             } else if ( data.includes('whereGet') ) {

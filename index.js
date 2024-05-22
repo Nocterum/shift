@@ -16,10 +16,8 @@ const {
     settingsOptions,
     chooseCityOptions,
     sendOptions,
-    sendReply_markup,
     SPB_fromToSendOptions,
     MSK_fromToSendOptions,
-    MSK_fromToSendOptionsReply_markup,
     SPB_whereToSendOptions,
     MSK_whereToSendOptions,
     SPB_whereGetOptions, 
@@ -33,6 +31,15 @@ const {
     MSK_takeOptions,
     SPB_takeOptions
 } = require('./options');
+
+const {
+    mainMenuUsersReply_markup,
+    MSK_fromToSendOptionsReply_markup,
+    sendReply_markup,
+    mainMenuDriversReply_markup,
+    toMainMenuReply_markup
+} = require('./reply_markup');
+
 const sequelize = require('./db');
 const { UserModel, MoveModel } = require('./models');
 

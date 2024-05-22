@@ -493,7 +493,7 @@ async function start() {
 
                     await user.update({
                         lastCommand: text,
-                        messageId: msg.message.message_id += 1,
+                        messageId: msg.message_id += 1,
                     }, {
                         where: {
                             chatId: chatId

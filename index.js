@@ -1262,7 +1262,6 @@ async function start() {
                             //Редактировать сообщение при наличии id сообщения
                             return bot.editMessageText(
                                 `Выберите место <b>ОТКУДА</b> хотите отправить груз:`, 
-                                MSK_fromToSendOptions,
                                 {
                                     chat_id: chatId,
                                     message_id: user.messageId,

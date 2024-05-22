@@ -1,4 +1,4 @@
-MSK_fromToSendOptionsReply_markup = [JSON.stringify( {
+MSK_fromToSendOptionsReply_markup = JSON.stringify( {
     inline_keyboard: [
         [ { text: 'Глаголева', callback_data: 'fromToSend=Глаголева' } ],
         [ { text: 'Патрики', callback_data: 'fromToSend=Патрики' } ],
@@ -7,7 +7,7 @@ MSK_fromToSendOptionsReply_markup = [JSON.stringify( {
         [ { text: 'Офис', callback_data: 'fromToSend=Офис' } ],
         [ { text: 'Центральный склад', callback_data: 'fromToSend=Центральный склад' } ],
     ]
-})],
+}),
 
 module.exports = {
 

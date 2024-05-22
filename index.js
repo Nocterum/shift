@@ -565,14 +565,39 @@ async function start() {
                             'whereToSend',
                             'toWhomToSend',
                             'whatToSend',
+                            'messageId'
                         ]
                     });
-                    
-                    return bot.sendMessage(
-                        chatId,
-                        `<b>Вы желаете отправить:</b>\nОткуда: ${user.fromToSend}\nКуда: ${user.whereToSend}\nКому: ${user.toWhomToSend}\nЧто: ${user.whatToSend}`,
-                        sendOptions
-                    );
+                                                                
+                    if (user.messageId !== null) { 
+                        //Редактировать сообщение при наличии id сообщения
+                        return bot.editMessageText(
+                            `<b>Вы желаете отправить:</b>\nОткуда: ${user.fromToSend}\nКуда: ${user.whereToSend}\nКому: ${user.toWhomToSend}\nЧто: ${user.whatToSend}`, 
+                            {
+                                chat_id: chatId,
+                                message_id: user.messageId,
+                                parse_mode: 'HTML',
+                                reply_markup: sendReply_markup,
+                            }
+                        );
+
+                    } else {
+                        //Запись ID следующего сообщения 
+                        await user.update({
+                            messageId: msg.message_id += 1
+                        }, {
+                            where: {
+                                    chatId: chatId
+                                }
+                            }
+                        );
+
+                        return bot.sendMessage(
+                            chatId,
+                            `<b>Вы желаете отправить:</b>\nОткуда: ${user.fromToSend}\nКуда: ${user.whereToSend}\nКому: ${user.toWhomToSend}\nЧто: ${user.whatToSend}`,
+                            sendOptions
+                        );
+                    }
 
                 } else if ( 
                     user.lastCommand === '/whatToSend' &&
@@ -598,14 +623,39 @@ async function start() {
                             'whereToSend',
                             'toWhomToSend',
                             'whatToSend',
+                            'messageId'
                         ]
                     });
-                    
-                    return bot.sendMessage(
-                        chatId,
-                        `<b>Вы желаете отправить:</b>\nОткуда: ${user.fromToSend}\nКуда: ${user.whereToSend}\nКому: ${user.toWhomToSend}\nЧто: ${user.whatToSend}`,
-                        sendOptions
-                    );
+                                            
+                    if (user.messageId !== null) { 
+                        //Редактировать сообщение при наличии id сообщения
+                        return bot.editMessageText(
+                            `<b>Вы желаете отправить:</b>\nОткуда: ${user.fromToSend}\nКуда: ${user.whereToSend}\nКому: ${user.toWhomToSend}\nЧто: ${user.whatToSend}`, 
+                            {
+                                chat_id: chatId,
+                                message_id: user.messageId,
+                                parse_mode: 'HTML',
+                                reply_markup: sendReply_markup,
+                            }
+                        );
+
+                    } else {
+                        //Запись ID следующего сообщения 
+                        await user.update({
+                            messageId: msg.message_id += 1
+                        }, {
+                            where: {
+                                    chatId: chatId
+                                }
+                            }
+                        );
+
+                        return bot.sendMessage(
+                            chatId,
+                            `<b>Вы желаете отправить:</b>\nОткуда: ${user.fromToSend}\nКуда: ${user.whereToSend}\nКому: ${user.toWhomToSend}\nЧто: ${user.whatToSend}`,
+                            sendOptions
+                        );
+                    }
 
                 } else if (
                     user.lastCommand === '/commentMovement' &&

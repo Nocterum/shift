@@ -34,10 +34,26 @@ const {
 
 const {
     mainMenuUsersReply_markup,
-    MSK_fromToSendOptionsReply_markup,
-    sendReply_markup,
     mainMenuDriversReply_markup,
-    toMainMenuReply_markup
+    toMainMenuReply_markup,
+    toMainMenu1Reply_markup,
+    settingsReply_markup,
+    chooseCityReply_markup,
+    sendReply_markup,
+    SPB_fromToSendReply_markup,
+    MSK_fromToSendReply_markup,
+    SPB_whereToSendReply_markup,
+    MSK_whereToSendReply_markup,
+    SPB_whereGetReply_markup,
+    MSK_whereGetReply_markup,
+    commentReply_markup,
+    MSK_subDivisionReply_markup,
+    SPB_subDivisionReply_markup,
+    MSK_sendMessageReply_markup,
+    SPB_sendMessageReply_markup,
+    sendMessageReply_markup,
+    SPB_takeReply_markup,
+    MSK_takeReply_markup
 } = require('./reply_markup');
 
 const sequelize = require('./db');
@@ -1285,7 +1301,7 @@ async function start() {
                                     chat_id: chatId,
                                     message_id: user.messageId,
                                     parse_mode: 'HTML',
-                                    reply_markup: MSK_fromToSendOptionsReply_markup,
+                                    reply_markup: MSK_fromToSendReply_markup,
                                 }
                             );
 
@@ -1295,18 +1311,31 @@ async function start() {
                                 chatId,
                                 `Выберите место <b>ОТКУДА</b> хотите отправить груз:`,
                                 MSK_fromToSendOptions
-                            )
+                            );
                         }
                             
+                    } else {
+
+                        if (user.messageId !== null) { 
+                            //Редактировать сообщение при наличии id сообщения
+                            return bot.editMessageText(
+                                `Выберите место <b>ОТКУДА</b> хотите отправить груз:`, 
+                                {
+                                    chat_id: chatId,
+                                    message_id: user.messageId,
+                                    parse_mode: 'HTML',
+                                    reply_markup: SPB_fromToSendOptions,
+                                }
+                            );
+
                         } else {
-                            
                             return bot.sendMessage(
                                 chatId,
                                 `Выберите место <b>ОТКУДА</b> хотите отправить груз:`,
                                 SPB_fromToSendOptions
-                            )
-                            
-                        } 
+                            );
+                        }
+                    } 
                         
                 } else {
     
@@ -1331,15 +1360,30 @@ async function start() {
                             'whereToSend',
                             'toWhomToSend',
                             'whatToSend',
+                            'messageId'
                         ]
                     });
 
-                    return bot.sendMessage(
-                        chatId,
-                        `<b>Вы желаете отправить:</b>\nОткуда: ${user.fromToSend}\nКуда: ${user.whereToSend}\nКому: ${user.toWhomToSend}\nЧто: ${user.whatToSend}`,
-                        sendOptions
-                    ) 
-    
+                    if (user.messageId !== null) { 
+                        //Редактировать сообщение при наличии id сообщения
+                        return bot.editMessageText(
+                            `<b>Вы желаете отправить:</b>\nОткуда: ${user.fromToSend}\nКуда: ${user.whereToSend}\nКому: ${user.toWhomToSend}\nЧто: ${user.whatToSend}`, 
+                            {
+                                chat_id: chatId,
+                                message_id: user.messageId,
+                                parse_mode: 'HTML',
+                                reply_markup: sendReply_markup,
+                            }
+                        );
+
+                    } else {
+
+                        return bot.sendMessage(
+                            chatId,
+                            `<b>Вы желаете отправить:</b>\nОткуда: ${user.fromToSend}\nКуда: ${user.whereToSend}\nКому: ${user.toWhomToSend}\nЧто: ${user.whatToSend}`,
+                            sendOptions
+                        );
+                    }
                 }
     
             } else if ( data.includes('whereToSend') ) {

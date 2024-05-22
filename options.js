@@ -88,18 +88,19 @@ module.exports = {
         })
     },
 
+    MSK_fromToSendOptionsReply_markup: [JSON.stringify( {
+        inline_keyboard: [
+            [ { text: 'Глаголева', callback_data: 'fromToSend=Глаголева' } ],
+            [ { text: 'Патрики', callback_data: 'fromToSend=Патрики' } ],
+            [ { text: 'Арт-плей', callback_data: 'fromToSend=Арт-плей' } ],
+            [ { text: 'Рублёвка', callback_data: 'fromToSend=Рублёвка' } ],
+            [ { text: 'Офис', callback_data: 'fromToSend=Офис' } ],
+            [ { text: 'Центральный склад', callback_data: 'fromToSend=Центральный склад' } ],
+        ]
+    })],
     MSK_fromToSendOptions: {
         parse_mode: 'HTML',
-        reply_markup: JSON.stringify( {
-            inline_keyboard: [
-                [ { text: 'Глаголева', callback_data: 'fromToSend=Глаголева' } ],
-                [ { text: 'Патрики', callback_data: 'fromToSend=Патрики' } ],
-                [ { text: 'Арт-плей', callback_data: 'fromToSend=Арт-плей' } ],
-                [ { text: 'Рублёвка', callback_data: 'fromToSend=Рублёвка' } ],
-                [ { text: 'Офис', callback_data: 'fromToSend=Офис' } ],
-                [ { text: 'Центральный склад', callback_data: 'fromToSend=Центральный склад' } ],
-            ]
-        })
+        reply_markup: MSK_fromToSendOptionsReply_markup
     },
 
     SPB_whereToSendOptions: {

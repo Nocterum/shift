@@ -18,6 +18,7 @@ const {
     sendOptions,
     SPB_fromToSendOptions,
     MSK_fromToSendOptions,
+    MSK_fromToSendOptionsReply_markup,
     SPB_whereToSendOptions,
     MSK_whereToSendOptions,
     SPB_whereGetOptions, 
@@ -1260,11 +1261,13 @@ async function start() {
                         if (user.messageId !== null) { 
                             //Редактировать сообщение при наличии id сообщения
                             return bot.editMessageText(
-                                `Выберите место <b>ОТКУДА</b> хотите отправить груз:`, MSK_fromToSendOptions,
+                                `Выберите место <b>ОТКУДА</b> хотите отправить груз:`, 
+                                MSK_fromToSendOptions,
                                 {
                                     chat_id: chatId,
                                     message_id: user.messageId,
-                                    
+                                    parse_mode: 'HTML',
+                                    reply_markup: MSK_fromToSendOptionsReply_markup
                                 }
                             );
 

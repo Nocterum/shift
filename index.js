@@ -884,20 +884,67 @@ async function start() {
 
                         if (user.subDivision === 'Водитель') {
 
-                            return bot.sendMessage(
-                                chatId,
-                                message,
-                                mainMenuDriversOptions
-                            );
+                            if ( user.messageId ) { 
+                                //Редактировать сообщение при наличии id сообщения
+                                return bot.editMessageText(
+                                    message, 
+                                    {
+                                        chat_id: chatId,
+                                        message_id: user.messageId,
+                                        parse_mode: 'HTML',
+                                        reply_markup: mainMenuDriversReply_markup,
+                                    }
+                                );
+        
+                            } else {
+                                //Запись ID следующего сообщения 
+                                await user.update({
+                                    messageId: msg.message.message_id += 1
+                                }, {
+                                    where: {
+                                            chatId: chatId
+                                        }
+                                    }
+                                );
+        
+                                return bot.sendMessage(
+                                    chatId,
+                                    message,
+                                    mainMenuDriversOptions
+                                );
+                            }
 
                         } else {
 
-                            return bot.sendMessage(
-                                chatId,
-                                message,
-                                mainMenuUsersOptions
-                            );
-                            
+                            if ( user.messageId ) { 
+                                //Редактировать сообщение при наличии id сообщения
+                                return bot.editMessageText(
+                                    message, 
+                                    {
+                                        chat_id: chatId,
+                                        message_id: user.messageId,
+                                        parse_mode: 'HTML',
+                                        reply_markup: mainMenuUsersReply_markup,
+                                    }
+                                );
+        
+                            } else {
+                                //Запись ID следующего сообщения 
+                                await user.update({
+                                    messageId: msg.message.message_id += 1
+                                }, {
+                                    where: {
+                                            chatId: chatId
+                                        }
+                                    }
+                                );
+        
+                                return bot.sendMessage(
+                                    chatId,
+                                    message,
+                                    mainMenuUsersOptions
+                                );
+                            }
                         }
 
                     } else {

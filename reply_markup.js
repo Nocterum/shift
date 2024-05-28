@@ -1,7 +1,7 @@
 const mainMenuUsersReply_markup = JSON.stringify( {
     inline_keyboard: [
         [ { text: 'Отправить', callback_data: '/send' } ],  ////
-        [ { text: 'Получить', callback_data: '/whereGet' } ],
+        [ { text: 'Получить', callback_data: '/whereGet' } ], ////
         [ { text: 'Задания на перемещения', callback_data: '/movementList' } ],
         [ { text: 'Написать сообщение', callback_data: '/sendMessage' } ],
     ]
@@ -86,18 +86,18 @@ const MSK_whereToSendReply_markup = JSON.stringify( {
 });
 const SPB_whereGetReply_markup = JSON.stringify( {
     inline_keyboard: [
-        [ { text: 'Ланской', callback_data: 'whereGet=Ланской' } ],
-        [ { text: 'Большой', callback_data: 'whereGet=Большой' } ],
-        [ { text: 'Гороховая', callback_data: 'whereGet=Гороховая' } ],
-        [ { text: 'Склад Предпортовая', callback_data: 'whereGet=Склад Предпортовая' } ],
+        [ { text: 'Ланской', callback_data: 'whereGet=Ланской' } ], ////
+        [ { text: 'Большой', callback_data: 'whereGet=Большой' } ], ////
+        [ { text: 'Гороховая', callback_data: 'whereGet=Гороховая' } ], ////
+        [ { text: 'Склад Предпортовая', callback_data: 'whereGet=Склад Предпортовая' } ], ////
     ]
 });
 const MSK_whereGetReply_markup = JSON.stringify( {
     inline_keyboard: [
-        [ { text: 'Глаголева', callback_data: 'whereGet=Глаголева' }, { text: 'Патрики', callback_data: 'whereGet=Патрики' } ],
-        [ { text: 'Арт-плей', callback_data: 'whereGet=Арт-плей' }, { text: 'Рублёвка', callback_data: 'whereGet=Рублёвка' } ],
-        [ { text: 'Офис', callback_data: 'whereGet=Офис' } ],
-        [ { text: 'Центральный склад', callback_data: 'whereGet=Центральный склад' } ],
+        [ { text: 'Глаголева', callback_data: 'whereGet=Глаголева' }, { text: 'Патрики', callback_data: 'whereGet=Патрики' } ], ////
+        [ { text: 'Арт-плей', callback_data: 'whereGet=Арт-плей' }, { text: 'Рублёвка', callback_data: 'whereGet=Рублёвка' } ], ////
+        [ { text: 'Офис', callback_data: 'whereGet=Офис' } ],   ////
+        [ { text: 'Центральный склад', callback_data: 'whereGet=Центральный склад' } ], ////
     ]
 });
 const commentReply_markup = JSON.stringify( {

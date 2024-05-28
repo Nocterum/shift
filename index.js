@@ -1853,7 +1853,6 @@ async function start() {
                 } else {
 
                     const dataWhereGet = data.split('=')[1];
-                    await bot.deleteMessage(chatId, user.messageId);
 
                     const movements = await MoveModel.findAll({
                         where: {
@@ -1882,15 +1881,37 @@ async function start() {
                             )
 
                         };
-                        return;
+                        return bot.deleteMessage(chatId, user.messageId);
 
                     } else {
+                                
+                        if ( user.messageId ) { 
+                            //Редактировать сообщение при наличии id сообщения
+                            return bot.editMessageText(
+                                `Перемещений на ${dataWhereGet} нет.`, 
+                                {
+                                    chat_id: chatId,
+                                    message_id: user.messageId,
+                                    parse_mode: 'HTML',
+                                }
+                            );
 
-                        return bot.sendMessage(
-                            chatId,
-                            `Перемещений на ${dataWhereGet} нет.`
-                        );
+                        } else {
+                            //Запись ID следующего сообщения 
+                            await user.update({
+                                messageId: msg.message.message_id += 1
+                            }, {
+                                where: {
+                                        chatId: chatId
+                                    }
+                                }
+                            );
 
+                            return bot.sendMessage(
+                                chatId,
+                                `Перемещений на ${dataWhereGet} нет.`
+                            );
+                        }
                     }
                 
                 }

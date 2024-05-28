@@ -61,10 +61,8 @@ const SPB_fromToSendReply_markup = JSON.stringify( {
 });
 const MSK_fromToSendReply_markup = JSON.stringify( {
     inline_keyboard: [
-        [ { text: 'Глаголева', callback_data: 'fromToSend=Глаголева' } ],   ////
-        [ { text: 'Патрики', callback_data: 'fromToSend=Патрики' } ],   ////
-        [ { text: 'Арт-плей', callback_data: 'fromToSend=Арт-плей' } ], ////
-        [ { text: 'Рублёвка', callback_data: 'fromToSend=Рублёвка' } ], ////
+        [ { text: 'Глаголева', callback_data: 'fromToSend=Глаголева' }, { text: 'Патрики', callback_data: 'fromToSend=Патрики' } ],   ////
+        [ { text: 'Арт-плей', callback_data: 'fromToSend=Арт-плей' }, { text: 'Рублёвка', callback_data: 'fromToSend=Рублёвка' } ], ////
         [ { text: 'Офис', callback_data: 'fromToSend=Офис' } ], ////
         [ { text: 'Центральный склад', callback_data: 'fromToSend=Центральный склад' } ],   ////
     ]
@@ -80,10 +78,8 @@ const SPB_whereToSendReply_markup = JSON.stringify( {
 });
 const MSK_whereToSendReply_markup = JSON.stringify( {
     inline_keyboard: [
-        [ { text: 'Глаголева', callback_data: 'whereToSend=Глаголева' } ],  ////
-        [ { text: 'Патрики', callback_data: 'whereToSend=Патрики' } ],  ////
-        [ { text: 'Арт-плей', callback_data: 'whereToSend=Арт-плей' } ],    ////
-        [ { text: 'Рублёвка', callback_data: 'whereToSend=Рублёвка' } ],    ////
+        [ { text: 'Глаголева', callback_data: 'whereToSend=Глаголева' }, { text: 'Патрики', callback_data: 'whereToSend=Патрики' } ],  ////
+        [ { text: 'Арт-плей', callback_data: 'whereToSend=Арт-плей' }, { text: 'Рублёвка', callback_data: 'whereToSend=Рублёвка' } ],    ////
         [ { text: 'Офис', callback_data: 'whereToSend=Офис' } ],    ////
         [ { text: 'Центральный склад', callback_data: 'whereToSend=Центральный склад' } ],  ////
     ]
@@ -98,10 +94,8 @@ const SPB_whereGetReply_markup = JSON.stringify( {
 });
 const MSK_whereGetReply_markup = JSON.stringify( {
     inline_keyboard: [
-        [ { text: 'Глаголева', callback_data: 'whereGet=Глаголева' } ],
-        [ { text: 'Патрики', callback_data: 'whereGet=Патрики' } ],
-        [ { text: 'Арт-плей', callback_data: 'whereGet=Арт-плей' } ],
-        [ { text: 'Рублёвка', callback_data: 'whereGet=Рублёвка' } ],
+        [ { text: 'Глаголева', callback_data: 'whereGet=Глаголева' }, { text: 'Патрики', callback_data: 'whereGet=Патрики' } ],
+        [ { text: 'Арт-плей', callback_data: 'whereGet=Арт-плей' }, { text: 'Рублёвка', callback_data: 'whereGet=Рублёвка' } ],
         [ { text: 'Офис', callback_data: 'whereGet=Офис' } ],
         [ { text: 'Центральный склад', callback_data: 'whereGet=Центральный склад' } ],
     ]
@@ -114,12 +108,9 @@ const commentReply_markup = JSON.stringify( {
 
 const MSK_subDivisionReply_markup = JSON.stringify( {
     inline_keyboard: [
-        [ { text: 'Глаголева', callback_data: 'subDivision=Глаголева' } ],
-        [ { text: 'Патрики', callback_data: 'subDivision=Патрики' } ],
-        [ { text: 'Арт-плей', callback_data: 'subDivision=Арт-плей' } ],
-        [ { text: 'Рублёвка', callback_data: 'subDivision=Рублёвка' } ],
-        [ { text: 'Офис', callback_data: 'subDivision=Офис' } ],
-        [ { text: 'Центральный склад', callback_data: 'subDivision=Центральный склад' } ],
+        [ { text: 'Глаголева', callback_data: 'subDivision=Глаголева' }, { text: 'Патрики', callback_data: 'subDivision=Патрики' } ],
+        [ { text: 'Арт-плей', callback_data: 'subDivision=Арт-плей' }, { text: 'Рублёвка', callback_data: 'subDivision=Рублёвка' } ],
+        [ { text: 'Офис', callback_data: 'subDivision=Офис' }, { text: 'Центральный склад', callback_data: 'subDivision=Центральный склад' } ],
         [ { text: 'Я водитель', callback_data: 'subDivision=Водитель' } ],
     ]
 })
@@ -134,12 +125,9 @@ const SPB_subDivisionReply_markup = JSON.stringify( {
 })
 const MSK_sendMessageReply_markup = JSON.stringify( {
     inline_keyboard: [
-        [ { text: 'Глаголева', callback_data: 'sendMessage=Глаголева' } ],
-        [ { text: 'Патрики', callback_data: 'sendMessage=Патрики' } ],
-        [ { text: 'Арт-плей', callback_data: 'sendMessage=Арт-плей' } ],
-        [ { text: 'Рублёвка', callback_data: 'sendMessage=Рублёвка' } ],
-        [ { text: 'Офис', callback_data: 'sendMessage=Офис' } ],
-        [ { text: 'Центральный склад', callback_data: 'sendMessage=Центральный склад' } ],
+        [ { text: 'Глаголева', callback_data: 'sendMessage=Глаголева' }, { text: 'Патрики', callback_data: 'sendMessage=Патрики' } ],
+        [ { text: 'Арт-плей', callback_data: 'sendMessage=Арт-плей' }, { text: 'Рублёвка', callback_data: 'sendMessage=Рублёвка' } ],
+        [ { text: 'Офис', callback_data: 'sendMessage=Офис' }, { text: 'Центральный склад', callback_data: 'sendMessage=Центральный склад' } ],
         [ { text: 'Водители', callback_data: 'sendMessage=Водитель' } ],
     ]
 })
@@ -154,16 +142,11 @@ const SPB_sendMessageReply_markup = JSON.stringify( {
 })
 const sendMessageReply_markup = JSON.stringify( {
     inline_keyboard: [
-        [ { text: 'Глаголева', callback_data: 'sendMessage=Глаголева' } ],
-        [ { text: 'Патрики', callback_data: 'sendMessage=Патрики' } ],
-        [ { text: 'Арт-плей', callback_data: 'sendMessage=Арт-плей' } ],
-        [ { text: 'Рублёвка', callback_data: 'sendMessage=Рублёвка' } ],
-        [ { text: 'Офис', callback_data: 'sendMessage=Офис' } ],
-        [ { text: 'Центральный склад', callback_data: 'sendMessage=Центральный склад' } ],
-        [ { text: 'Ланской', callback_data: 'sendMessage=Ланской' } ],
-        [ { text: 'Большой', callback_data: 'sendMessage=Большой' } ],
-        [ { text: 'Горох', callback_data: 'sendMessage=Горох' } ],
-        [ { text: 'Склад Предпортовая', callback_data: 'sendMessage=Склад Предпортовая' } ],
+        [ { text: 'Глаголева', callback_data: 'sendMessage=Глаголева' }, { text: 'Патрики', callback_data: 'sendMessage=Патрики' } ],
+        [ { text: 'Арт-плей', callback_data: 'sendMessage=Арт-плей' }, { text: 'Рублёвка', callback_data: 'sendMessage=Рублёвка' } ],
+        [ { text: 'Офис', callback_data: 'sendMessage=Офис' }, { text: 'Центральный склад', callback_data: 'sendMessage=Центральный склад' } ],
+        [ { text: 'Ланской', callback_data: 'sendMessage=Ланской' }, { text: 'Большой', callback_data: 'sendMessage=Большой' } ],
+        [ { text: 'Горох', callback_data: 'sendMessage=Горох' }, { text: 'Склад Предпортовая', callback_data: 'sendMessage=Склад Предпортовая' } ],
         [ { text: 'Водителям', callback_data: 'sendMessage=Водитель' } ],
     ]
 })
@@ -177,10 +160,8 @@ const SPB_takeReply_markup = JSON.stringify( {
 })
 const MSK_takeReply_markup = JSON.stringify( {
     inline_keyboard: [
-        [ { text: 'Глаголева', callback_data: 'takeMovement=Глаголева' } ],
-        [ { text: 'Патрики', callback_data: 'takeMovement=Патрики' } ],
-        [ { text: 'Арт-плей', callback_data: 'takeMovement=Арт-плей' } ],
-        [ { text: 'Рублёвка', callback_data: 'takeMovement=Рублёвка' } ],
+        [ { text: 'Глаголева', callback_data: 'takeMovement=Глаголева' }, { text: 'Патрики', callback_data: 'takeMovement=Патрики' } ],
+        [ { text: 'Арт-плей', callback_data: 'takeMovement=Арт-плей' }, { text: 'Рублёвка', callback_data: 'takeMovement=Рублёвка' } ],
         [ { text: 'Офис', callback_data: 'takeMovement=Офис' } ],
         [ { text: 'Центральный склад', callback_data: 'takeMovement=Центральный склад' } ],
     ]

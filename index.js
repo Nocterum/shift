@@ -569,7 +569,7 @@ async function start() {
                         ]
                     });
                                                                 
-                    if (user.messageId !== null) {
+                    if ( user.messageId ) {
                         await bot.deleteMessage(chatId, msg.message_id);
                         
                         //Редактировать сообщение при наличии id сообщения
@@ -629,7 +629,7 @@ async function start() {
                         ]
                     });
                                             
-                    if (user.messageId !== null) { 
+                    if ( user.messageId ) { 
                         await bot.deleteMessage(chatId, msg.message_id);
 
                         //Редактировать сообщение при наличии id сообщения
@@ -1176,7 +1176,7 @@ async function start() {
 
                     if ( user.city === 'MSK' ) {
     
-                        await bot.sendMessage(
+                        return bot.sendMessage(
                             chatId,
                             `Укажите место <b>ГДЕ</b> вы забираете перемещение:`,
                             MSK_takeOptions
@@ -1184,7 +1184,7 @@ async function start() {
     
                     } else {
     
-                        await bot.sendMessage(
+                        return bot.sendMessage(
                             chatId,
                             `Укажите место <b>ГДЕ</b> вы забираете перемещение:`,
                             SPB_takeOptions
@@ -1319,7 +1319,7 @@ async function start() {
                 
             } else if ( data === '/send' ) {
                 
-                if (user.messageId !== null) {
+                if ( user.messageId ) {
 
                     //Редактировать сообщение при наличии id сообщения
                     return bot.editMessageText(
@@ -1356,7 +1356,7 @@ async function start() {
 
                     if (user.city === 'MSK') {
                         
-                        if (user.messageId !== null) { 
+                        if ( user.messageId ) { 
                             //Редактировать сообщение при наличии id сообщения
                             return bot.editMessageText(
                                 `Выберите место <b>ОТКУДА</b> хотите отправить груз:`, 
@@ -1388,7 +1388,7 @@ async function start() {
                             
                     } else {
 
-                        if (user.messageId !== null) { 
+                        if ( user.messageId ) { 
                             //Редактировать сообщение при наличии ID сообщения
                             return bot.editMessageText(
                                 `Выберите место <b>ОТКУДА</b> хотите отправить груз:`, 
@@ -1447,7 +1447,7 @@ async function start() {
                         ]
                     });
 
-                    if (user.messageId !== null) { 
+                    if ( user.messageId ) { 
                         //Редактировать сообщение при наличии id сообщения
                         return bot.editMessageText(
                             `<b>Вы желаете отправить:</b>\nОткуда: ${user.fromToSend}\nКуда: ${user.whereToSend}\nКому: ${user.toWhomToSend}\nЧто: ${user.whatToSend}`, 
@@ -1484,7 +1484,7 @@ async function start() {
     
                     if ( user.city === 'MSK' ) {
                             
-                        if (user.messageId !== null) { 
+                        if ( user.messageId ) { 
                             //Редактировать сообщение при наличии id сообщения
                             return bot.editMessageText(
                                 `Выберите место <b>КУДА</b> хотите отправить груз:`, 
@@ -1515,7 +1515,7 @@ async function start() {
                         }
                         
                     } else {
-                        if (user.messageId !== null) {
+                        if ( user.messageId ) {
                             //Редактировать сообщение при наличии ID сообщения
                             return bot.editMessageText(
                                 `Выберите место <b>ОТКУДА</b> хотите отправить груз:`, 
@@ -1574,7 +1574,7 @@ async function start() {
                         ]
                     });
                     
-                    if (user.messageId !== null) { 
+                    if ( user.messageId ) { 
                         //Редактировать сообщение при наличии id сообщения
                         return bot.editMessageText(
                             `<b>Вы желаете отправить:</b>\nОткуда: ${user.fromToSend}\nКуда: ${user.whereToSend}\nКому: ${user.toWhomToSend}\nЧто: ${user.whatToSend}`, 
@@ -1615,7 +1615,7 @@ async function start() {
                     }
                 })
 
-                if (user.messageId !== null) { 
+                if ( user.messageId ) { 
                     //Редактировать сообщение при наличии id сообщения
                     return bot.editMessageText(
                         `Напишите <b>КОМУ</b> вы хотите отправить:`, 
@@ -1654,7 +1654,7 @@ async function start() {
                     }
                 })
 
-                if (user.messageId !== null) { 
+                if ( user.messageId ) { 
                     //Редактировать сообщение при наличии id сообщения
                     return bot.editMessageText(
                         `Опишите <b>ЧТО</b> вы хотите отправить:`, 
@@ -1718,7 +1718,7 @@ async function start() {
                         }
                     });
                     
-                    if (user.messageId !== null) { 
+                    if ( user.messageId ) { 
                         //Редактировать сообщение при наличии id сообщения
                         return bot.editMessageText(
                             `Перемещение ${newMoveId} создано!\nЕсли хотите <b>прикрепить фото</b> к перемещению ${newMoveId}, просто отправьте мне их сейчас.`, 
@@ -1751,7 +1751,7 @@ async function start() {
                 } else {
 
                                         
-                    if (user.messageId !== null) { 
+                    if ( user.messageId ) { 
                         //Редактировать сообщение при наличии id сообщения
                         return bot.editMessageText(
                             `Перемещение ${newMoveId} создано!\nЕсли хотите <b>прикрепить фото</b> к перемещению ${newMoveId}, просто отправьте мне их сейчас.`, 
@@ -1786,26 +1786,74 @@ async function start() {
                 if (data === '/whereGet') {
 
                     if ( user.city === 'MSK' ) {
-    
-                        await bot.sendMessage(
-                            chatId,
-                            `Укажите место <b>ГДЕ</b> вы получаете груз:`,
-                            MSK_whereGetOptions
-                        )
-    
+                                
+                        if ( user.messageId ) { 
+                            //Редактировать сообщение при наличии id сообщения
+                            return bot.editMessageText(
+                                `Укажите место <b>ГДЕ</b> вы получаете груз:`, 
+                                {
+                                    chat_id: chatId,
+                                    message_id: user.messageId,
+                                    parse_mode: 'HTML',
+                                    reply_markup: MSK_whereGetReply_markup,
+                                }
+                            );
+
+                        } else {
+                            //Запись ID следующего сообщения 
+                            await user.update({
+                                messageId: msg.message.message_id += 1
+                            }, {
+                                where: {
+                                        chatId: chatId
+                                    }
+                                }
+                            );
+
+                            return bot.sendMessage(
+                                chatId,
+                                `Укажите место <b>ГДЕ</b> вы получаете груз:`,
+                                MSK_whereGetOptions
+                            );
+                        }
+                    
                     } else {
-    
-                        await bot.sendMessage(
-                            chatId,
-                            `Укажите место <b>ГДЕ</b> вы получаете груз:`,
-                            SPB_whereGetOptions
-                        )
-    
+                                    
+                        if ( user.messageId ) { 
+                            //Редактировать сообщение при наличии id сообщения
+                            return bot.editMessageText(
+                                `Укажите место <b>ГДЕ</b> вы получаете груз:`, 
+                                {
+                                    chat_id: chatId,
+                                    message_id: user.messageId,
+                                    parse_mode: 'HTML',
+                                    reply_markup: SPB_whereGetReply_markup,
+                                }
+                            );
+
+                        } else {
+                            //Запись ID следующего сообщения 
+                            await user.update({
+                                messageId: msg.message.message_id += 1
+                            }, {
+                                where: {
+                                        chatId: chatId
+                                    }
+                                }
+                            );
+
+                            return bot.sendMessage(
+                                chatId,
+                                `Укажите место <b>ГДЕ</b> вы получаете груз:`,
+                                SPB_whereGetOptions
+                            );
+                        }
                     }
 
                 } else {
 
                     const dataWhereGet = data.split('=')[1];
+                    await bot.deleteMessage(chatId, user.messageId);
 
                     const movements = await MoveModel.findAll({
                         where: {
@@ -1814,7 +1862,7 @@ async function start() {
                         },
                         order: [['id', 'DESC']]
                     });
-
+                    
                     if ( movements.length > 0 ) {
 
                         for (const movement of movements) {
@@ -1834,6 +1882,7 @@ async function start() {
                             )
 
                         };
+                        return;
 
                     } else {
 

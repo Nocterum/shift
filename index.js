@@ -1304,16 +1304,6 @@ async function start() {
 
                     const dataWhereTake = data.split('=')[1];
 
-                    //Запись ID следующего сообщения                      
-                    await user.update({
-                        messageId: msg.message.message_id += 1
-                    }, {
-                        where: {
-                                chatId: chatId
-                            }
-                        }
-                    );
-
                     const movements = await MoveModel.findAll({
                         where: {
                             fromToSend: dataWhereTake,
@@ -1322,10 +1312,35 @@ async function start() {
                         },
                         order: [['id', 'DESC']]
                     });
-
-                    let i = 0; // Объявление переменной-счетчика итераций
-
+                    
+                    
                     if ( movements.length > 0 ) {
+                        
+                        let i = 0; // Объявление переменной-счетчика итераций
+                        const takeMenu = user.messageId;
+
+                        //Запись ID следующего сообщения                      
+                        await user.update({
+                            messageId: msg.message.message_id += 1
+                        }, {
+                            where: {
+                                    chatId: chatId
+                                }
+                            }
+                        );
+                        
+                        const user = await UserModel.findOne({
+                            where: {
+                                chatId: chatId
+                            },
+                            attributes: [
+                                'id',
+                                'chatId',
+                                'lastCommand',
+                                'userName',
+                                'messageId'
+                            ]
+                        });
                         
                         for (const movement of movements) {
                             
@@ -1347,7 +1362,7 @@ async function start() {
                             );
                             i++; // Счетчик +1 в конце очередной итерации
                         };
-                        return;
+                        return bot.deleteMessage(chatId, takeMenu);
                         
                     } else {
 
@@ -1357,7 +1372,7 @@ async function start() {
                                 `Отсюда (${dataWhereTake}) нечего забирать.`, 
                                 {
                                     chat_id: chatId,
-                                    message_id: msg.message.message_id,
+                                    message_id: user.messageId,
                                     parse_mode: 'HTML',
                                 }
                             );
@@ -1997,16 +2012,6 @@ async function start() {
 
                     const dataWhereGet = data.split('=')[1];
 
-                    //Запись ID следующего сообщения                      
-                    await user.update({
-                        messageId: msg.message.message_id += 1
-                    }, {
-                        where: {
-                                chatId: chatId
-                            }
-                        }
-                    );
-
                     const movements = await MoveModel.findAll({
                         where: {
                             whereToSend: dataWhereGet,
@@ -2015,9 +2020,34 @@ async function start() {
                         order: [['id', 'DESC']]
                     });
                     
-                    let i = 0; // Объявление переменной-счетчика итераций
-
+                    
                     if ( movements.length > 0 ) {
+
+                        let i = 0; // Объявление переменной-счетчика итераций
+                        const whereGetMenu = user.messageId;
+
+                        //Запись ID следующего сообщения                      
+                        await user.update({
+                            messageId: msg.message.message_id += 1
+                        }, {
+                            where: {
+                                    chatId: chatId
+                                }
+                            }
+                        );
+    
+                        const user = await UserModel.findOne({
+                            where: {
+                                chatId: chatId
+                            },
+                            attributes: [
+                                'id',
+                                'chatId',
+                                'lastCommand',
+                                'userName',
+                                'messageId'
+                            ]
+                        });
 
                         for (const movement of movements) {
 
@@ -2039,7 +2069,7 @@ async function start() {
                             );
                             i++; // Счетчик +1 в конце очередной итерации
                         };
-                        return bot.deleteMessage(chatId, user.messageId);
+                        return bot.deleteMessage(chatId, whereGetMenu);
 
                     } else {
                                 

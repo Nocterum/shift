@@ -1313,11 +1313,24 @@ async function start() {
                         order: [['id', 'DESC']]
                     });
                     
+                    const user = await UserModel.findOne({
+                        where: {
+                            chatId: chatId
+                        },
+                        attributes: [
+                            'id',
+                            'chatId',
+                            'lastCommand',
+                            'userName',
+                            'messageId'
+                        ]
+                    });
                     
                     if ( movements.length > 0 ) {
                         
                         let i = 0; // Объявление переменной-счетчика итераций
                         const takeMenu = user.messageId;
+                        
 
                         //Запись ID следующего сообщения                      
                         await user.update({
@@ -1328,19 +1341,6 @@ async function start() {
                                 }
                             }
                         );
-                        
-                        const user = await UserModel.findOne({
-                            where: {
-                                chatId: chatId
-                            },
-                            attributes: [
-                                'id',
-                                'chatId',
-                                'lastCommand',
-                                'userName',
-                                'messageId'
-                            ]
-                        });
                         
                         for (const movement of movements) {
                             
@@ -2020,7 +2020,19 @@ async function start() {
                         order: [['id', 'DESC']]
                     });
                     
-                    
+                    const user = await UserModel.findOne({
+                        where: {
+                            chatId: chatId
+                        },
+                        attributes: [
+                            'id',
+                            'chatId',
+                            'lastCommand',
+                            'userName',
+                            'messageId'
+                        ]
+                    });
+
                     if ( movements.length > 0 ) {
 
                         let i = 0; // Объявление переменной-счетчика итераций
@@ -2035,19 +2047,6 @@ async function start() {
                                 }
                             }
                         );
-    
-                        const user = await UserModel.findOne({
-                            where: {
-                                chatId: chatId
-                            },
-                            attributes: [
-                                'id',
-                                'chatId',
-                                'lastCommand',
-                                'userName',
-                                'messageId'
-                            ]
-                        });
 
                         for (const movement of movements) {
 

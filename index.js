@@ -1304,16 +1304,6 @@ async function start() {
 
                     const dataWhereTake = data.split('=')[1];
 
-                    //Запись ID следующего сообщения                      
-                    await user.update({
-                        messageId: msg.message.message_id += 1
-                    }, {
-                        where: {
-                                chatId: chatId
-                            }
-                        }
-                    );
-
                     const movements = await MoveModel.findAll({
                         where: {
                             fromToSend: dataWhereTake,
@@ -1996,16 +1986,6 @@ async function start() {
                 } else {
 
                     const dataWhereGet = data.split('=')[1];
-
-                    //Запись ID следующего сообщения                      
-                    await user.update({
-                        messageId: msg.message.message_id += 1
-                    }, {
-                        where: {
-                                chatId: chatId
-                            }
-                        }
-                    );
 
                     const movements = await MoveModel.findAll({
                         where: {

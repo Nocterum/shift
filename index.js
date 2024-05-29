@@ -1035,7 +1035,7 @@ async function start() {
                                 `У вас на руках пока нет ни одного актуального перемещения.`,
                                 {
                                     chat_id: chatId,
-                                    message_id: takaedMoveIdMessageId,
+                                    message_id: user.messageId,
                                     parse_mode: 'HTML',
                                     reply_markup: mainMenuDriversReply_markup
                                 }
@@ -1050,7 +1050,7 @@ async function start() {
                         `У вас на руках пока нет ни одного актуального перемещения.`,
                         {
                             chat_id: chatId,
-                            message_id: takaedMoveIdMessageId,
+                            message_id: user.messageId,
                             parse_mode: 'HTML',
                             reply_markup: mainMenuDriversReply_markup
                         }

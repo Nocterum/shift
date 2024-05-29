@@ -1304,14 +1304,12 @@ async function start() {
 
                     const dataWhereTake = data.split('=')[1];
                     
-                    if ( dataWhereTake == 'Центральный склад' ) {
-
-                        const movements = await MoveModel.findAll({
-                            where: {
+                    const movements = await MoveModel.findAll({
+                        where: {
                                 fromToSend: {
                                     [Op.or]: [
                                         { [Op.like]: '%ЦС%' },
-                                        { [Op.like]: `%Центральный склад%` }
+                                        { [Op.like]: `%${dataWhereTake}%` }
                                     ]
                                 },
                                 delivered: 'Нет',
@@ -1320,17 +1318,6 @@ async function start() {
                             order: [['id', 'DESC']]
                         });
 
-                    } else {
-
-                        const movements = await MoveModel.findAll({
-                            where: {
-                                fromToSend: dataWhereTake,
-                                delivered: 'Нет',
-                                whoDriver: null
-                            },
-                            order: [['id', 'DESC']]
-                        });
-                    }
 
                     const user = await UserModel.findOne({
                         where: {

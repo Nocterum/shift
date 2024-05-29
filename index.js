@@ -1279,9 +1279,9 @@ async function start() {
                     }); 
 
                     if ( movements.length > 0 ) {
-                        
+                        let i = 0;
                         for (const movement of movements) {
-                            let i = 0;
+                            
                             let nextMessageId = user.messageId + i;
                             const createdDateTime = moment.utc(movement.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
 

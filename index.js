@@ -1062,24 +1062,16 @@ async function start() {
 
                 if ( data === '/sendMessage' ) {
 
-                    if ( user.city === 'MSK' ) {
+                    return bot.editMessageText(
+                        `Выберите подразделение к которому принадлежит ваш адресат:`,
+                        {
+                            chat_id: chatId,
+                            message_id: user.messageId,
+                            parse_mode: 'HTML',
+                            reply_markup: sendMessageReply_markup
+                        }
+                    );
     
-                        return bot.sendMessage(
-                            chatId,
-                            `Выберите подразделение к которому принадлежит ваш адресат:`,
-                            sendMessageOptions
-                        );
-    
-                    } else {
-    
-                        return bot.sendMessage(
-                            chatId,
-                            `Выберите подразделение к которому принадлежит ваш адресат:`,
-                            sendMessageOptions
-                        );
-    
-                    }
-
                 } else if ( data.includes(`sendMessageWho`) ) {
 
                     await user.update({

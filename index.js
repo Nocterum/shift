@@ -1357,7 +1357,7 @@ async function start() {
                                 `Отсюда (${dataWhereTake}) нечего забирать.`, 
                                 {
                                     chat_id: chatId,
-                                    message_id: user.messageId,
+                                    message_id: msg.message.message_id,
                                     parse_mode: 'HTML',
                                 }
                             );

@@ -1150,6 +1150,7 @@ async function start() {
             } else if ( data.includes('delivered') ) {
 
                 const deliveredMoveId = data.split('=')[1];
+                const takaedMoveIdMessageId = data.split('=')[2];
 
                 const movement = await MoveModel.findOne({
                     where: {
@@ -1180,10 +1181,14 @@ async function start() {
                     { parse_mode: 'HTML' }
                 );
 
-                return bot.sendMessage(
-                    chatId,
+                return bot.editMessageText(
                     `Перемещение <b>${deliveredMoveId}</b> принято вами.`,
-                    commentOptions
+                    {
+                        chat_id: chatId,
+                        message_id: takaedMoveIdMessageId,
+                        parse_mode: 'HTML',
+                        reply_markup: commentReply_markup
+                    }
                 );
 
             } else if ( data.includes('taked') ) {
@@ -1206,15 +1211,15 @@ async function start() {
                 });
                                                 
 
-                    //Редактировать сообщение при наличии id сообщения
-                    await bot.editMessageText(
-                        `Вы подтвердли, что забрали перемещение <code>${takedMoveId}</code>.`, 
-                        {
-                            chat_id: chatId,
-                            message_id: takaedMoveIdMessageId,
-                            parse_mode: 'HTML',
-                        }
-                    );
+                //Редактировать сообщение при наличии id сообщения
+                await bot.editMessageText(
+                    `Вы подтвердли, что забрали перемещение <code>${takedMoveId}</code>.`, 
+                    {
+                        chat_id: chatId,
+                        message_id: takaedMoveIdMessageId,
+                        parse_mode: 'HTML',
+                    }
+                );
                 
                 const senderChatId = movement.whoSend.split('=')[1];
                 
@@ -1229,21 +1234,70 @@ async function start() {
                 if (data === '/takeMovement') {
 
                     if ( user.city === 'MSK' ) {
-    
-                        return bot.sendMessage(
-                            chatId,
-                            `Укажите место <b>ГДЕ</b> вы забираете перемещение:`,
-                            MSK_takeOptions
-                        );
-    
+                                        
+                        if ( user.messageId ) { 
+                            //Редактировать сообщение при наличии id сообщения
+                            return bot.editMessageText(
+                                `Укажите место <b>ГДЕ</b> вы забираете перемещение:`, 
+                                {
+                                    chat_id: chatId,
+                                    message_id: user.messageId,
+                                    parse_mode: 'HTML',
+                                    reply_markup: MSK_takeReply_markup,
+                                }
+                            );
+
+                        } else {
+
+                            //Запись ID следующего сообщения 
+                            await user.update({
+                                messageId: msg.message.message_id += 1
+                            }, {
+                                where: {
+                                        chatId: chatId
+                                    }
+                                }
+                            );
+
+                            return bot.sendMessage(
+                                chatId,
+                                `Укажите место <b>ГДЕ</b> вы забираете перемещение:`,
+                                MSK_takeOptions
+                            );
+                        }
+
                     } else {
-    
-                        return bot.sendMessage(
-                            chatId,
-                            `Укажите место <b>ГДЕ</b> вы забираете перемещение:`,
-                            SPB_takeOptions
-                        );
-    
+                                            
+                        if ( user.messageId ) { 
+                            //Редактировать сообщение при наличии id сообщения
+                            return bot.editMessageText(
+                                `Укажите место <b>ГДЕ</b> вы забираете перемещение:`, 
+                                {
+                                    chat_id: chatId,
+                                    message_id: user.messageId,
+                                    parse_mode: 'HTML',
+                                    reply_markup: SPB_takeReply_markup,
+                                }
+                            );
+
+                        } else {
+
+                            //Запись ID следующего сообщения 
+                            await user.update({
+                                messageId: msg.message.message_id += 1
+                            }, {
+                                where: {
+                                        chatId: chatId
+                                    }
+                                }
+                            );
+
+                            return bot.sendMessage(
+                                chatId,
+                                `Укажите место <b>ГДЕ</b> вы забираете перемещение:`,
+                                SPB_takeOptions
+                            );
+                        }
                     }
 
                 } else {
@@ -1267,13 +1321,15 @@ async function start() {
                             whoDriver: null
                         },
                         order: [['id', 'DESC']]
-                    }); 
-                    let i = 0;
+                    });
+
+                    let i = 0; // Объявление переменной-счетчика итераций
+
                     if ( movements.length > 0 ) {
                         
                         for (const movement of movements) {
                             
-                            let nextMessageId = user.messageId + i;
+                            let nextMessageId = user.messageId + i; // Добавление в модификатора к messageId
                             const createdDateTime = moment.utc(movement.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
 
                             await bot.sendMessage(
@@ -1289,17 +1345,39 @@ async function start() {
                                     })
                                 }
                             );
-                            i++;
+                            i++; // Счетчик +1 в конце очередной итерации
                         };
                         return;
                         
                     } else {
 
-                        return bot.sendMessage(
-                            chatId,
-                            `Отсюда (${dataWhereTake}) нечего забирать.`
-                        );
+                        if ( user.messageId ) { 
+                            //Редактировать сообщение при наличии id сообщения
+                            return bot.editMessageText(
+                                `Отсюда (${dataWhereTake}) нечего забирать.`, 
+                                {
+                                    chat_id: chatId,
+                                    message_id: user.messageId,
+                                    parse_mode: 'HTML',
+                                }
+                            );
 
+                        } else {
+                            //Запись ID следующего сообщения 
+                            await user.update({
+                                messageId: msg.message.message_id += 1
+                            }, {
+                                where: {
+                                        chatId: chatId
+                                    }
+                                }
+                            );
+
+                            return bot.sendMessage(
+                                chatId,
+                                `Отсюда (${dataWhereTake}) нечего забирать.`
+                            );
+                        }
                     }
                 
                 }
@@ -1919,6 +1997,16 @@ async function start() {
 
                     const dataWhereGet = data.split('=')[1];
 
+                    //Запись ID следующего сообщения                      
+                    await user.update({
+                        messageId: msg.message.message_id += 1
+                    }, {
+                        where: {
+                                chatId: chatId
+                            }
+                        }
+                    );
+
                     const movements = await MoveModel.findAll({
                         where: {
                             whereToSend: dataWhereGet,
@@ -1927,9 +2015,14 @@ async function start() {
                         order: [['id', 'DESC']]
                     });
                     
+                    let i = 0; // Объявление переменной-счетчика итераций
+
                     if ( movements.length > 0 ) {
 
                         for (const movement of movements) {
+
+                            
+                            let nextMessageId = user.messageId + i; // Добавление в модификатора к messa
 
                             await bot.sendMessage(
                                 chatId,
@@ -1938,13 +2031,13 @@ async function start() {
                                     parse_mode: 'HTML',
                                     reply_markup: JSON.stringify( {
                                         inline_keyboard: [
-                                            [ { text: 'Получено', callback_data: `delivered=${movement.moveId}` } ],
-                                            [ { text: 'Посмотреть фото', callback_data: `showPhoto=${movement.moveId}` } ],
+                                            [ { text: 'Получено', callback_data: `delivered=${movement.moveId}=${nextMessageId}` } ],
+                                            [ { text: 'Посмотреть фото', callback_data: `showPhoto=${movement.moveId}=${nextMessageId}` } ],
                                         ]
                                     })
                                 }
-                            )
-
+                            );
+                            i++; // Счетчик +1 в конце очередной итерации
                         };
                         return bot.deleteMessage(chatId, user.messageId);
 

@@ -1,7 +1,7 @@
 const mainMenuUsersReply_markup = JSON.stringify( {
     inline_keyboard: [
-        [ { text: 'Отправить', callback_data: '/send' } ],  ////
-        [ { text: 'Получить', callback_data: '/whereGet' } ], ////
+        [ { text: 'Отправить', callback_data: '/send' } ],  //внедрён
+        [ { text: 'Получить', callback_data: '/whereGet' } ], //внедрён
         [ { text: 'Задания на перемещения', callback_data: '/movementList' } ],
         [ { text: 'Написать сообщение', callback_data: '/sendMessage' } ],
     ]
@@ -45,7 +45,7 @@ const chooseCityReply_markup = JSON.stringify( {
 
 const sendReply_markup = JSON.stringify( {
     inline_keyboard: [
-        [ { text: 'Откуда', callback_data: '/fromToSend' }, { text: 'Куда', callback_data: '/whereToSend' } ],  //// ////
+        [ { text: 'Откуда', callback_data: '/fromToSend' }, { text: 'Куда', callback_data: '/whereToSend' } ],  //внедрён //внедрён
         [ { text: 'Кому', callback_data: '/toWhomToSend' }, { text: 'Что', callback_data: '/whatToSend' } ],    // //
         [ { text: `Создать перемещение+`, callback_data: '/createMovement' } ],
     ]
@@ -53,51 +53,51 @@ const sendReply_markup = JSON.stringify( {
 
 const SPB_fromToSendReply_markup = JSON.stringify( {
     inline_keyboard: [
-        [ { text: 'Ланской', callback_data: 'fromToSend=Ланской' } ],   ////
-        [ { text: 'Большой', callback_data: 'fromToSend=Большой' } ],   ////
-        [ { text: 'Гороховая', callback_data: 'fromToSend=Гороховая' } ],   ////
-        [ { text: 'Склад Предпортовая', callback_data: 'fromToSend=Склад Предпортовая' } ], ////
+        [ { text: 'Ланской', callback_data: 'fromToSend=Ланской' } ],   //внедрён
+        [ { text: 'Большой', callback_data: 'fromToSend=Большой' } ],   //внедрён
+        [ { text: 'Гороховая', callback_data: 'fromToSend=Гороховая' } ],   //внедрён
+        [ { text: 'Склад Предпортовая', callback_data: 'fromToSend=Склад Предпортовая' } ], //внедрён
     ]
 });
 const MSK_fromToSendReply_markup = JSON.stringify( {
     inline_keyboard: [
-        [ { text: 'Глаголева', callback_data: 'fromToSend=Глаголева' }, { text: 'Патрики', callback_data: 'fromToSend=Патрики' } ],   ////
-        [ { text: 'Арт-плей', callback_data: 'fromToSend=Арт-плей' }, { text: 'Рублёвка', callback_data: 'fromToSend=Рублёвка' } ], ////
-        [ { text: 'Офис', callback_data: 'fromToSend=Офис' } ], ////
-        [ { text: 'Центральный склад', callback_data: 'fromToSend=Центральный склад' } ],   ////
+        [ { text: 'Глаголева', callback_data: 'fromToSend=Глаголева' }, { text: 'Патрики', callback_data: 'fromToSend=Патрики' } ],   //внедрён
+        [ { text: 'Арт-плей', callback_data: 'fromToSend=Арт-плей' }, { text: 'Рублёвка', callback_data: 'fromToSend=Рублёвка' } ], //внедрён
+        [ { text: 'Офис', callback_data: 'fromToSend=Офис' } ], //внедрён
+        [ { text: 'Центральный склад', callback_data: 'fromToSend=Центральный склад' } ],   //внедрён
     ]
 });
 
 const SPB_whereToSendReply_markup = JSON.stringify( {
     inline_keyboard: [
-        [ { text: 'Ланской', callback_data: 'whereToSend=Ланской' } ],  ////
-        [ { text: 'Большой', callback_data: 'whereToSend=Большой' } ],  ////
-        [ { text: 'Гороховая', callback_data: 'whereToSend=Гороховая' } ],  ////
-        [ { text: 'Склад Предпортовая', callback_data: 'whereToSend=Склад Предпортовая' } ],    ////
+        [ { text: 'Ланской', callback_data: 'whereToSend=Ланской' } ],  //внедрён
+        [ { text: 'Большой', callback_data: 'whereToSend=Большой' } ],  //внедрён
+        [ { text: 'Гороховая', callback_data: 'whereToSend=Гороховая' } ],  //внедрён
+        [ { text: 'Склад Предпортовая', callback_data: 'whereToSend=Склад Предпортовая' } ],    //внедрён
     ]
 });
 const MSK_whereToSendReply_markup = JSON.stringify( {
     inline_keyboard: [
-        [ { text: 'Глаголева', callback_data: 'whereToSend=Глаголева' }, { text: 'Патрики', callback_data: 'whereToSend=Патрики' } ],  ////
-        [ { text: 'Арт-плей', callback_data: 'whereToSend=Арт-плей' }, { text: 'Рублёвка', callback_data: 'whereToSend=Рублёвка' } ],    ////
-        [ { text: 'Офис', callback_data: 'whereToSend=Офис' } ],    ////
-        [ { text: 'Центральный склад', callback_data: 'whereToSend=Центральный склад' } ],  ////
+        [ { text: 'Глаголева', callback_data: 'whereToSend=Глаголева' }, { text: 'Патрики', callback_data: 'whereToSend=Патрики' } ],  //внедрён
+        [ { text: 'Арт-плей', callback_data: 'whereToSend=Арт-плей' }, { text: 'Рублёвка', callback_data: 'whereToSend=Рублёвка' } ],    //внедрён
+        [ { text: 'Офис', callback_data: 'whereToSend=Офис' } ],    //внедрён
+        [ { text: 'Центральный склад', callback_data: 'whereToSend=Центральный склад' } ],  //внедрён
     ]
 });
 const SPB_whereGetReply_markup = JSON.stringify( {
     inline_keyboard: [
-        [ { text: 'Ланской', callback_data: 'whereGet=Ланской' } ], ////
-        [ { text: 'Большой', callback_data: 'whereGet=Большой' } ], ////
-        [ { text: 'Гороховая', callback_data: 'whereGet=Гороховая' } ], ////
-        [ { text: 'Склад Предпортовая', callback_data: 'whereGet=Склад Предпортовая' } ], ////
+        [ { text: 'Ланской', callback_data: 'whereGet=Ланской' } ], //внедрён
+        [ { text: 'Большой', callback_data: 'whereGet=Большой' } ], //внедрён
+        [ { text: 'Гороховая', callback_data: 'whereGet=Гороховая' } ], //внедрён
+        [ { text: 'Склад Предпортовая', callback_data: 'whereGet=Склад Предпортовая' } ], //внедрён
     ]
 });
 const MSK_whereGetReply_markup = JSON.stringify( {
     inline_keyboard: [
-        [ { text: 'Глаголева', callback_data: 'whereGet=Глаголева' }, { text: 'Патрики', callback_data: 'whereGet=Патрики' } ], ////
-        [ { text: 'Арт-плей', callback_data: 'whereGet=Арт-плей' }, { text: 'Рублёвка', callback_data: 'whereGet=Рублёвка' } ], ////
-        [ { text: 'Офис', callback_data: 'whereGet=Офис' } ],   ////
-        [ { text: 'Центральный склад', callback_data: 'whereGet=Центральный склад' } ], ////
+        [ { text: 'Глаголева', callback_data: 'whereGet=Глаголева' }, { text: 'Патрики', callback_data: 'whereGet=Патрики' } ], //внедрён
+        [ { text: 'Арт-плей', callback_data: 'whereGet=Арт-плей' }, { text: 'Рублёвка', callback_data: 'whereGet=Рублёвка' } ], //внедрён
+        [ { text: 'Офис', callback_data: 'whereGet=Офис' } ],   //внедрён
+        [ { text: 'Центральный склад', callback_data: 'whereGet=Центральный склад' } ], //внедрён
     ]
 });
 const commentReply_markup = JSON.stringify( {

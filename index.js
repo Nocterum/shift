@@ -860,10 +860,11 @@ async function start() {
 
                     let message = '';
                     const messages = []; 
+                    
                     for (const movement of movements) {
                         
                         if ( movement.moveId.includes(user.city) ) {
-
+                            
                             const createdDateTime = moment.utc(movement.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
                             const updatedDateTime = moment.utc(movement.updatedAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
 
@@ -1188,7 +1189,8 @@ async function start() {
             } else if ( data.includes('taked') ) {
 
                 const takedMoveId = data.split('=')[1];
-                
+                const takaedMoveIdMessageId = data.split('=')[2];
+
                 const movement = await MoveModel.findOne({
                     where: {
                         moveId: takedMoveId
@@ -1202,12 +1204,26 @@ async function start() {
                     whoDriver: `${user.userName}=${user.chatId}`,
                     delivered: `В пути`
                 });
-                
-                await bot.sendMessage(
-                    chatId,
-                    `Вы подтвердли, что забрали перемещение <code>${takedMoveId}</code>.`,
-                    { parse_mode: 'HTML' }
-                );
+                                                
+                if ( user.messageId ) { 
+                    //Редактировать сообщение при наличии id сообщения
+                    return bot.editMessageText(
+                        `Вы подтвердли, что забрали перемещение <code>${takedMoveId}</code>.`, 
+                        {
+                            chat_id: chatId,
+                            message_id: takaedMoveIdMessageId,
+                            parse_mode: 'HTML',
+                        }
+                    );
+
+                } else {
+
+                    await bot.sendMessage(
+                        chatId,
+                        `Вы подтвердли, что забрали перемещение <code>${takedMoveId}</code>.`,
+                        { parse_mode: 'HTML' }
+                    );
+                }
                     
                 const senderChatId = movement.whoSend.split('=')[1];
                 
@@ -1243,6 +1259,16 @@ async function start() {
 
                     const dataWhereTake = data.split('=')[1];
 
+                    //Запись ID следующего сообщения                      
+                    await user.update({
+                        messageId: msg.message.message_id += 1
+                    }, {
+                        where: {
+                                chatId: chatId
+                            }
+                        }
+                    );
+
                     const movements = await MoveModel.findAll({
                         where: {
                             fromToSend: dataWhereTake,
@@ -1253,9 +1279,10 @@ async function start() {
                     }); 
 
                     if ( movements.length > 0 ) {
-
+                        
                         for (const movement of movements) {
-                            
+                            let i = 0;
+                            let nextMessageId = user.messageId + i;
                             const createdDateTime = moment.utc(movement.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
 
                             await bot.sendMessage(
@@ -1265,13 +1292,13 @@ async function start() {
                                     parse_mode: 'HTML',
                                     reply_markup: JSON.stringify( {
                                         inline_keyboard: [
-                                            [ { text: 'Забрал', callback_data: `taked=${movement.moveId}` } ],
-                                            [ { text: 'Посмотреть фото груза', callback_data: `showPhoto=${movement.moveId}` } ],
+                                            [ { text: 'Забрал', callback_data: `taked=${movement.moveId}=${nextMessageId}` } ],
+                                            [ { text: 'Посмотреть фото груза', callback_data: `showPhoto=${movement.moveId}=${nextMessageId}` } ],
                                         ]
                                     })
                                 }
                             );
-
+                            i++;
                         };
                         return;
                         

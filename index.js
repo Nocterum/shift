@@ -1016,7 +1016,7 @@ async function start() {
 
                         if (message) {
                             
-                            await  bot.sendMessage(
+                            await bot.sendMessage(
                                 chatId,
                                 message,
                                 {
@@ -1040,15 +1040,20 @@ async function start() {
                                     reply_markup: mainMenuDriversReply_markup
                                 }
                             );
+                                    
                         }
                     };
 
                 } else {
 
-                    return bot.sendMessage(
-                        chatId,
+                    return bot.editMessageText(
                         `У вас на руках пока нет ни одного актуального перемещения.`,
-                        mainMenuDriversOptions
+                        {
+                            chat_id: chatId,
+                            message_id: takaedMoveIdMessageId,
+                            parse_mode: 'HTML',
+                            reply_markup: mainMenuDriversReply_markup
+                        }
                     );
 
                 }

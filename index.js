@@ -1205,9 +1205,9 @@ async function start() {
                     delivered: `В пути`
                 });
                                                 
-                if ( user.messageId ) { 
+
                     //Редактировать сообщение при наличии id сообщения
-                    return bot.editMessageText(
+                    await bot.editMessageText(
                         `Вы подтвердли, что забрали перемещение <code>${takedMoveId}</code>.`, 
                         {
                             chat_id: chatId,
@@ -1215,16 +1215,7 @@ async function start() {
                             parse_mode: 'HTML',
                         }
                     );
-
-                } else {
-
-                    await bot.sendMessage(
-                        chatId,
-                        `Вы подтвердли, что забрали перемещение <code>${takedMoveId}</code>.`,
-                        { parse_mode: 'HTML' }
-                    );
-                }
-                    
+                
                 const senderChatId = movement.whoSend.split('=')[1];
                 
                 return bot.sendMessage(
@@ -1277,9 +1268,9 @@ async function start() {
                         },
                         order: [['id', 'DESC']]
                     }); 
-
+                    let i = 0;
                     if ( movements.length > 0 ) {
-                        let i = 0;
+                        
                         for (const movement of movements) {
                             
                             let nextMessageId = user.messageId + i;

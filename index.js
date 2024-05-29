@@ -1308,7 +1308,6 @@ async function start() {
                         where: {
                                 fromToSend: {
                                     [Op.or]: [
-                                        { [Op.like]: '%ЦС%' },
                                         { [Op.like]: `%${dataWhereTake}%` }
                                     ]
                                 },
@@ -1429,7 +1428,7 @@ async function start() {
                         await movement.update({
                             comment: `${movement.comment}${currentDateTime} Сдал на склад ${user.userName};\n`,
                             delivered: 'Нет',
-                            fromToSend: `${movement.fromToSend} => ЦС `,
+                            fromToSend: `Центральный склад (${movement.fromToSend})`,
                             whoDriver: null
                         });
 

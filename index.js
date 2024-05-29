@@ -1424,6 +1424,7 @@ async function start() {
                             comment: `${movement.comment}${currentDateTime} Сдал на склад ${user.userName};\n`,
                             delivered: 'Нет',
                             fromToSend: `${movement.fromToSend} => ЦС `,
+                            whoDriver: null
                         });
 
                     }

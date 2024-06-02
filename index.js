@@ -273,13 +273,13 @@ async function start() {
             }
         );
 
-        if ( movements.length > 0 ) {
+        let user = await UserModel.findOne({
+            where: {
+                chatId: chatId
+            }
+        });
 
-            let user = await UserModel.findOne({
-                where: {
-                    chatId: chatId
-                }
-            });
+        if ( movements.length > 0 ) {
 
             let i = 0; // Модификатор messageId
 

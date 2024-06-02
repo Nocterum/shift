@@ -263,6 +263,12 @@ async function start() {
             order: [['id', 'DESC']]
         })
 
+        let user = await UserModel.findOne({
+            where: {
+                chatId: chatId
+            }
+        });
+        
         //Запись ID следующего сообщения 
         await user.update({
             messageId: msg.message.message_id += 1
@@ -273,11 +279,6 @@ async function start() {
             }
         );
 
-        let user = await UserModel.findOne({
-            where: {
-                chatId: chatId
-            }
-        });
 
         if ( movements.length > 0 ) {
 

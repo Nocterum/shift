@@ -53,7 +53,8 @@ const {
     SPB_sendMessageReply_markup,
     sendMessageReply_markup,
     SPB_takeReply_markup,
-    MSK_takeReply_markup
+    MSK_takeReply_markup,
+    editReply_markup
 } = require('./reply_markup');
 
 const sequelize = require('./db');
@@ -262,9 +263,23 @@ async function start() {
             order: [['id', 'DESC']]
         })
 
+        //Запись ID следующего сообщения 
+        await user.update({
+            messageId: msg.message.message_id += 1
+        }, {
+            where: {
+                    chatId: chatId
+                }
+            }
+        );
+
         if ( movements.length > 0 ) {
 
+            let i = 0; // Модификатор messageId
+
             for (const movement of movements) {
+
+                let nextMessageId = user.messageId + i;
 
                 const createdDateTime = moment.utc(movement.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
                 const updatedDateTime = moment.utc(movement.updatedAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
@@ -281,21 +296,22 @@ async function start() {
 
                 }
 
-                bot.sendMessage(
+                await bot.sendMessage(
                     chatId,
                     message,
                     {
                         parse_mode: 'HTML',
                         reply_markup: JSON.stringify( {
                             inline_keyboard: [
-                                [ { text: 'Добавить фото', callback_data: `addPhoto=${movement.moveId}` } ],
-                                [ { text: 'Посмотреть фото', callback_data: `showPhoto=${movement.moveId}` } ],
+                                [ { text: 'Добавить фото', callback_data: `addPhoto=${movement.moveId}` }, { text: 'Посмотреть фото', callback_data: `showPhoto=${movement.moveId}` } ],
+                                [ { text: 'Редактировать', callback_data: `editMovement=${movement.moveId}=${nextMessageId}`}, { text: 'Отменить', callback_data: `cancelMovement=${movement.moveId}=${nextMessageId}`} ],
                             ]
                         })
                     }
                 );
-    
+                i++; // +1 к значению модификатора после одной итерации
             };
+            return;
 
         } else { 
 
@@ -382,7 +398,18 @@ async function start() {
             const chatId = msg.chat.id;
     
         bot.sendMessage(chatId,
-        `<b>Версия 1.5
+        `<b>Версия 2.0
+        Что нового:</b>
+
+        Новый принцип работы интерфейса: теперь его обновление осуществляется благодаря
+        функции edit, а не send, что делает интерфейс динамичным, обновляющимся лишь в одном сообщении,
+        а не статичным, обновление которого происходило отправкой нового сообщения.
+
+        Функция для водителей: теперь полностью корректно работает кнопка "Перемещения которые я забрал" 
+        и её опции "сдал на склад" и "доставил". Теперь водитель может самостоятельно может зафиксировать факт передачи ответсвенности.
+
+        -----------------------------------------------------
+        <b>Версия 1.5
         Что нового:</b>
 
         Исправлен баг из-за которого не самоочищалось поле "Куда";
@@ -397,15 +424,6 @@ async function start() {
 
         Теперь форма для создания перемещения самоочищается
         при создании перемещения.
-        -----------------------------------------------------
-        <b>Версия 1.1
-        Что нового:</b>
-    
-        Устранена проблема дублирования сообщений от бота
-        (увеличено время ожидания ботом отклика от телеграма)
-
-        Добавлен статус перемещения при просмотре через:
-        /mymovements "Ваши актуальные перемещения"
         `,
                 { parse_mode: 'HTML' }
             );
@@ -1057,6 +1075,90 @@ async function start() {
                     );
 
                 }
+
+            } else if ( data.includes('editMovement') ) {
+
+                await uset.update({
+                    lastCommand: `/editMovement`
+                }, {
+                    where: {
+                        chatId: chatId
+                    }
+                });
+
+                const dataMoveId = data.split("=")[1];
+                const dataMessageId = data.split("=")[2];
+                // Читаем все данные редактируемого перемещения
+                const movement = await MoveModel.findOne({
+                    where: {
+                        moveId: dataMoveId
+                    }
+                });
+                // Заполняем переменные пользователя значениями редактируемого перемещения
+                await user.update({
+                    fromToSend: movement.fromToSend,
+                    whereToSend: movement.whereToSend,
+                    toWhomToSend: movement.toWhomToSend,
+                    whatToSend: movement.whatToSend,
+                    moveId: movement.moveId,
+                    messageId: movement.messageId
+                }, {
+                    where: {
+                            chatId: chatId
+                        }
+                    }
+                );
+                // Обновляем только что записанные данные в переменной user
+                user = await UserModel.findOne({
+                    where: {
+                        chatId: chatId
+                    },
+                    attributes: [
+                        'id',
+                        'chatId',
+                        'fromToSend',
+                        'whereToSend',
+                        'toWhomToSend',
+                        'whatToSend',
+                    ]
+                });
+
+                const createdDateTime = moment.utc(movement.createdAt).utcOffset('+03:00').format('DD.MM.YY HH:mm');
+                
+                await bot.editMessageText(
+                    `<code>${movement.moveId}</code> от ${createdDateTime}\nОткуда: ${movement.fromToSend}\nКуда: ${movement.whereToSend}\nКому: ${movement.toWhomToSend}\nЧто: ${movement.whatToSend}\n`,
+                    {
+                        chat_id: chatId,
+                        message_id: dataMessageId,
+                        parse_mode: 'HTML',
+                        reply_markup: sendReply_markup
+                    }
+                );
+
+            } else if ( data.includes('cancelMovement') ) {
+
+                const dataMoveId = data.split("=")[1];
+                const dataMessageId = data.split("=")[2];
+                // Читаем все данные редактируемого перемещения
+                const movement = await MoveModel.findOne({
+                    where: {
+                        moveId: dataMoveId
+                    }
+                });
+                // Заполняем переменные пользователя значениями редактируемого перемещения
+                await movement.update({
+                    delivered: `Отменен`,
+                    comment: `Отменен создателем`,
+                });
+                return bot.editMessageText(
+                    `Перемещение <h>${dataMoveId}</h> отменено.`, 
+                    {
+                        chat_id: chatId,
+                        message_id: dataMessageId,
+                        parse_mode: 'HTML',
+                        reply_markup: sendReply_markup,
+                    }
+                );
 
             } else if ( data.includes('sendMessage') ) {
 
@@ -1855,61 +1957,85 @@ async function start() {
                     user.toWhomToSend.length > 1 &&
                     user.whatToSend.length > 1
                 ) {
+                    if ( user.lastCommand === `/editMovement` ) {
 
-                    const maxId = await MoveModel.max('id');
-                    const newMoveId = `${user.city}${maxId + 1}`;
-    
-                    await MoveModel.create({
-                        comment: '',
-                        moveId: `${newMoveId}`,
-                        fromToSend: user.fromToSend,
-                        whereToSend: user.whereToSend,
-                        toWhomToSend: user.toWhomToSend,
-                        whatToSend: user.whatToSend,
-                        whoSend: `${user.userName}=${user.chatId}`,
-                        delivered: 'Нет'
-                    });
-                   
-                    await user.update({
-                        moveId:  `${newMoveId}`,
-                        fromToSend: '',
-                        whereToSend: '',
-                        toWhomToSend: '',
-                        whatToSend: ''
-                    }, {
-                        where: {
-                            chatId: chatId
-                        }
-                    });
-                    
-                    if ( user.messageId ) { 
-                        //Редактировать сообщение при наличии id сообщения
+                        await MoveModel.update({
+                            fromToSend: `${user.fromToSend}`,
+                            whereToSend: `${user.whereToSend}`,
+                            toWhomToSend: `${user.toWhomToSend}`,
+                            whatToSend: `${user.whatToSend}`
+                        });
+
+                        await user.update({
+                            lastCommand: null
+                        });
+
                         return bot.editMessageText(
-                            `Перемещение ${newMoveId} создано!\nЕсли хотите <b>прикрепить фото</b> к перемещению ${newMoveId}, просто отправьте мне их сейчас.`, 
+                            `Перемещение ${user.moveId} успешно отредактированно`,
                             {
                                 chat_id: chatId,
                                 message_id: user.messageId,
-                                parse_mode: 'HTML',
-                                reply_markup: toMainMenu1Reply_markup,
+                                parse_mode: 'HTML'
                             }
                         );
 
                     } else {
-                        //Запись ID следующего сообщения 
+
+                        const maxId = await MoveModel.max('id');
+                        const newMoveId = `${user.city}${maxId + 1}`;
+        
+                        await MoveModel.create({
+                            comment: '',
+                            moveId: `${newMoveId}`,
+                            fromToSend: user.fromToSend,
+                            whereToSend: user.whereToSend,
+                            toWhomToSend: user.toWhomToSend,
+                            whatToSend: user.whatToSend,
+                            whoSend: `${user.userName}=${user.chatId}`,
+                            delivered: 'Нет'
+                        });
+                       
                         await user.update({
-                            messageId: msg.message.message_id += 1
+                            moveId:  `${newMoveId}`,
+                            fromToSend: '',
+                            whereToSend: '',
+                            toWhomToSend: '',
+                            whatToSend: ''
                         }, {
                             where: {
-                                    chatId: chatId
-                                }
+                                chatId: chatId
                             }
-                        );
-
-                        return bot.sendMessage(
-                            chatId,
-                            `Перемещение ${newMoveId} создано!\nЕсли хотите <b>прикрепить фото</b> к перемещению ${newMoveId}, просто отправьте мне их сейчас.`,
-                            toMainMenu1Options
-                        );
+                        });
+                        
+                        if ( user.messageId ) { 
+                            //Редактировать сообщение при наличии id сообщения
+                            return bot.editMessageText(
+                                `Перемещение ${newMoveId} создано!\nЕсли хотите <b>прикрепить фото</b> к перемещению ${newMoveId}, просто отправьте мне их сейчас.`, 
+                                {
+                                    chat_id: chatId,
+                                    message_id: user.messageId,
+                                    parse_mode: 'HTML',
+                                    reply_markup: toMainMenu1Reply_markup,
+                                }
+                            );
+    
+                        } else {
+                            //Запись ID следующего сообщения 
+                            await user.update({
+                                messageId: msg.message.message_id += 1
+                            }, {
+                                where: {
+                                        chatId: chatId
+                                    }
+                                }
+                            );
+    
+                            return bot.sendMessage(
+                                chatId,
+                                `Перемещение ${newMoveId} создано!\nЕсли хотите <b>прикрепить фото</b> к перемещению ${newMoveId}, просто отправьте мне их сейчас.`,
+                                toMainMenu1Options
+                            );
+                        }
                     }
 
                 } else {

@@ -6,7 +6,6 @@ const mainMenuUsersReply_markup = JSON.stringify( {
         [ { text: 'Написать сообщение', callback_data: '/sendMessage' } ],
     ]
 });
-
 const mainMenuDriversReply_markup = JSON.stringify( {
     inline_keyboard: [
         [ { text: 'Задания на перемещения', callback_data: '/movementList' } ],
@@ -15,42 +14,36 @@ const mainMenuDriversReply_markup = JSON.stringify( {
         [ { text: 'Написать сообщение', callback_data: '/sendMessage' } ],
     ]
 });
-
 const toMainMenuReply_markup = JSON.stringify( {
     inline_keyboard: [
             [ { text: 'В главное меню', callback_data: '/mainMenu' } ],
         ]
-    });
-
+});
 const toMainMenu1Reply_markup = JSON.stringify( {
     inline_keyboard: [
         [ { text: 'В главное меню', callback_data: '/mainMenu' } ],
         [ { text: 'Создать ещё одно', callback_data: '/send' } ],
     ]
 });
-
 const settingsReply_markup = JSON.stringify( {
     inline_keyboard: [
         [ { text: 'Изменить имя', callback_data: '/editName' } ],
         [ { text: 'Изменить город и подразделение', callback_data: '/editCity' } ],
     ]
 });
-
 const chooseCityReply_markup = JSON.stringify( {
     inline_keyboard: [
         [ { text: 'Москва', callback_data: 'chooseCity=MSK' } ],
         [ { text: 'Санкт-Петербург', callback_data: 'chooseCity=SPB' } ],
     ]
 });
-
 const sendReply_markup = JSON.stringify( {
     inline_keyboard: [
         [ { text: 'Откуда', callback_data: '/fromToSend' }, { text: 'Куда', callback_data: '/whereToSend' } ],  //внедрён //внедрён
         [ { text: 'Кому', callback_data: '/toWhomToSend' }, { text: 'Что', callback_data: '/whatToSend' } ],    // //
-        [ { text: `Создать перемещение+`, callback_data: '/createMovement' } ],
+        [ { text: `Завершить+`, callback_data: '/createMovement' } ],
     ]
 });
-
 const SPB_fromToSendReply_markup = JSON.stringify( {
     inline_keyboard: [
         [ { text: 'Ланской', callback_data: 'fromToSend=Ланской' } ],   //внедрён
@@ -67,7 +60,6 @@ const MSK_fromToSendReply_markup = JSON.stringify( {
         [ { text: 'Центральный склад', callback_data: 'fromToSend=Центральный склад' } ],   //внедрён
     ]
 });
-
 const SPB_whereToSendReply_markup = JSON.stringify( {
     inline_keyboard: [
         [ { text: 'Ланской', callback_data: 'whereToSend=Ланской' } ],  //внедрён
@@ -104,8 +96,7 @@ const commentReply_markup = JSON.stringify( {
     inline_keyboard: [
         [ { text: 'Есть замечания к перемещению?', callback_data: '/commentMovement' } ],
     ]
-})
-
+});
 const MSK_subDivisionReply_markup = JSON.stringify( {
     inline_keyboard: [
         [ { text: 'Глаголева', callback_data: 'subDivision=Глаголева' }, { text: 'Патрики', callback_data: 'subDivision=Патрики' } ],
@@ -113,7 +104,7 @@ const MSK_subDivisionReply_markup = JSON.stringify( {
         [ { text: 'Офис', callback_data: 'subDivision=Офис' }, { text: 'Центральный склад', callback_data: 'subDivision=Центральный склад' } ],
         [ { text: 'Я водитель', callback_data: 'subDivision=Водитель' } ],
     ]
-})
+});
 const SPB_subDivisionReply_markup = JSON.stringify( {
     inline_keyboard: [
         [ { text: 'Ланской', callback_data: 'subDivision=Ланской' } ],
@@ -122,7 +113,7 @@ const SPB_subDivisionReply_markup = JSON.stringify( {
         [ { text: 'Склад Предпортовая', callback_data: 'subDivision=Склад Предпортовая' } ],
         [ { text: 'Я водитель', callback_data: 'subDivision=Водитель' } ],
     ]
-})
+});
 const MSK_sendMessageReply_markup = JSON.stringify( {
     inline_keyboard: [
         [ { text: 'Глаголева', callback_data: 'sendMessage=Глаголева' }, { text: 'Патрики', callback_data: 'sendMessage=Патрики' } ],
@@ -130,7 +121,7 @@ const MSK_sendMessageReply_markup = JSON.stringify( {
         [ { text: 'Офис', callback_data: 'sendMessage=Офис' }, { text: 'Центральный склад', callback_data: 'sendMessage=Центральный склад' } ],
         [ { text: 'Водители', callback_data: 'sendMessage=Водитель' } ],
     ]
-})
+});
 const SPB_sendMessageReply_markup = JSON.stringify( {
     inline_keyboard: [
         [ { text: 'Ланской', callback_data: 'sendMessage=Ланской' } ],
@@ -139,7 +130,7 @@ const SPB_sendMessageReply_markup = JSON.stringify( {
         [ { text: 'Склад Предпортовая', callback_data: 'sendMessage=Склад Предпортовая' } ],
         [ { text: 'Водители', callback_data: 'sendMessage=Водитель' } ],
     ]
-})
+});
 const sendMessageReply_markup = JSON.stringify( {
     inline_keyboard: [
         [ { text: 'Глаголева', callback_data: 'sendMessage=Глаголева' }, { text: 'Патрики', callback_data: 'sendMessage=Патрики' } ],
@@ -149,7 +140,7 @@ const sendMessageReply_markup = JSON.stringify( {
         [ { text: 'Горох', callback_data: 'sendMessage=Горох' }, { text: 'Склад Предпортовая', callback_data: 'sendMessage=Склад Предпортовая' } ],
         [ { text: 'Водителям', callback_data: 'sendMessage=Водитель' } ],
     ]
-})
+});
 const SPB_takeReply_markup = JSON.stringify( {
     inline_keyboard: [
         [ { text: 'Ланской', callback_data: 'takeMovement=Ланской' } ],
@@ -157,7 +148,7 @@ const SPB_takeReply_markup = JSON.stringify( {
         [ { text: 'Гороховая', callback_data: 'takeMovement=Гороховая' } ],
         [ { text: 'Склад Предпортовая', callback_data: 'takeMovement=Склад Предпортовая' } ],
     ]
-})
+});
 const MSK_takeReply_markup = JSON.stringify( {
     inline_keyboard: [
         [ { text: 'Глаголева', callback_data: 'takeMovement=Глаголева' }, { text: 'Патрики', callback_data: 'takeMovement=Патрики' } ],
@@ -165,7 +156,7 @@ const MSK_takeReply_markup = JSON.stringify( {
         [ { text: 'Офис', callback_data: 'takeMovement=Офис' } ],
         [ { text: 'Центральный склад', callback_data: 'takeMovement=Центральный склад' } ],
     ]
-})
+});
 
     module.exports = {
         mainMenuUsersReply_markup,
@@ -188,5 +179,5 @@ const MSK_takeReply_markup = JSON.stringify( {
         SPB_sendMessageReply_markup,
         sendMessageReply_markup,
         SPB_takeReply_markup,
-        MSK_takeReply_markup
+        MSK_takeReply_markup,
     }

@@ -275,6 +275,12 @@ async function start() {
 
         if ( movements.length > 0 ) {
 
+            let user = await UserModel.findOne({
+                where: {
+                    chatId: chatId
+                }
+            });
+
             let i = 0; // Модификатор messageId
 
             for (const movement of movements) {

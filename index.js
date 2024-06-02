@@ -1977,8 +1977,13 @@ async function start() {
                         });
 
                         await user.update({
-                            lastCommand: null
-                        });
+                                lastCommand: null,  
+                        }, {
+                            where: {
+                                    chatId: chatId
+                                }
+                            }
+                        );
 
                         return bot.editMessageText(
                             `Перемещение ${user.moveId} успешно отредактированно`,

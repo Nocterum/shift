@@ -1967,6 +1967,7 @@ async function start() {
                     user.toWhomToSend.length > 1 &&
                     user.whatToSend.length > 1
                 ) {
+
                     if ( user.lastCommand === `/editMovement` ) {
 
                         await MoveModel.update({
@@ -1974,6 +1975,10 @@ async function start() {
                             whereToSend: `${user.whereToSend}`,
                             toWhomToSend: `${user.toWhomToSend}`,
                             whatToSend: `${user.whatToSend}`
+                        }, {
+                            where: {
+                                moveId: user.moveId
+                            }
                         });
 
                         await user.update({

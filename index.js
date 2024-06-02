@@ -1160,9 +1160,9 @@ async function start() {
                     delivered: `Отменен`,
                     comment: `Отменен создателем`,
                 });
-                
+
                 return bot.editMessageText(
-                    `Перемещение <h>${dataMoveId}</h> отменено.`, 
+                    `Перемещение <b>${dataMoveId}</b> отменено.`, 
                     {
                         chat_id: chatId,
                         message_id: dataMessageId,

@@ -1088,7 +1088,7 @@ async function start() {
 
             } else if ( data.includes('editMovement') ) {
 
-                await uset.update({
+                await user.update({
                     lastCommand: `/editMovement`
                 }, {
                     where: {
@@ -1459,8 +1459,6 @@ async function start() {
                             }
                         );
 
-                        bot.deleteMessage(chatId, takeMenu);
-
                         for (const movement of movements) {
                             
                             let nextMessageId = user.messageId + i; // Добавление в модификатора к messageId
@@ -1481,7 +1479,7 @@ async function start() {
                             );
                             i++; // Счетчик +1 в конце очередной итерации
                         };
-                        return;
+                        return bot.deleteMessage(chatId, takeMenu);
                         
                     } else {
 
@@ -2192,8 +2190,6 @@ async function start() {
                             }
                         );
 
-                        bot.deleteMessage(chatId, whereGetMenu);
-
                         for (const movement of movements) {
 
                             let nextMessageId = user.messageId + i; // Добавление в модификатора к messa
@@ -2213,7 +2209,7 @@ async function start() {
                             );
                             i++; // Счетчик +1 в конце очередной итерации
                         };
-                        return;
+                        return bot.deleteMessage(chatId, whereGetMenu);
 
                     } else {
                                 

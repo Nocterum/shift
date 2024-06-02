@@ -405,7 +405,10 @@ async function start() {
         функции edit, а не send, что делает интерфейс динамичным, обновляющимся лишь в одном сообщении,
         а не статичным, обновление которого происходило отправкой нового сообщения.
 
-        Функция для водителей: теперь полностью корректно работает кнопка "Перемещения которые я забрал" 
+        Изменения для отправителей: Теперь появилась возможность редактировать и отменять уже созданные перемещения.
+        Кнопка "Ваши актуальные перемещения" и её опции "Редактировать" "Отменить".
+
+        Изменения для водителей: теперь полностью корректно работает кнопка "Перемещения которые я забрал" 
         и её опции "сдал на склад" и "доставил". Теперь водитель может самостоятельно может зафиксировать факт передачи ответсвенности.
 
         -----------------------------------------------------
@@ -1448,7 +1451,9 @@ async function start() {
                                 }
                             }
                         );
-                        
+
+                        bot.deleteMessage(chatId, takeMenu);
+
                         for (const movement of movements) {
                             
                             let nextMessageId = user.messageId + i; // Добавление в модификатора к messageId
@@ -1469,7 +1474,7 @@ async function start() {
                             );
                             i++; // Счетчик +1 в конце очередной итерации
                         };
-                        return bot.deleteMessage(chatId, takeMenu);
+                        return;
                         
                     } else {
 
@@ -2180,9 +2185,10 @@ async function start() {
                             }
                         );
 
+                        bot.deleteMessage(chatId, whereGetMenu);
+
                         for (const movement of movements) {
 
-                            
                             let nextMessageId = user.messageId + i; // Добавление в модификатора к messa
 
                             await bot.sendMessage(
@@ -2200,7 +2206,7 @@ async function start() {
                             );
                             i++; // Счетчик +1 в конце очередной итерации
                         };
-                        return bot.deleteMessage(chatId, whereGetMenu);
+                        return;
 
                     } else {
                                 

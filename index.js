@@ -716,15 +716,16 @@ async function start() {
                     const senderID = sender.split("=")[1];
                     const senderName = sender.split("=")[0];
 
+                    
                     await bot.sendMessage(
-                        senderID,
-                        `Пользователь <b>${user.userName}</b> оставил замечание по перемещению ${user.moveId}:\n\n<pre>${text}</pre>`,
-                        { parse_mode: 'HTML' }
-                    );
-
-                    return bot.sendMessage(
                         chatId,
                         `Ваше замечание сохранено отправлено отправителю <b>${senderName}</b>.`,
+                        { parse_mode: 'HTML' }
+                    );
+                    
+                    return bot.sendMessage(
+                        senderID,
+                        `Пользователь <b>${user.userName}</b> оставил замечание по перемещению ${user.moveId}:\n\n<pre>${text}</pre>`,
                         { parse_mode: 'HTML' }
                     );
 
@@ -1287,13 +1288,8 @@ async function start() {
                 
                 const senderID = movement.whoSend.split("=")[1];
                 
-                await bot.sendMessage(
-                    senderID,
-                    `Пользователь <b>${user.userName}</b> принял ваше перемещение <b>${deliveredMoveId}</b> на "<b>${user.subDivision}</b>"`,
-                    { parse_mode: 'HTML' }
-                );
-
-                return bot.editMessageText(
+                
+                await bot.editMessageText(
                     `Перемещение <b>${deliveredMoveId}</b> принято вами.`,
                     {
                         chat_id: chatId,
@@ -1301,6 +1297,12 @@ async function start() {
                         parse_mode: 'HTML',
                         reply_markup: commentReply_markup
                     }
+                );
+
+                return bot.sendMessage(
+                    senderID,
+                    `Пользователь <b>${user.userName}</b> принял ваше перемещение <b>${deliveredMoveId}</b> на "<b>${user.subDivision}</b>"`,
+                    { parse_mode: 'HTML' }
                 );
 
             } else if ( data.includes('taked') ) {

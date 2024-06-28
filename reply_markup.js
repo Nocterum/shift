@@ -41,7 +41,7 @@ const sendReply_markup = JSON.stringify( {
     inline_keyboard: [
         [ { text: 'Откуда', callback_data: '/fromToSend' }, { text: 'Куда', callback_data: '/whereToSend' } ],  //внедрён //внедрён
         [ { text: 'Кому', callback_data: '/toWhomToSend' }, { text: 'Что', callback_data: '/whatToSend' } ],    // //
-        [ { text: `Завершить+`, callback_data: '/createMovement' } ],
+        [ { text: `Записать+`, callback_data: '/createMovement' } ],
     ]
 });
 const SPB_fromToSendReply_markup = JSON.stringify( {
